@@ -15,15 +15,16 @@ login_mgr.login_view = 'sign_in'
 login_mgr.init_app(tgeni)
 
 
-@tgeni.route('/')
-@tgeni.route('/hello')
-def hello_world():
-   return '<h1>Hello, World!</h1>'
+#@tgeni.route('/')
+#@tgeni.route('/hello')
+#def hello_world():
+#   return '<h1>Hello, World!</h1>'
 
-@tgeni.route('/home')
+@tgeni.route('/')
+#@tgeni.route('/home')
 @flask_login.login_required
 def home():
-   return '<h1>Login successful. Welcome!</h1>'
+   return '<h1>Welcome User!</h1>'
 
 
 @tgeni.route('/login', methods=['GET', 'POST'])
