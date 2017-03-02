@@ -2,7 +2,7 @@ import flask
 import app.models as models
 
 from app   import (tgeni, db, login_manager)
-from flask import (Response, flash, redirect, render_template, 
+from flask import (Response, flash, redirect, render_template,
                    request, url_for)
 from flask_login import (login_required, login_user, logout_user)
 
@@ -10,12 +10,12 @@ from flask_login import (login_required, login_user, logout_user)
 @tgeni.route('/')
 def home():
     return redirect(url_for('index'))
-    
+
 @tgeni.route('/index')
 def index():
     return render_template('index.html')
 
-    
+
 @tgeni.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
@@ -54,9 +54,9 @@ def signin():
 
     username = request.form['username']
     password = request.form['password']
-    found_user = models.User.query.filter_by(username=username,password=password).first()
+    found_user = models.User.query.filter_by(username=username).first()
 
-    if found_user:
+    if found_user and found_user.password_matches(password):
         login_user(found_user)
         flash('Logged in user')
         return redirect(url_for('index'))
@@ -70,8 +70,7 @@ def signin():
 def signout():
     logout_user()
     return redirect(url_for('index'))
-        
-        
+
 
 @login_manager.user_loader
 def load_user(id):
@@ -85,4 +84,3 @@ def fail_login(er):
 @tgeni.errorhandler(404)
 def not_found_404(er):
     return '<h2>Oh no, 404!</h2>'
-

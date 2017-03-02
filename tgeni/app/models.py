@@ -1,32 +1,39 @@
-from flask_login    import UserMixin
-from app            import db
+import flask_login
+import sqlalchemy.ext.hybrid
 
+from app import db, crypt
 
-class User(db.Model, UserMixin):
-    id       = db.Column(db.Integer,    primary_key=True)
-    username = db.Column(db.String(20), unique=True)
-    email    = db.Column(db.String(50), unique=True)
-    password = db.Column(db.String(20))
+class User(db.Model, flask_login.UserMixin):
 
-    def __init__(self, username, email, password):
-        self.username = username
-        self.email    = email
-        self.password = password
+    """ User database model
+        Class to hold database records for registered users. This class
+        handles password hashing and login functionality.
+    """
+    id        = db.Column(db.Integer, primary_key=True)
+    username  = db.Column(db.String,  unique=True)
+    email     = db.Column(db.String,  unique=True)
+    _password = db.Column(db.String(128)) # hashed
 
     def __repr__(self):
         return '<User %r>' % (self.username)
 
-    # required methods for flask_login...
+    # functionality to hash passwords
+    @sqlalchemy.ext.hybrid.hybrid_property
+    def password(self):
+        return self._password
+    @password.setter
+    def _set_password(self, plaintext_password):
+        self._password = crypt.generate_password_hash(plaintext_password)
 
+    def password_matches(self, plaintext_password):
+        return crypt.check_password_hash(self._password, plaintext_password)
+
+    # required methods for flask_login...
     def is_authenticated(self):
         return True
-
     def is_active(self):
         return True
-
     def is_anonymous(self):
         return False
-
     def get_id(self):
         return self.id
-
