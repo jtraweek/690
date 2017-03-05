@@ -1,0 +1,14 @@
+{% extends "index_layout.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div>
+  <section class="cd-intro">
+  <h1>Welcome! Sign Up for TravelGeni!</h1>
+  <form action="" method="post">
+    <p><input type=text      name=username placeholder="Provide a username" required autocomplete="off"></p>
+    <p><input type=text      name=email    placeholder="Provide an email"   required autocomplete="off"></p>
+    <p><input type=password  name=password placeholder="Provide a password" required autocomplete="off"></p>
+    <p><input type=submit    value="Sign Up!"></p>
+  </form>
+</div>
+{% endblock %}
