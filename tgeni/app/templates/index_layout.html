@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <meta charset="UTF-8">
+  	<link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+  	<link rel="stylesheet" href="static/css/reset.css"> <!-- CSS reset -->
+  	<link rel="stylesheet" href="static/css/style.css"> <!-- Resource style -->
+  	<script src="static/js/modernizr.js"></script> <!-- Modernizr -->
+    <title>TravelGeni :: {% block title %}{% endblock %}</title>
+    {% endblock %}
+  </head>
+  <body>
+    <header class="cd-header">
+          {% if current_user.is_authenticated %}
+            <nav>
+              <ul class="cd-secondary-nav">
+                  <li>{{ current_user.username }}</li>
+                  <li><a href="{{ url_for('signout') }}">Sign Out</a></li>
+              </ul>
+            </nav> <!-- cd-nav -->
+          {% else %}
+            <nav>
+              <ul class="cd-secondary-nav">
+                <li><a href="{{ url_for('signin') }}">Sign In</a></li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+              </ul>
+            </nav> <!-- cd-nav -->
+          {% endif %}
+      <a class="cd-primary-nav-trigger" href="#0">
+        <span class="cd-menu-text">Menu</span><span class="cd-menu-icon"></span>
+      </a> <!-- cd-primary-nav-trigger -->
+    </header>
+
+    <nav>
+      <ul class="cd-primary-nav">
+        <li><a href="#0">New Trip</a></li>
+        <li><a href="#0">Discover Trips</a></li>
+        <li><a href="#0">Itinerary</a></li>
+        <li><a href="#0">Account</a></li>
+        <li><a href="#0">Home</a></li>
+        <li><a href="#0">About Us</a></li>
+      </ul>
+    </nav>
+
+    <div id="content">{% block content %}{% endblock %}</div>
+
+    <div id="footer">
+      {% block footer %}
+      &copy; 2017 Team 1
+      {% endblock %}
+    </div>
+
+    <script src="static/js/jquery-2.1.1.js"></script>
+    <script src="static/js/main.js"></script> <!-- Resource jQuery -->
+
+  </body>
+</html>
