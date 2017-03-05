@@ -37,3 +37,15 @@ class User(db.Model, flask_login.UserMixin):
         return False
     def get_id(self):
         return self.id
+        
+class Trip(db.Model):
+    trip_id = db.Column(db.Integer, primary_key=True)
+    trip_name = db.Column(db.String)
+    trip_length = db.Column(db.Integer)
+    
+    def __init__(self, trip_name, trip_length):
+        self.trip_name = trip_name
+        self.trip_length = trip_length
+        
+    def __repr__(self):
+        return "User %s" % self.trip_name

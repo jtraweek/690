@@ -5,6 +5,7 @@ from app   import (tgeni, db, login_manager)
 from flask import (Response, flash, redirect, render_template,
                    request, url_for)
 from flask_login import (login_required, login_user, logout_user)
+from flask.ext.login import current_user
 
 @tgeni.route('/')
 def home():
@@ -42,6 +43,22 @@ def signin():
         # username/password invalid
         flash('Invalid username or password')
         return redirect(url_for('signin'))
+        
+@tgeni.route('/index')
+def create_trip():
+    if current_user.is_authenticated():
+        return redirect(url_for('edit_trip'))
+    else:
+        return redirect(url_for('register'))
+
+@tgeni.route('/edittrip', methods = ['GET', 'POST'])
+def edit_trip():
+    if request.method == 'GET':
+        return '<h2>Edit trip page.</h2>'
+    trip = models.Trip(request.form["trip_name"], request.form["trip_length"])
+    db.session.add(trip)
+    db.session.commit()
+    return '<h2>Edit trip page.</h2>'
 
 @tgeni.route("/signout")
 @login_required
