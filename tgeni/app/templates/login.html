@@ -3,11 +3,23 @@
 {% block content %}
 <div>
   <section class="cd-intro">
-  <h1>Welcome Back! Please provide your login credentials:</h1>
-  <form action="" method="post">
-    <p><input type=text      name=username placeholder="username" required autocomplete="off"></p>
-    <p><input type=password  name=password placeholder="password" required autocomplete="off"></p>
-    <p><input type=submit    value="Sign In"></p>
-  </form>
+    <h1>Welcome Back! Please provide your login credentials:</h1>
+    <form action="" method="post">
+      <p><input type=text      name=username placeholder="username" required autocomplete="off"></p>
+      <p><input type=password  name=password placeholder="password" required autocomplete="off"></p>
+      <p><input type=submit    value="Sign In"></p>
+    </form>
+    {% with login_errors = get_flashed_messages(category_filter=["fail_login"]) %}
+      {% if login_errors %}
+        <div>
+          <ul>
+            {% for msg in login_errors %}
+            <li>{{ msg }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+  </section>
 </div>
 {% endblock %}

@@ -4,8 +4,7 @@ import app.models as models
 from app   import (tgeni, db, login_manager)
 from flask import (Response, flash, redirect, render_template,
                    request, url_for)
-from flask_login import (login_required, login_user, logout_user)
-from flask.ext.login import current_user
+from flask_login import (login_required, login_user, logout_user, current_user)
 
 @tgeni.route('/')
 def home():
@@ -41,7 +40,7 @@ def signin():
         return redirect(url_for('index'))
     else:
         # username/password invalid
-        flash('Invalid username or password')
+        flash('Invalid username or password', 'fail_login')
         return redirect(url_for('signin'))
 
 @tgeni.route("/signout")
@@ -61,7 +60,7 @@ def fail_login(er):
 @tgeni.errorhandler(404)
 def not_found_404(er):
     return '<h2>Oh no, 404!</h2>'
-    
+
 @tgeni.route('/index')
 def create_trip():
     if current_user.is_authenticated():
