@@ -6,6 +6,12 @@
 1. If the .sqlite3 file already exists, you may have to delete it.
 1. TODO: We may want to eventually implement database migration procedures.
 
+## To install the required Python packages...
+* At the command prompt: pip install -r requirements.txt
+
+## To run the unit tests...
+* At the command prompt: python tests.py
+
 ## To run the TGeni app...
 1. At the command prompt: python run.py
 1. Wait for the server to start up.
