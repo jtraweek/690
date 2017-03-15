@@ -1,0 +1,29 @@
+{% extends "base_layout.html" %}
+{% block title %}Add New Trip{% endblock %}
+{% block content %}
+<form action="" method="post" name="add_trip">
+    {{ form.hidden_tag() }}
+    <p>
+        Please enter a trip title:<br>
+        {{ form.title(size=80) }}
+        {% for error in form.title.errors %}
+          <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p>
+        Length of stay:<br>
+        {{ form.length(size=3) }}
+        {% for error in form.length.errors %}
+          <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p>
+        Please enter a trip description:<br>
+        {{ form.about(columns=35, rows=20) }}
+        {% for error in form.about.errors %}
+          <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p><input type="submit" value="Add Trip"></p>
+</form>
+{% endblock %}

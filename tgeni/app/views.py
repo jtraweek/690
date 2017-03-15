@@ -1,5 +1,6 @@
 import flask
-import app.models as models
+import app.forms    as forms
+import app.models   as models
 
 from app   import (tgeni, db, login_manager)
 from flask import (Response, flash, redirect, render_template,
@@ -8,11 +9,7 @@ from flask_login import (login_required, login_user, logout_user, current_user)
 
 @tgeni.route('/')
 def home():
-    return redirect(url_for('index'))
-
-@tgeni.route('/index')
-def index():
-    return render_template('index.html')
+    return redirect(url_for('signin'))
 
 @tgeni.route('/register', methods=['GET', 'POST'])
 def register():
@@ -62,11 +59,24 @@ def not_found_404(er):
     return '<h2>Oh no, 404!</h2>'
 
 @tgeni.route('/index')
-def create_trip():
-    if current_user.is_authenticated():
-        return redirect(url_for('edit_trip'))
-    else:
-        return redirect(url_for('register'))
+@login_required
+def index():
+    """ This view serves as the homepage for a signed-in user.
+    """
+    return render_template('index.html')
+
+@tgeni.route('/add_trip', methods = ['GET', 'POST'])
+@login_required
+def add_trip():
+    form = forms.NewTripForm()
+    if form.validate_on_submit(): # handles POST?
+        new_trip = models.Trip(trip_name=form.title.data,
+                               trip_length=form.length.data,
+                               trip_description=form.about.data)
+        db.session.add(new_trip)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('add_trip.html', form=form)
 
 @tgeni.route('/edittrip', methods = ['GET', 'POST'])
 def edit_trip():
