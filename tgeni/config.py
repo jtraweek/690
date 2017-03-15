@@ -5,6 +5,8 @@ TMPDIR  = os.path.join(BASEDIR, 'tmp/')
 DBDIR   = TMPDIR
 
 class Config(object):
+    # anti-forgery stuff
+    WTF_CSRF_ENABLED = True
     SECRET_KEY = 'herp_derp'
     # set up password encryption
     BCRYPT_LOG_ROUNDS = 15
