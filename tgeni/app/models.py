@@ -1,7 +1,13 @@
 import flask_login
+import flask_sqlalchemy
 import sqlalchemy.ext.hybrid
 
 from app import db, crypt
+
+#   Relationship table to link users and their trips
+user_trips = db.Table('user_trips',
+            db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+            db.Column('trip_id', db.Integer, db.ForeignKey('trip.trip_id')))
 
 class User(db.Model, flask_login.UserMixin):
 
@@ -37,15 +43,18 @@ class User(db.Model, flask_login.UserMixin):
         return False
     def get_id(self):
         return self.id
-        
+
+#
+#   Trip database definitions
+#
 class Trip(db.Model):
     trip_id = db.Column(db.Integer, primary_key=True)
     trip_name = db.Column(db.String)
     trip_length = db.Column(db.Integer)
-    
-    def __init__(self, trip_name, trip_length):
-        self.trip_name = trip_name
-        self.trip_length = trip_length
-        
+    trip_description = db.Column(db.String)
+    users = db.relationship('User',
+                            secondary=user_trips,
+                            backref=db.backref('trips', lazy='dynamic'))
+
     def __repr__(self):
-        return "User %s" % self.trip_name
+        return "Trip %s" % self.trip_name
