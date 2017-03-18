@@ -40,7 +40,7 @@ class TestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue('Travel Geni' in str(response.data))
         # 200 = OK
-        response = self.test_client.get('/index')
+        response = self.test_client.get('/home')
         self.assertEqual(response.status_code, 200)
         self.assertTrue('Travel Geni' in str(response.data))
 
