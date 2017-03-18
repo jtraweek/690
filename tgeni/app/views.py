@@ -8,8 +8,12 @@ from flask import (Response, flash, redirect, render_template,
 from flask_login import (login_required, login_user, logout_user, current_user)
 
 @tgeni.route('/')
+def home_():
+    return redirect(url_for('home'))
+
+@tgeni.route('/home')
 def home():
-    return redirect(url_for('signin'))
+    return render_template('home.html')
 
 @tgeni.route('/register', methods=['GET', 'POST'])
 def register():
@@ -44,7 +48,7 @@ def signin():
 @login_required
 def signout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 @login_manager.user_loader
 def load_user(id):
