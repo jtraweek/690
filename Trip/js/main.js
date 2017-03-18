@@ -95,3 +95,51 @@ function checkEdits(){
         }
     }
 }		
+
+// slideup/slidedown
+  trigger = function () {
+  Slider.classList.toggle("slide-down")
+  //Slider.classList.toggle("slideup")
+};
+
+
+// Code goes here
+window.onload = function() {
+  function addAct(nameact, when, where,desc) {
+    var buses = document.querySelectorAll(".bus");
+    var curr = document.createElement("div");
+    curr.setAttribute("class", "name");
+    var p0 = document.createElement("p");
+    p0.setAttribute("class", "nameact");
+    p0.innerHTML = nameact;
+    var p1 = document.createElement("p");
+    p1.setAttribute("class", "whereisit");
+    p1.innerHTML = when;
+    var p2 = document.createElement("p");
+    p2.setAttribute("class", "when");
+    p2.innerHTML = where;
+	var p3 = document.createElement("p");
+    p3.setAttribute("class", "describtion");
+    p3.innerHTML = desc;
+    curr.appendChild(p0);
+    curr.appendChild(p1);
+    curr.appendChild(p2);
+	  curr.appendChild(p3);
+    if (buses.length) {
+      buses[buses.length -1].insertAdjacentHTML("afterEnd", curr.outerHTML)
+    } else {
+      document.forms[0].insertAdjacentHTML("afterEnd", curr.outerHTML)
+    }
+  }
+
+  var obj = {nameact: "", when: "", where: "",desc:""};
+
+  document.forms[0].onchange = function(e) {
+    obj[e.target.name] = e.target.value;
+  }
+
+  document.forms[0].onsubmit = function(e) {
+    e.preventDefault();
+    addAct(obj.nameact, obj.when, obj.where, obj.desc)
+  }
+}
