@@ -48,13 +48,14 @@ class User(db.Model, flask_login.UserMixin):
 #   Trip database definitions
 #
 class Trip(db.Model):
-    trip_id = db.Column(db.Integer, primary_key=True)
-    trip_name = db.Column(db.String)
-    trip_length = db.Column(db.Integer)
-    trip_description = db.Column(db.String)
-    users = db.relationship('User',
-                            secondary=user_trips,
-                            backref=db.backref('trips', lazy='dynamic'))
+    trip_id  = db.Column(db.Integer, primary_key=True)
+    title    = db.Column(db.String)
+    location = db.Column(db.String)
+    about    = db.Column(db.String)
+    length   = db.Column(db.Integer)
+    users    = db.relationship('User',
+                                secondary=user_trips,
+                                backref=db.backref('trips', lazy='dynamic'))
 
     def __repr__(self):
         return "Trip %s" % self.trip_name

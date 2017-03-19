@@ -11,16 +11,23 @@
         {% endfor %}<br>
     </p>
     <p>
-        Length of stay:<br>
-        {{ form.length(size=3) }}
-        {% for error in form.length.errors %}
+        Where will you be going?:<br>
+        {{ form.location(size=80) }}
+        {% for error in form.location.errors %}
           <span style="color: red;">[{{error}}]</span>
         {% endfor %}<br>
     </p>
     <p>
-        Please enter a trip description:<br>
-        {{ form.about(columns=35, rows=20) }}
+        Please enter a trip focus:<br>
+        {{ form.about(columns=80, rows=20) }}
         {% for error in form.about.errors %}
+          <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p>
+        Length of stay:<br>
+        {{ form.length(size=3) }}
+        {% for error in form.length.errors %}
           <span style="color: red;">[{{error}}]</span>
         {% endfor %}<br>
     </p>
