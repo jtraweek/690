@@ -70,14 +70,14 @@ def index():
     return render_template('index.html')
 
 @tgeni.route('/add_trip', methods = ['GET', 'POST'])
+@tgeni.route('/edit_trip/<trip_id>', methods = ['GET', 'POST'])
 @login_required
-def add_trip():
-    form = forms.NewTripForm()
+def add_trip(trip_id=None):
+    trip = models.Trip.query.get(trip_id) if trip_id else models.Trip()
+    form = forms.NewTripForm(obj=trip)
     if form.validate_on_submit(): # handles POST?
-        new_trip = models.Trip(trip_name=form.title.data,
-                               trip_length=form.length.data,
-                               trip_description=form.about.data)
-        db.session.add(new_trip)
+        form.populate_obj(trip)
+        db.session.add(trip)
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('add_trip.html', form=form)
