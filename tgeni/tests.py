@@ -34,7 +34,7 @@ class TestCase(unittest.TestCase):
         self.assertEqual(found_user.email, test_email)
         self.assertTrue(found_user.password_matches(test_pw))
 
-    def test_index_template(self):
+    def test_home_template(self):
         # 302 = redirect
         response = self.test_client.get('/', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
@@ -88,8 +88,8 @@ class TestCase(unittest.TestCase):
         app.db.session.add(user4)
         app.db.session.commit()
         # add trips to db
-        trip1 = models.Trip(trip_name='New York', trip_length=7)
-        trip2 = models.Trip(trip_name='Disneyworld', trip_length=13)
+        trip1 = models.Trip(title='Empire State Bldg', location='NY', about='Visiting NY', length=2)
+        trip2 = models.Trip(title='Disneyworld', location='Orlando FL', about='Visiting the Epcot Center.', length=4)
         app.db.session.add(trip1)
         app.db.session.add(trip2)
         app.db.session.commit()
@@ -101,8 +101,8 @@ class TestCase(unittest.TestCase):
         trip2.users.append(user4)
         app.db.session.commit()
         # check that users were added to trips
-        found_trip_1 = app.models.Trip.query.filter_by(trip_name='New York').first()
-        found_trip_2 = app.models.Trip.query.filter_by(trip_name='Disneyworld').first()
+        found_trip_1 = app.models.Trip.query.filter_by(title='Empire State Bldg').first()
+        found_trip_2 = app.models.Trip.query.filter_by(title='Disneyworld').first()
         self.assertTrue(user1 in found_trip_1.users)
         self.assertFalse(user2 in found_trip_1.users)
         self.assertTrue(user3 in found_trip_1.users)
@@ -111,6 +111,15 @@ class TestCase(unittest.TestCase):
         self.assertTrue(user2 in found_trip_2.users)
         self.assertFalse(user3 in found_trip_2.users)
         self.assertTrue(user4 in found_trip_2.users)
+        # check back-references
+        self.assertTrue(found_trip_1 in user1.trips)
+        self.assertFalse(found_trip_1 in user2.trips)
+        self.assertTrue(found_trip_1 in user3.trips)
+        self.assertTrue(found_trip_1 in user4.trips)
+        self.assertFalse(found_trip_2 in user1.trips)
+        self.assertTrue(found_trip_2 in user2.trips)
+        self.assertFalse(found_trip_2 in user3.trips)
+        self.assertTrue(found_trip_2 in user4.trips)
 
 
 
