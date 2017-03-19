@@ -82,11 +82,7 @@ def add_trip():
         return redirect(url_for('index'))
     return render_template('add_trip.html', form=form)
 
-@tgeni.route('/edittrip', methods = ['GET', 'POST'])
-def edit_trip():
-    if request.method == 'GET':
-        return '<h2>Edit trip page.</h2>'
-    trip = models.Trip(request.form["trip_name"], request.form["trip_length"])
-    db.session.add(trip)
-    db.session.commit()
-    return '<h2>Edit trip page.</h2>'
+@tgeni.route('/view_trip', methods = ['GET', 'POST'])
+@login_required
+def view_trip():
+    return render_template('view_trip.html')

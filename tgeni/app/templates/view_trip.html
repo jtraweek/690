@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="static/css/style_edit_trip.css"> <!-- Resource style -->
+	<script src="static/js/modernizr.js"></script> <!-- Modernizr -->
+
+	<title>TravelGeni :: New Trip</title>
+</head>
+<body>
+	<header>
+		<section id="cd-intro">
+			<div id="cd-intro-tagline">
+				<h1 id="tn" contenteditable="true" title="Edit your trip name">Trip Name</h1>
+				<h3 id="cn" contenteditable="true" title="Edit your country name"> Country Name</h3>
+                        <a href="{{ url_for('index') }}" class="cd-btn">Back</a>
+				<a href="" class="cd-btn">Save</a>
+				<a href="" class="cd-btn">Mark Complete</a>
+
+			</div> <!-- #cd-intro-tagline -->
+		</section> <!-- #cd-intro -->
+	</header>
+	<div class="cd-secondary-nav">
+		<a href="#0" class="cd-secondary-nav-trigger">Menu<span></span></a> <!-- button visible on small devices -->
+		<nav>
+			<ul>
+				<li>
+					<a href="#cd-placeholder-1">
+						<b>Trip Focus</b>
+					</a>
+				</li>
+				<li>
+					<a href="#cd-placeholder-2">
+						<b>Activities</b>
+					</a>
+				</li>
+				<li>
+					<a href="#cd-placeholder-3">
+						<b>Photos</b>
+					</a>
+				</li>
+				<li>
+					<a href="#cd-placeholder-4">
+						<b>Group Buddies</b>
+					</a>
+				</li>
+
+			</ul>
+		</nav>
+	</div> <!-- .cd-secondary-nav -->
+	<main class="cd-main-content">
+		<section id="cd-placeholder-1" class="cd-section cd-container">
+			<h2 title="Anything to add?">Trip Focus</h2>
+			<div id="edit" contenteditable="True" title="Anything to add?"></div>
+
+		</section> <!-- #cd-placeholder-1 -->
+
+		<section id="cd-placeholder-2" class="cd-section cd-container">
+			<h2>Activities</h2>
+			<div class="box">
+				<button onclick="trigger()" class="cbutton"><i class="icon fa-plus-circle"></i></button>
+			</div>
+
+			<div id="Slider" class="slide-up">
+				<div>
+					<div class="contents">
+
+
+						<form>
+
+							<div class="col-3">
+								<label>
+									Activity Name
+									<input placeholder="What is your activity?" tabindex="3" name="nameact" />
+								</label>
+							</div>
+
+							<div class="col-3">
+								<label>
+									Where?
+									<input placeholder="Where is it going to be?" tabindex="4" name="when" />
+								</label>
+							</div>
+
+							<div class="col-3">
+								<label>
+									When?
+									<input placeholder="mm\dd\yy" tabindex="4" name="where"/>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									Care to share more?
+									<textarea placeholder="describtion of your activity" class="text" name="desc"></textarea>
+								</label>
+							</div>
+
+							<button type="submit" value="Submit" class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:20px;">Submit</button>
+
+
+						</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					</div>
+				</div>
+			</div>
+
+		</section> <!-- #cd-placeholder-2 -->
+
+		<section id="cd-placeholder-3" class="cd-section cd-container">
+			<h2>Photos</h2>
+
+
+			<div class="grid-photos">
+				<figure class="pic">
+					<img src="https://cdn.pixabay.com/photo/2016/05/31/22/42/village-1428010_1280.jpg" alt="" class="img-grid">
+				</figure>
+
+				<figure class="pic">
+					<img src="https://cdn.pixabay.com/photo/2013/08/12/18/09/staniel-cay-yacht-club-171902_1280.jpg" alt="" class="img-grid">
+				</figure>
+
+				<figure class="pic">
+					<img src="https://cdn.pixabay.com/photo/2016/11/21/14/02/architecture-1845560_1280.jpg" alt="" class="img-grid">
+				</figure>
+
+				<figure class="pic">
+					<img src="https://cdn.pixabay.com/photo/2017/02/21/18/24/prague-2086967_1280.jpg" alt="" class="img-grid">
+				</figure>
+
+				<figure class="pic">
+					<img src="https://cdn.pixabay.com/photo/2012/11/28/09/46/lava-67574_1280.jpg" alt="" class="img-grid">
+				</figure>
+
+				<figure class="pic">
+					<img src="https://cdn.pixabay.com/photo/2016/06/24/12/36/surf-1477175_1280.jpg" alt="" class="img-grid">
+				</figure>
+
+				<figure class="pic">
+					<img src="https://cdn.pixabay.com/photo/2016/12/05/11/38/austria-1883647_1280.jpg" alt="" class="img-grid">
+				</figure>
+
+				<figure class="pic">
+					<img src="https://cdn.pixabay.com/photo/2015/03/18/22/05/bora-bora-680115_1280.jpg" alt="" class="img-grid">
+				</figure>
+
+				<figure class="pic">
+					<img src="https://cdn.pixabay.com/photo/2017/01/30/07/54/church-2020258_1280.jpg" alt="" class="img-grid">
+				</figure>
+
+				<figure class="pic">
+					<img src="https://cdn.pixabay.com/photo/2016/12/06/14/33/log-cabin-1886620_1280.jpg" alt="" class="img-grid">
+				</figure>
+
+				<figure class="pic">
+					<img src="https://cdn.pixabay.com/photo/2017/02/22/16/50/multnomah-falls-2089902_1280.jpg" alt="" class="img-grid">
+				</figure>
+
+				<figure class="pic">
+					<img src="https://cdn.pixabay.com/photo/2010/12/23/12/58/horseshoe-bend-4040_1280.jpg" alt="" class="img-grid">
+				</figure>
+
+			</div>
+
+		</section> <!-- #cd-placeholder-3 -->
+
+		<section id="cd-placeholder-4" class="cd-section cd-container">
+			<h2>Group Buddies</h2>
+
+
+			<div class="gallery">
+				<ul class="buddies">
+					<li><img src="C:\Users\Maryam\Downloads\julie buddies.jpg" /></li>
+					<li><img src="C:\Users\Maryam\Downloads\maryam buddies.jpg" /></li>
+					<li><img src="https://cdn.pixabay.com/photo/2016/03/23/08/34/beautiful-1274361_1280.jpg" /></li>
+					<li><img src="https://cdn.pixabay.com/photo/2016/03/23/08/34/beautiful-1274361_1280.jpg" /></li>
+					<li><img src="https://cdn.pixabay.com/photo/2016/03/23/08/34/beautiful-1274361_1280.jpg" /></li>
+
+				</ul>
+			</div>
+
+		</section> <!-- #cd-placeholder-4 -->
+
+	</main> <!-- .cd-main-content -->
+
+	<script src="static/js/jquery-2.1.1.js"></script>
+	<script src="static/js/main_edit_trip.js"></script> <!-- Resource jQuery -->
+</body>
+</html>
