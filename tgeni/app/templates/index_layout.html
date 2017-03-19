@@ -3,10 +3,16 @@
   <head>
     {% block head %}
     <meta charset="UTF-8">
-  	<link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
-  	<link rel="stylesheet" href="static/css/reset.css"> <!-- CSS reset -->
-  	<link rel="stylesheet" href="static/css/style.css"> <!-- Resource style -->
-  	<script src="static/js/modernizr.js"></script> <!-- Modernizr -->
+    {% block styles %}
+      	<link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+      	<link rel="stylesheet" href="static/css/reset.css"> <!-- CSS reset -->
+      	<link rel="stylesheet" href="static/css/style.css"> <!-- Resource style -->
+    {% endblock %}
+    {% block scripts %}
+  	 <script src="static/js/modernizr.js"></script> <!-- Modernizr -->
+       <script src="static/js/jquery-2.1.1.js"></script>
+       <script src="static/js/main.js"></script> <!-- Resource jQuery -->
+    {% endblock %}
     <title>TravelGeni :: {% block title %}{% endblock %}</title>
     {% endblock %}
   </head>
@@ -50,9 +56,5 @@
       &copy; 2017 Team 1
       {% endblock %}
     </div>
-
-    <script src="static/js/jquery-2.1.1.js"></script>
-    <script src="static/js/main.js"></script> <!-- Resource jQuery -->
-
   </body>
 </html>
