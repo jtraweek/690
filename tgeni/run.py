@@ -1,5 +1,7 @@
 from app import tgeni
 
-if __name__ == '__main__':
+def main():
     tgeni.run(debug=True)
 
+if __name__ == '__main__':
+    main()
