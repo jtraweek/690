@@ -1,13 +1,18 @@
 # SSW-690 Project
 
-## To create the database...
-1. At the command prompt: python db_create.py
-1. A .sqlite3 file should be created.
-1. If the .sqlite3 file already exists, you may have to delete it.
-1. TODO: We may want to eventually implement database migration procedures.
-
 ## To install the required Python packages...
 * At the command prompt: pip install -r requirements.txt
+
+## Commands:
+* At the command prompt: python manage.py [command], where command is one of the following:
+
+command | function
+------------ | -------------
+dev | Runs the main TGeni application (development version).
+test | Runs the unit tests.
+cov | Runs the unit tests and generates a coverage report.
+db_create | Creates the db tables based off the models.
+db_drop | Drops all db tables. Good to use before creating a new database after changing the models.
 
 ## To run the unit tests...
 * At the command prompt: python tests.py
@@ -20,9 +25,10 @@
 ## Main views:
 URL | view
 ------------ | -------------
-/index | main welcome page
-/ | redirects to /index
+/home (or just "/) | Welcome page
 /signin | User sign-in page
 /register | New user registration page
 /signout | Sign-out current signed-in user
-/edittrip | Update Trip page
+/index | User main page
+/add_trip | Add Trip page
+/edit_trip/[trip_id] | Update Trip page
