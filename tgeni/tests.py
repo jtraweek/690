@@ -1,80 +1,110 @@
 import app
-import app.models       as models
+import app.models   as models
 import os
 import unittest
 import urllib
 import tempfile
 
+from app            import tgeni, db
+from flask          import url_for
+from flask_testing  import TestCase
+from flask_login    import current_user
 
-class TestCase(unittest.TestCase):
+
+class BaseTestCase(TestCase):
+    """ Some base test case methods to be used for all test cases.
+    """
+    def create_app(self):
+        tgeni.config.from_object('config.TestConfig')
+        return tgeni
+
     def setUp(self):
-        app.tgeni.config.from_object('config.TestConfig')
-        app.db.create_all()
-        self.test_client = app.tgeni.test_client()
+        db.create_all()
+
     def tearDown(self):
-        app.db.session.remove()
-        app.db.drop_all()
+        db.session.remove()
+        db.drop_all()
 
-    #
-    # Unit test cases
-    #
-    def test_user_creation(self):
-        test_username = 'New User'
-        test_email = 'test@email'
-        test_pw = "it's a secret to everyone"
-        user = app.models.User( username = test_username,
-                                email    = test_email,
-                                password = test_pw)
-        app.db.session.add(user)
+
+class LoginTestCase(BaseTestCase):
+
+    def test_register(self):
+        test_username = 'New_User'
+        test_email    = 'test@email'
+        test_pw       = 'testpw'
+        # post the new user
+        with self.client:
+            self.client.post(url_for("register"),
+                             data={"username": test_username,
+                                   "email"   : test_email,
+                                   "password": test_pw })
         # test lookup
-        found_user = app.models.User.query.filter_by(username=test_username).first()
+        found_user = models.User.query.filter_by(username=test_username).first()
         self.assertIsNotNone(found_user)
         # test fields
         self.assertEqual(found_user.username, test_username)
         self.assertEqual(found_user.email, test_email)
         self.assertTrue(found_user.password_matches(test_pw))
 
-    def test_home_template(self):
-        # 302 = redirect
-        response = self.test_client.get('/', follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue('Travel Geni' in str(response.data))
-        # 200 = OK
-        response = self.test_client.get('/home')
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue('Travel Geni' in str(response.data))
+    def test_signin(self):
+          test_username = 'New_User'
+          test_email    = 'test@email'
+          test_pw       = 'testpw'
+          # add a test user
+          db.session.add(models.User(username=test_username,
+                                     email   =test_email,
+                                     password=test_pw))
+          # log in
+          with self.client:
+              response = self.client.post(url_for("signin"),
+                               data={"username": test_username,
+                                     "password": test_pw })
+              self.assert_redirects(response, url_for('index'))
+              # test fields
+              self.assertEqual(current_user.username, test_username)
+              self.assertEqual(current_user.email, test_email)
+              self.assertTrue(current_user.password_matches(test_pw))
 
-    def test_invalid_signin(self):
-        # test invalid username
-        response = self.test_client.post('/signin',
-            data=dict(username='Unregistered', password='1234'),
-            follow_redirects=True)
-        self.assertTrue('Invalid username or password' in str(response.data))
-        # test invalid password
-        user = app.models.User( username = 'New User',
-                                email    = 'test@email',
-                                password = "it's a secret to everyone")
-        app.db.session.add(user)
-        response = self.test_client.post('/signin',
-            data=dict(username='New User', password='1234'),
-            follow_redirects=True)
-        self.assertTrue('Invalid username or password' in str(response.data))
+    def test_signin_invalid_username(self):
+          # log in
+          with self.client:
+              response = self.client.post(url_for("signin"),
+                               data={"username": 'Invalid',
+                                     "password": 'Invalid' },
+                               follow_redirects=True)
+              # test fields
+              self.assertIn('Invalid username or password', str(response.data))
 
-    def test_register_user(self):
-        test_username = 'New User'
-        test_email = 'test@email'
-        test_pw = "it's a secret to everyone"
-        # register new user
-        response = self.test_client.post('/register',
-            data=dict(username=test_username, email=test_email, password=test_pw),
-            follow_redirects=True)
-        # test lookup
-        found_user = app.models.User.query.filter_by(username=test_username).first()
-        self.assertIsNotNone(found_user)
-        # test fields
-        self.assertEqual(found_user.username, test_username)
-        self.assertEqual(found_user.email, test_email)
-        self.assertTrue(found_user.password_matches(test_pw))
+    def test_signin_invalid_password(self):
+          test_username = 'New_User'
+          test_email    = 'test@email'
+          test_pw       = 'testpw'
+          # add a test user
+          db.session.add(models.User(username=test_username,
+                                     email   =test_email,
+                                     password=test_pw))
+          # log in
+          with self.client:
+              response = self.client.post(url_for("signin"),
+                               data={"username": 'Invalid',
+                                     "password": 'Invalid' },
+                               follow_redirects=True)
+              # test fields
+              self.assertIn('Invalid username or password', str(response.data))
+
+
+
+
+class TestCase(BaseTestCase):
+
+
+    def test_home(self):
+        with self.client:
+            response = self.client.get(url_for("home"),
+                                        follow_redirects=True)
+            # test fields
+            self.assertIn('Travel Geni', str(response.data))
+
 
     def test_user_trip_data(self):
         # add users to db
