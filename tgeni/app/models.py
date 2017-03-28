@@ -55,6 +55,15 @@ class Trip(db.Model):
     users    = db.relationship('User',
                                 secondary=user_trips,
                                 backref=db.backref('trips', lazy='dynamic'))
+                                
+class TripActivity(db.Model):
+
+    trip_id     = db.Column(db.Integer, db.ForeignKey('trip.trip_id'))
+    activity_id = db.Column(db.Integer,  primary_key=True)
+    title       = db.Column(db.String, nullable=True)
+    location    = db.Column(db.String, nullable=True)
+    length      = db.Column(db.Integer, nullable=True)
+    description = db.Column(db.String, nullable=True)
 
     def __repr__(self):
         return "Trip %s" % self.trip_name
