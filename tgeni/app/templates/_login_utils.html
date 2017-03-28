@@ -1,0 +1,16 @@
+{% macro render_form(form, button_text) -%}
+      <form action="" method="post">
+           {{ form.hidden_tag() }}
+           {% for field in form if field.widget.input_type != 'hidden' %}
+              {{ field.label }} {{ field }}
+              {% if field.errors %}
+              <ul>
+                    {% for error in field.errors %}
+                    <li style="color:red">{{ error }}</li>
+                    {% endfor %}
+              </ul>
+              {% endif %}
+           {% endfor %}
+           <p><input type=submit value="{{ button_text }}"></p>
+      </form>
+{%- endmacro %}

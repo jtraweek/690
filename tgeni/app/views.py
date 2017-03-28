@@ -15,34 +15,38 @@ def home_():
 def home():
     return render_template('home.html')
 
+
+
 @tgeni.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'GET':
-        return render_template('register.html')
-    user = models.User(username = request.form['username'],
-                        email    = request.form['email'],
-                        password = request.form['password'])
-    db.session.add(user)
-    db.session.commit()
-    flash('New user registered')
-    return redirect(url_for('index'))
+    form = forms.RegisterForm()
+    if form.validate_on_submit(): # handles POST
+        user = models.User()
+        form.populate_obj(user)
+        db.session.add(user)
+        db.session.commit()
+        flash('New user registered')
+        return redirect(url_for('index'))
+    return render_template('register.html', form=form)
+
+
 
 @tgeni.route('/signin', methods=['GET', 'POST'])
 def signin():
-    if request.method == 'GET':
-        # render the user login form
-        return render_template('login.html')
-    username = request.form['username']
-    password = request.form['password']
-    found_user = models.User.query.filter_by(username=username).first()
-    if found_user and found_user.password_matches(password):
-        login_user(found_user)
-        flash('Logged in user')
-        return redirect(url_for('index'))
-    else:
-        # username/password invalid
-        flash('Invalid username or password', 'fail_login')
-        return redirect(url_for('signin'))
+    form = forms.SigninForm()
+    if form.validate_on_submit(): # handles POST
+        found_user = form.found_user
+        if found_user:
+            login_user(found_user)
+            flash('Logged in user')
+            return redirect(url_for('index'))
+        else:
+            # username/password invalid
+            flash('Invalid username or password', 'fail_login')
+            return redirect(url_for('signin'))
+    return render_template('login.html', form=form)
+
+
 
 @tgeni.route("/signout")
 @login_required

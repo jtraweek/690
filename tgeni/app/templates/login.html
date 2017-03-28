@@ -1,25 +1,12 @@
 {% extends "index_layout.html" %}
+{% from "_login_utils.html" import render_form %}
+{% block styles %}
+<link rel="stylesheet" href="static/css/stylelogin.css">
+{% endblock %}
 {% block title %}Sign In{% endblock %}
 {% block content %}
-<div>
-  <section class="cd-intro">
-    <h1>Welcome Back! Please provide your login credentials:</h1>
-    <form action="" method="post">
-      <p><input type=text      name=username placeholder="username" required autocomplete="off"></p>
-      <p><input type=password  name=password placeholder="password" required autocomplete="off"></p>
-      <p><input type=submit    value="Sign In"></p>
-    </form>
-    {% with login_errors = get_flashed_messages(category_filter=["fail_login"]) %}
-      {% if login_errors %}
-        <div>
-          <ul>
-            {% for msg in login_errors %}
-            <li>{{ msg }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-    {% endwith %}
-  </section>
+<div class="center-div">
+      <h2>Welcome Back! Please provide your login credentials:</h2>
+      {{ render_form(form, button_text='Sign In') }}
 </div>
 {% endblock %}

@@ -1,4 +1,4 @@
-/* -------------------------------- 
+/* --------------------------------
 
 Primary style
 
@@ -25,9 +25,9 @@ a {
   text-decoration: none;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
-Main components 
+Main components
 
 -------------------------------- */
 html, body {
@@ -298,7 +298,7 @@ html, body {
     font-size: 30px;
     font-size: 1.875rem;
   }
- 
+
 }
 
 .cd-intro {
@@ -309,7 +309,7 @@ html, body {
   height: 0;
   padding: 50vh 50vw;
   max-width:100%
-  
+
 }
 
 
@@ -330,7 +330,7 @@ html, body {
   font-family: "SummerHearts-Regular";
   opacity: 0.95;
   text-align: center;
-  letter-spacing:14px; 
+  letter-spacing:14px;
 }
 
 
@@ -340,7 +340,7 @@ html, body {
 	border-radius: 5px;
 	border: 1px solid;
 	padding: 12px;
-	font-family: "Roboto"; 
+	font-family: "Roboto";
 	cursor:pointer;
     margin-left: 600px;
 	margin-top:390px;
@@ -390,4 +390,3 @@ html, body {
 	src: url('../css/fonts/Hensa-Regular.woff') format('woff');
 
 }
-
