@@ -56,9 +56,9 @@ class Trip(db.Model):
                                 secondary=user_trips,
                                 backref=db.backref('trips', lazy='dynamic'))
                                 
-class TripActivity(db.Model):
+class Activity(db.Model):
 
-    trip_id     = db.Column(db.Integer, db.ForeignKey('trip.trip_id'))
+    #trip_id     = db.Column(db.Integer, db.ForeignKey('trip.trip_id'))
     activity_id = db.Column(db.Integer,  primary_key=True)
     title       = db.Column(db.String, nullable=True)
     location    = db.Column(db.String, nullable=True)
