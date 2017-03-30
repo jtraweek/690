@@ -1,6 +1,6 @@
 @font-face {
     font-family: SummerHearts-Regular;
-    src: url('../css/SummerHearts-Regular.woff') format('woff');
+    src: url('../fonts/SummerHearts-Regular.woff') format('woff');
 }
 
 *, *:after, *:before {
