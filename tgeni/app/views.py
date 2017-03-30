@@ -86,16 +86,17 @@ def add_trip(trip_id=None):
         return redirect(url_for('index'))
     return render_template('add_trip.html', form=form)
     
-'''    
+   
 @tgeni.route('/add_activity', methods = ['GET', 'POST'])
 @login_required
 def add_activity(activitiy_id=None):
-    activity_form = forms.NewActivityForm()
+    activity = models.Activity()
+    activity_form = forms.NewActivityForm(obj=activity)
     if activity_form.validate_on_submit():
-        db.session.add()
+        db.session.add(activity)
         db.session.commit()
     return render_template('add_activity.html', activity_form = activity_form) 
-'''
+
 
 @tgeni.route('/view_trip', methods = ['GET', 'POST'])
 @login_required
