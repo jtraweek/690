@@ -6,27 +6,27 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Itenraries</title>
 		<meta name="author" content="Codrops" />
-		<link rel="stylesheet" type="text/css" href="css/normalizeit.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">		
-        <link rel="stylesheet" type="text/css" href="css/style1.css" />
+		<link rel="stylesheet" type="text/css" href="static/css/normalizeit.css" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" type="text/css" href="static/css/style1.css" />
 		<link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
 	</head>
-	
+
 	<body>
                 <header class="top-bar">
-					
+
 						<div class="filter">
-							<span class="topic">Itenrary</span><br>
+							<span class="topic">Itineraries</span><br>
 
 						</div>
-						
+
 						<div class="dropdown">
 						<div>
 						<form>
 						<button type="submit">
-                            <i class="fa fa-search" id="searchicon" ></i> 
+                            <i class="fa fa-search" id="searchicon" ></i>
                         </button>
-						
+
 						<input type="text" name="search" placeholder="Search.." class="search">
                         </form>
 						</div><br>
@@ -34,24 +34,23 @@
 						<button style="float:right;">Sort By Date</button>
 
 						<!-- dropdown menu -->
-						
+
 					    </div>
 
-	            </header>	
+	            </header>
 			<div class="container">
 			<div id="theGrid" class="main">
-				
+
 				<section class="grid">
-				
-					
+
+                              {% for trip in current_user.trips %}
 					<a class="grid__item" href="#">
-						<h2 class="title title--preview">Trip Name</h2>
+						<h2 class="title title--preview">{{ trip.title }}</h2>
 						<div class="loader"></div>
-						<span class="category">Location</span>
+						<span class="category">{{ trip.location }}</span>
 					</a>
-					
-				
-					
+                              {% endfor %}
+
 				</section>
 			</div>
 		</div><!-- /container -->

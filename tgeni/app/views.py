@@ -7,6 +7,7 @@ from flask import (Response, flash, redirect, render_template,
                    request, url_for)
 from flask_login import (login_required, login_user, logout_user, current_user)
 
+
 @tgeni.route('/')
 def home_():
     return redirect(url_for('home'))
@@ -60,7 +61,7 @@ def load_user(id):
 
 @tgeni.errorhandler(401)
 def fail_login(er):
-    return '<h2>Login failed.</h2>'
+    return '<h2>401 error.</h2>'
 
 @tgeni.errorhandler(404)
 def not_found_404(er):
@@ -85,21 +86,42 @@ def add_trip(trip_id=None):
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('add_trip.html', form=form)
-    
-   
+
+
 @tgeni.route('/add_activity', methods = ['GET', 'POST'])
 @login_required
-def add_activity(activitiy_id=None):
+def add_activity():
     activity = models.Activity()
     activity_form = forms.NewActivityForm(obj=activity)
     if activity_form.validate_on_submit():
         db.session.add(activity)
         db.session.commit()
-    return render_template('add_activity.html', activity_form = activity_form) 
+    return render_template('add_activity.html', activity_form = activity_form)
 
 
 @tgeni.route('/view_trip', methods = ['GET', 'POST'])
 @login_required
 def view_trip():
     return render_template('Trip.html')
-    
+
+
+@tgeni.route('/itineraries', methods = ['GET', 'POST'])
+@login_required
+def itineraries():
+    return render_template('itineraries.html')
+
+
+@tgeni.route('/complete_trip/<trip_id>', methods = ['GET', 'POST'])
+@login_required
+def complete_trip(trip_id):
+    """ Marks the specified trip as "complete" so that it can be viewed at the
+        Discover Trip page.
+    """
+    trip = models.Trip.query.get(trip_id)
+    if trip and trip in current_user.trips:
+        trip.complete = True
+        db.session.add(trip)
+        db.session.commit()
+        return redirect(url_for('itineraries'))
+    else:
+        return flask.abort(401)

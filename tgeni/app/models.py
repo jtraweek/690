@@ -4,11 +4,21 @@ import sqlalchemy.ext.hybrid
 
 from app import db, crypt
 
+
+
+
+########################################################################
 #   Relationship table to link users and their trips
 user_trips = db.Table('user_trips',
             db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
             db.Column('trip_id', db.Integer, db.ForeignKey('trip.trip_id')))
 
+
+
+
+########################################################################
+#   User database definitions
+#
 class User(db.Model, flask_login.UserMixin):
 
     """ User database model
@@ -27,7 +37,7 @@ class User(db.Model, flask_login.UserMixin):
     @sqlalchemy.ext.hybrid.hybrid_property
     def password(self):
         return self._password
-        
+
     @password.setter
     def _set_password(self, plaintext_password):
         self._password = crypt.generate_password_hash(plaintext_password)
@@ -43,7 +53,10 @@ class User(db.Model, flask_login.UserMixin):
     def get_id(self):
         return self.id
 
-#
+
+
+
+########################################################################
 #   Trip database definitions
 #
 class Trip(db.Model):
@@ -52,16 +65,23 @@ class Trip(db.Model):
     location = db.Column(db.String)
     about    = db.Column(db.String)
     length   = db.Column(db.Integer)
+    complete = db.Column(db.Boolean)
     users    = db.relationship('User',
                                 secondary=user_trips,
-                                backref=db.backref('trips', lazy='dynamic'))                                
-    
+                                backref=db.backref('trips', lazy='dynamic'))
+
     def __repr__(self):
         return "Trip %s" % self.trip_name
 
+    def mark_complete(self):
+        self.complete = True
+
+
+
+
+########################################################################
+#   Activity database definitions
 #
-# Activity database definitions
-#                                
 class Activity(db.Model):
 
     trip_id     = db.Column(db.Integer, db.ForeignKey('trip.trip_id'))
@@ -70,6 +90,6 @@ class Activity(db.Model):
     location    = db.Column(db.String, nullable=True)
     length      = db.Column(db.Integer, nullable=True)
     description = db.Column(db.String, nullable=True)
-        
+
     def __repr__(self):
         return "Activity %s" % self.title
