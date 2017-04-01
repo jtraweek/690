@@ -281,8 +281,16 @@ button:focus {
     background: #77878F;
 }
 
+.search{
+	padding: 0.9em 1.8em;
+	background:#CCCACA;
+	border:solid 1px #77878F;
+	color: #77878F;
+}
 
-
+.searchicon{
+		padding: 0.8em 1.8em;
+}
 
 
 
@@ -869,7 +877,6 @@ button:focus {
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-	background:#CCCACA;
 	
   }
 
