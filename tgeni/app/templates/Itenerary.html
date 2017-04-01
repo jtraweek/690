@@ -10,7 +10,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">		
         <link rel="stylesheet" type="text/css" href="css/style1.css" />
 		<link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
-		<script src="js/modernizr.custom.js"></script>
 	</head>
 	
 	<body>
@@ -18,20 +17,24 @@
 					
 						<div class="filter">
 							<span class="topic">Itenrary</span><br>
-							<a href="" class="cd-btn" type="submit" >Save</a>
 
 						</div>
 						
 						<div class="dropdown">
-
+						<div>
+						<form>
+						<button type="submit">
+                            <i class="fa fa-search" id="searchicon" ></i> 
+                        </button>
+						
+						<input type="text" name="search" placeholder="Search.." class="search">
+                        </form>
+						</div><br>
 						<!-- trigger button -->
-						<button>Filter</button>
+						<button style="float:right;">Sort By Date</button>
 
 						<!-- dropdown menu -->
-						<ul class="dropdown-menu">
-							<li><a href="#home">Creation</a></li>
-							<li><a href="#about">Size</a></li>
-						</ul>
+						
 					    </div>
 
 	            </header>	
@@ -52,7 +55,5 @@
 				</section>
 			</div>
 		</div><!-- /container -->
-		<script src="js/classie.js"></script>
-		<script src="js/mainit.js"></script>
 	</body>
 </html>
