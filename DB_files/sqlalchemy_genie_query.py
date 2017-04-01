@@ -18,39 +18,23 @@ DBSession = sessionmaker(bind=engine)
 
 session = DBSession()
 
-def query_user_profile(userid):
-    for userprofile in session.query(UserProfile).filter(UserProfile.USER_ID==userid).all():
-        #print("UserProfile query ***************")
-        #print(userprofile.USER_ID)
-        #print(userprofile.USER_ACTIVE)
-        return userprofile.USER_ID,userprofile.USER_ACTIVE
+class Query:
+
+    def query_user_profile(self,userid):
+        for userprofile in session.query(UserProfile).filter(UserProfile.USER_ID==userid).all():
+            #print("UserProfile query ***************")
+            #print(userprofile.USER_ID)
+            #print(userprofile.USER_ACTIVE)
+            return userprofile.USER_ID,userprofile.USER_ACTIVE
+        
+    def query_tripid_details(self,userid):          
+        return [usertrip.__dict__ for usertrip in session.query(UserTrip).filter(userid).all()]
+        
+    def query_tripid_details_and_tripname(self,userid,tripname):        
+        return [usertrip.__dict__ for usertrip in session.query(UserTrip).filter(UserTrip.USER_ID==userid)]
+           
+    def query_trip_it(self,tripid):        
+        return [tripit.__dict__ for tripit in session.query(TripItiranery).filter(tripid).all()]
     
-def query_tripid_details(userid):    
-    for usertrip in session.query(UserTrip).filter(userid).all():
-        #print("UserTrip query ***************")
-        #print(usertrip.USER_ID)
-        #print(usertrip.TRIP_ID)
-        #print(usertrip.TRIP_NAME)
-        #print(usertrip.TRIP_DESCRIPTION)
-        return usertrip.dict
-
-def query_trip_it(tripid): 
-    global tripit   
-    for tripit in session.query(TripItiranery).filter(tripid).all():
-        #print("TripItiranery query ***************")
-        #print(tripit.TRIP_ID)
-        #print(tripit.ITIRENERY_ID)
-        #print(tripit.ACTIVITY_ID)
-        #return tripit.dict
-        return tripit.dict
-
-def query_trip_id_activity(activitiid):   
-    for itactivity in session.query(ItiraneryActivity).filter(activitiid).all():
-        #print("ItiraneryActivity query ***************")
-        #print(itactivity.ITIRENERY_ID)
-        #print(itactivity.ACTIVITY_ID)
-        #print(itactivity.ACTIVITY_NAME)
-        #print(itactivity.ACTIVITY_DESCRIPTION)
-        #print(itactivity.DAY)
-        #print(itactivity.DATE)
-        return itactivity.dict
+    def query_trip_id_activity(self,activitiid):    
+        return [itactivity.__dict__ for itactivity in session.query(ItiraneryActivity).filter(activitiid).all()]
