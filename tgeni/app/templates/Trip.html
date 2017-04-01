@@ -29,7 +29,7 @@
 			<ul>
 				<li>
 					<a href="#cd-placeholder-1">
-						<b>Trip focus</b>
+						<b>My Trip</b>
 					</a>
 				</li>
 				<li>
@@ -53,35 +53,38 @@
 	</div> <!-- .cd-secondary-nav -->
 	<main class="cd-main-content">
 		<section id="cd-placeholder-1" class="cd-section cd-container">
-			<h2>Trip focus</h2>
-			
-			<form class="tc">
+			<h2>My Trip</h2>
+			<form class="tc" action="" method="post" name="add_trip">
+			{{ form.hidden_tag() }}
 			<div class="foucs" >
 			<label>Trip Name</label><br>
-			<input type="text" id="tn"/><br>
+			{{ form.title}}
+			{% for error in form.title.errors %}
+			<span style="color: red;">[{{error}}]</span>
+			{% endfor %}<br>
 			<label>Location</label><br>
-			<input type="text" id="cn"/><br>
+			{{ form.location}}
+			{% for error in form.location.errors %}
+			<span style="color: red;">[{{error}}]</span>
+			{% endfor %}<br>
 			<label>Number of Days</label><br>
-			<input type="number" min="1" max="999" /><br>
+			{{ form.length}}
+			{% for error in form.length.errors %}
+			<span style="color: red;">[{{error}}]</span>
+			{% endfor %}<br>
 			<label>Care to share any focus?</label><br>
-			<textarea class="tripf"></textarea>
+			{{ form.about(columns=80, rows=10) }}
+			{% for error in form.about.errors %}
+			<span style="color: red;">[{{error}}]</span>
+			{% endfor %}<br>
 			</div>
+			<p><input type="submit" value="Save" href="" class="sbutton" style="text-align:center;margin-top:60px;"> </p>
 			</form>
-			<div style="text-align:center;margin-top:60px;">
-		    <a href="" class="sbutton">Save</a>
-			</div>
 		</section> <!-- #cd-placeholder-1 -->
         
 		<section id="cd-placeholder-2" class="cd-section cd-container">
 			<h2>Activities</h2>
-				<div class="box">
-					<button onclick="trigger()" class="cbutton"><i class="icon fa-plus-circle"></i></button>
-                </div>
 				
-			<div id="Slider" class="slide-up">
-				<div>
-				    <div class="contents">
-					    
 						
 			<form>
 
