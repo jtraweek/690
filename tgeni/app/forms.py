@@ -55,7 +55,8 @@ class NewTripForm(FlaskForm):
     length   = IntegerField('length')
 
 class NewActivityForm(FlaskForm):
-    title = StringField('title', validators=[DataRequired()])
-    location = StringField('location')
-    description = TextAreaField('description')
-    length = IntegerField('length')
+    title = StringField('activity_title', validators=[DataRequired()])
+    location = StringField('activity_location')
+    length = StringField('activity_length')
+    description = TextAreaField('activity_description')
+    

@@ -83,41 +83,50 @@
 		</section> <!-- #cd-placeholder-1 -->
         
 		<section id="cd-placeholder-2" class="cd-section cd-container">
-			<h2>Activities</h2>
-				
 						
-			<form>
+			<form class="tc" action="" method="post" name="add_activity">
+			{{ activity_form.hidden_tag() }}
 
 						  <div class="col-3">
 							<label>
-							  Activity Name
-							  <input placeholder="What is your activity?" tabindex="3" name="nameact" />
+							  Activity Name:
+							  {{ activity_form.title(size=80, placeholder = "What is your activity?")}}
+							  {% for error in activity_form.title.errors %}
+							  <span style="color: red;">[{{error}}]</span>
+							  {% endfor %}<br>
 							</label>
 						  </div>
 						  
 						  <div class="col-3">
 							<label>
 							  Where?
-							  <input placeholder="Where is it going to be?" tabindex="4" name="when" />
+							  {{ activity_form.location(size=80, placeholder = "Where is it going to be?") }}
+							  {% for error in activity_form.location.errors %}
+							  <span style="color: red;">[{{error}}]</span>
+							  {% endfor %}<br>
 							</label>
 						  </div>
 						  
 						  <div class="col-3">
 							<label>
 							  When?
-							  <input placeholder="mm\dd\yy" tabindex="4" name="where"/>
+							  {{ activity_form.length(size=3, placeholder = "mm\dd\yy") }}
+							  {% for error in activity_form.length.errors %}
+							  <span style="color: red;">[{{error}}]</span>
+							  {% endfor %}<br>
 							</label>
 						  </div>
 						  
 						  <div>
 							<label>
-							  Care to share more?
-							  <textarea placeholder="describtion of your activity" class="text" name="desc"></textarea>
+							  Care to share more? <br>
+							  {{ activity_form.description(columns=80, rows=10, placeholder = "Description of activity") }}
+							  {% for error in activity_form.description.errors %}
+							  <span style="color: red;">[{{error}}]</span>
+							  {% endfor %}<br>
 							</label>
 						  </div>
-						  
-							<button type="submit" value="Submit" class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:20px;">Submit</button>
-						  
+						  <p><input type="submit" value="Add Activity"class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:20px;"></p>
 						  
             </form>
 						

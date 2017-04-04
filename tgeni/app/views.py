@@ -79,14 +79,22 @@ def index():
 @login_required
 def add_trip(trip_id=None):
     trip = models.Trip.query.get(trip_id) if trip_id else models.Trip()
+    activity = models.Activity()
     form = forms.NewTripForm(obj=trip)
+    activity_form = forms.NewActivityForm(obj=activity)
     if form.validate_on_submit(): # handles POST?
         form.populate_obj(trip)
         trip.invite(current_user)
         db.session.add(trip)
         db.session.commit()
-        return render_template('Trip.html', form = form)
-    return render_template('Trip.html', form=form)
+        return render_template('Trip.html', form = form, activity_form = activity_form)
+    elif activity_form.validate_on_submit():
+        activity.trip_id = trip_id
+        activity_form.populate_obj(activity)
+        db.session.add(activity)
+        db.session.commit()
+        return redirect(url_for('add_trip', trip_id=trip_id))
+    return render_template('Trip.html', form=form, activity_form = activity_form)
 
 
 @tgeni.route('/add_activity', methods = ['GET', 'POST'])
@@ -95,6 +103,7 @@ def add_activity():
     activity = models.Activity()
     activity_form = forms.NewActivityForm(obj=activity)
     if activity_form.validate_on_submit():
+        activity_form.populate_obj(activity)
         db.session.add(activity)
         db.session.commit()
     return render_template('add_activity.html', activity_form = activity_form)
