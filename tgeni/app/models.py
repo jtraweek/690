@@ -77,6 +77,9 @@ class Trip(db.Model):
     def mark_complete(self):
         self.complete = True
 
+    def invite(self, user):
+        if user not in self.users:
+            self.users.append(user)
 
 
 

@@ -84,6 +84,7 @@ def add_trip(trip_id=None):
     activity_form = forms.NewActivityForm(obj=activity)
     if form.validate_on_submit(): # handles POST?
         form.populate_obj(trip)
+        trip.invite(current_user)
         db.session.add(trip)
         db.session.commit()
         return render_template('Trip.html', form = form, activity_form = activity_form)
