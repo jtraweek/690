@@ -60,6 +60,7 @@ class User(db.Model, flask_login.UserMixin):
 #   Trip database definitions
 #
 class Trip(db.Model):
+    __tablename__ = 'trip'
     trip_id  = db.Column(db.Integer, primary_key=True)
     title    = db.Column(db.String)
     location = db.Column(db.String)
@@ -69,7 +70,6 @@ class Trip(db.Model):
     users    = db.relationship('User',
                                 secondary=user_trips,
                                 backref=db.backref('trips', lazy='dynamic'))
-    activities = db.relationship('Activity', backref='Trip', lazy = 'dynamic')
 
     def __repr__(self):
         return "Trip %s" % self.trip_name
@@ -87,13 +87,14 @@ class Trip(db.Model):
 #   Activity database definitions
 #
 class Activity(db.Model):
-
-    trip_id              = db.Column(db.Integer, db.ForeignKey('trip.trip_id'))
-    activity_id          = db.Column(db.Integer,  primary_key=True)
+    __tablename__ = 'activity'
+    activity_id = db.Column(db.Integer,  primary_key=True)
     title       = db.Column(db.String, nullable=True)
     location    = db.Column(db.String, nullable=True)
     length      = db.Column(db.String, nullable=True)
     description = db.Column(db.String, nullable=True)
+    trip_id     = db.Column(db.Integer, db.ForeignKey('trip.trip_id'))
+    trip        = db.relationship("Trip", backref="activities")
 
     def __repr__(self):
         return "Activity %s" % self.title
