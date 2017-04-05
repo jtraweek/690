@@ -80,6 +80,7 @@ def index():
 def add_trip(trip_id=None):
     trip = models.Trip.query.get(trip_id) if trip_id else models.Trip()
     activity = models.Activity()
+    saved_activities = trip.activities if trip.activities else []
     form = forms.NewTripForm(obj=trip)
     activity_form = forms.NewActivityForm(obj=activity)
     if form.validate_on_submit(): # handles POST?
@@ -87,14 +88,14 @@ def add_trip(trip_id=None):
         trip.invite(current_user)
         db.session.add(trip)
         db.session.commit()
-        return render_template('Trip.html', form = form, activity_form = activity_form)
+        return render_template('Trip.html', form = form, activity_form = activity_form, saved_activities=saved_activities)
     elif activity_form.validate_on_submit():
         activity.trip_id = trip_id
         activity_form.populate_obj(activity)
         db.session.add(activity)
         db.session.commit()
         return redirect(url_for('add_trip', trip_id=trip_id))
-    return render_template('Trip.html', form=form, activity_form = activity_form)
+    return render_template('Trip.html', form=form, activity_form = activity_form, saved_activities=saved_activities)
 
 
 @tgeni.route('/add_activity', methods = ['GET', 'POST'])
