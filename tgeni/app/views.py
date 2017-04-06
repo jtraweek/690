@@ -8,16 +8,11 @@ from flask import (Response, flash, redirect, render_template,
 from flask_login import (login_required, login_user, logout_user, current_user)
 
 
-@tgeni.route('/')
-def home_():
-    return redirect(url_for('home'))
 
-@tgeni.route('/home')
-def home():
-    return render_template('home.html')
-
-
-
+##########################################################################
+#
+#   login/logout views
+#
 @tgeni.route('/register', methods=['GET', 'POST'])
 def register():
     form = forms.RegisterForm()
@@ -29,8 +24,6 @@ def register():
         flash('New user registered')
         return redirect(url_for('index'))
     return render_template('register.html', form=form)
-
-
 
 @tgeni.route('/signin', methods=['GET', 'POST'])
 def signin():
@@ -47,18 +40,28 @@ def signin():
             return redirect(url_for('signin'))
     return render_template('login.html', form=form)
 
-
-
 @tgeni.route("/signout")
 @login_required
 def signout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('index'))
 
+
+
+##########################################################################
+#
+#   function to retrieve the current user based on the login
+#
 @login_manager.user_loader
 def load_user(id):
     return models.User.query.get(int(id))
 
+
+
+##########################################################################
+#
+#   error views
+#
 @tgeni.errorhandler(401)
 def fail_login(er):
     return '<h2>401 error.</h2>'
@@ -67,8 +70,19 @@ def fail_login(er):
 def not_found_404(er):
     return '<h2>Oh no, 404!</h2>'
 
+
+
+##########################################################################
+#
+#   user views
+#
+@tgeni.route('/')
+def index_():
+    """ This view serves as the homepage for a signed-in user.
+    """
+    return redirect(url_for('index'))
+
 @tgeni.route('/index')
-@login_required
 def index():
     """ This view serves as the homepage for a signed-in user.
     """
@@ -88,15 +102,14 @@ def add_trip(trip_id=None):
         trip.invite(current_user)
         db.session.add(trip)
         db.session.commit()
-        return render_template('Trip.html', form = form, activity_form = activity_form, saved_activities=saved_activities)
+        return render_template('trip.html', form = form, activity_form=activity_form, saved_activities=saved_activities)
     elif activity_form.validate_on_submit():
         activity.trip_id = trip_id
         activity_form.populate_obj(activity)
         db.session.add(activity)
         db.session.commit()
         return redirect(url_for('add_trip', trip_id=trip_id))
-    return render_template('Trip.html', form=form, activity_form = activity_form, saved_activities=saved_activities)
-
+    return render_template('trip.html', form=form, activity_form=activity_form, saved_activities=saved_activities)
 
 @tgeni.route('/add_activity', methods = ['GET', 'POST'])
 @login_required
@@ -113,7 +126,6 @@ def add_activity():
 @login_required
 def itineraries():
     return render_template('itineraries.html')
-
 
 @tgeni.route('/complete_trip/<trip_id>', methods = ['GET', 'POST'])
 @login_required
