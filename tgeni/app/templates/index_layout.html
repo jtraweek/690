@@ -6,12 +6,12 @@
     {% block base_styles %}
       	<link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
       	<link rel="stylesheet" href="static/css/reset.css"> <!-- CSS reset -->
-      	<link rel="stylesheet" href="static/css/style.css"> <!-- Resource style -->
+      	<link rel="stylesheet" href="static/css/index.css"> <!-- Resource style -->
     {% endblock %}
     {% block styles %}
     {% endblock %}
     {% block base_scripts %}
-  	 <script src="static/js/modernizr.js"></script> <!-- Modernizr -->
+  	   <script src="static/js/modernizr.js"></script> <!-- Modernizr -->
        <script src="static/js/jquery-2.1.1.js"></script>
        <script src="static/js/main.js"></script> <!-- Resource jQuery -->
     {% endblock %}
@@ -25,7 +25,7 @@
           {% if current_user.is_authenticated %}
             <nav>
               <ul class="cd-secondary-nav">
-                  <li>{{ current_user.username }}</li>
+                  <li><span class="username">{{ current_user.username }}</span></li>
                   <li><a href="{{ url_for('signout') }}">Sign Out</a></li>
               </ul>
             </nav> <!-- cd-nav -->
@@ -45,11 +45,11 @@
     {% if current_user.is_authenticated %}
     <nav>
       <ul class="cd-primary-nav">
+        <li><a href="{{ url_for('index') }}">Home</a></li>
         <li><a href="{{ url_for('add_trip') }}">New Trip</a></li>
         <li><a href="#0">Discover Trips</a></li>
         <li><a href="{{ url_for('itineraries') }}">Itinerary</a></li>
         <li><a href="#0">Account</a></li>
-        <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="#0">About Us</a></li>
       </ul>
     </nav>
