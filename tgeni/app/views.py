@@ -141,3 +141,16 @@ def complete_trip(trip_id):
         return redirect(url_for('itineraries'))
     else:
         return flask.abort(401)
+        
+@tgeni.route('/admin/delete/<int:trip_id>', methods=['GET','POST'])
+@login_required
+def delete_trip(trip_id):
+    trip = models.Trip.query.get(trip_id)
+    if not trip:
+        flask.abort(404)
+    if request.method == 'POST':
+        db.session.delete(trip)
+        db.session.commit()
+        flash('Trip was deleted successfully', 'success')
+        return redirect(url_for('index.html'))
+    return render_template('trip_delete.html', trip_title=trip.title, trip_id=trip_id)
