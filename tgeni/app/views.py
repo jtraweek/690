@@ -154,3 +154,19 @@ def delete_trip(trip_id):
         flash('Trip was deleted successfully', 'success')
         return redirect(url_for('index.html'))
     return render_template('trip_delete.html', trip_title=trip.title, trip_id=trip_id)
+	
+#dmitriy for trip search by location
+def search_trip_by_location(location_like):
+    
+    sz_like="%"+location_like+"%"
+    
+    trips=[models.Trip.__dict__ models.Trip.query.with_entities(models.Trip.trip).filter(models.Trip.location.ilike(sz_like)).all()]
+    
+    if not trips:
+        flash('Trips not found', 'success')
+         #don't know the real html file for search_trip func    
+        return redirect(url_for('trip_search.html'))
+    else:
+        flash('Trips was found successfully', 'success')
+    #don't know the real html file for search_trip func    
+    return render_template('trip_search.html', trips)
