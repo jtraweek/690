@@ -103,7 +103,8 @@ def add_trip(trip_id=None):
         trip.invite(current_user)
         db.session.add(trip)
         db.session.commit()
-        return render_template('trip.html', form = form, activity_form=activity_form, saved_activities=saved_activities)
+        trip_id = trip.trip_id
+        return redirect(url_for('add_trip', trip_id=trip_id))
     elif activity_form.validate_on_submit():
         activity.trip_id = trip_id
         activity_form.populate_obj(activity)
@@ -111,17 +112,6 @@ def add_trip(trip_id=None):
         db.session.commit()
         return redirect(url_for('add_trip', trip_id=trip_id))
     return render_template('trip.html', form=form, activity_form=activity_form, saved_activities=saved_activities)
-
-@tgeni.route('/add_activity', methods = ['GET', 'POST'])
-@login_required
-def add_activity():
-    activity = models.Activity()
-    activity_form = forms.NewActivityForm(obj=activity)
-    if activity_form.validate_on_submit():
-        activity_form.populate_obj(activity)
-        db.session.add(activity)
-        db.session.commit()
-    return render_template('add_activity.html', activity_form = activity_form)
 
 @tgeni.route('/itineraries', methods = ['GET', 'POST'])
 @login_required
