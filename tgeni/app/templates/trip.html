@@ -19,7 +19,7 @@
             <section id="cd-intro">
                   <div id="cd-intro-tagline">
                         <h1>Edit Trip</h1>
-                        <a href="" class="cd-btn">Mark Complete</a>
+                        <!-- <a href="" class="cd-btn">Mark Complete</a> -->
                   </div> <!-- #cd-intro-tagline -->
             </section> <!-- #cd-intro -->
       </header>
@@ -77,13 +77,15 @@
                               {% for error in form.about.errors %}
                               <span style="color: red;">[{{error}}]</span>
                               {% endfor %}<br>
+                              <label>This trip is complete!</label>
+                              {{ form.complete }}<br>
                         </div>
-                        <p><input type="submit" value="Save" href="" class="sbutton" style="text-align:center;margin-top:60px;"> </p>
+                        <p><input type="submit" value="Save" class="cd-btn"> </p>
                   </form>
             </section> <!-- #cd-placeholder-1 -->
 
             <section id="cd-placeholder-2" class="cd-section cd-container">
-
+                  <h2>Activities</h2>
                   <div>
                         {% if saved_activities %}
                         <ul>
