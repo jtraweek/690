@@ -123,7 +123,7 @@ Intro
 -------------------------------- */
 
 #cd-intro {
-  background: url(trees.jpg) no-repeat center center;
+  background: url('fonts/trees.jpg') no-repeat center center;
   z-index: 2;
   margin: 0 auto;
   background-size: 100% 100%;
