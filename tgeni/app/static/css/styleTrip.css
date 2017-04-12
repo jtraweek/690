@@ -7,12 +7,13 @@ Primary style
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  outline: none;
 }
 
 body {
   font-family: 'Roboto';
-  color: #77878F;
-  background-color: #F0ECEB;
+  color:#577EC3;
+  background-color: #E5E0CD;
   outline:none;
 }
 
@@ -24,17 +25,37 @@ input:hover{border:none;
             outline:none;
 			}
 
-textarea:hover{border:none;
-               outline:none;
-			   }
-
 h1{
 	font-family:"SummerHearts-Regular";
-	font-size:70px;
+	font-size:30px;
 	text-align:center;
 	letter-spacing:16px;
+	color:white;
 	
 }
+::-webkit-scrollbar {
+    width: 9px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(99, 170, 188, 1); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(139, 157, 99, 1); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(139, 157, 99, 1); 
+}
+
+
 
 /* -------------------------------- 
 
@@ -46,6 +67,7 @@ Modules - reusable parts of our design
   width: 90%;
   max-width: 768px;
   margin: 0 auto;
+  
 }
 .cd-container:after {
   content: "";
@@ -53,9 +75,6 @@ Modules - reusable parts of our design
   clear: both;
 }
 
-.has-top-margin {
-  /* this class is given - using jQuery - to the .cd-main-content following the .cd-secondary-nav when it becomes fixed */
-}
 @media only screen and (min-width: 1170px) {
   .has-top-margin {
     -webkit-animation: animate-margin-top 0.3s;
@@ -93,6 +112,10 @@ Modules - reusable parts of our design
   }
 }
 
+#mark:active{color:#E6D969;border-color:#E6D969;}
+#mark:hover{color:#E6D969;border-color:#E6D969;}
+#del:active{color:#E6D969;border-color:#E6D969;}
+#del:hover{color:#E6D969;border-color:#E6D969;}
 /* -------------------------------- 
 
 Intro
@@ -100,11 +123,14 @@ Intro
 -------------------------------- */
 
 #cd-intro {
-  position: relative;
-  height: 100px;
-  background: #CCCACA center center;
-  background-size: cover;
+  background: url(trees.jpg) no-repeat center center;
   z-index: 2;
+  margin: 0 auto;
+  background-size: 100% 100%;
+
+   
+  
+   
 }
 #cd-intro #cd-intro-tagline {
   width: auto;
@@ -114,33 +140,23 @@ Intro
   margin: 0 auto;
   text-align: center;
   padding-top: 20px;
+}
 
-  
-}
-#cd-intro input {
-  color: #77878F;
-  width:400px;
-  text-align:center;
-  background:#CCCACA;
-  border:none;
-}
+
 
 
 @media only screen and (min-width: 768px) {
   #cd-intro {
-    height: 400px;
+    height: 80px;
   }
   #cd-intro #cd-intro-tagline {
     padding-top: 160px;
   }
-  #cd-intro input {
-    font-size: 32px;
-    font-size: 2rem;
-  }
+  
 }
 @media only screen and (min-width: 1170px) {
   #cd-intro {
-    height: 300px;
+    height: 180px; 
   }
   #cd-intro #cd-intro-tagline {
     padding-top: 5px;
@@ -169,12 +185,9 @@ Intro
 
 .foucs input,textarea{
 	border:none;
-	background:;
-	margin-left:30px;
 	font-family:"Roboto";
 	background:#F0ECEB;
     border:none;
-	opacity: 1;
     box-shadow: 0 3px 4px rgba(0, 0, 0, .15)
 }
 
@@ -199,49 +212,15 @@ Intro
 .cd-btn {
   display: inline-block;
   padding: 1em 1.8em;
-  background-color: rgba(119, 135, 143, 1);
-  margin-top: 1em;
+  background-color:transparent;
   border-radius: 5px;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #F0ECEB;
-}
-.no-touch .cd-btn:hover {
-  background-color: #77878F;
-}
-
-.sbutton{
-  background-color: rgba(119, 135, 143, 1);
-  border-radius: 5px;
-  color:#F0ECEB;
-  padding: 0.7em 1.8em;
-  text-align:center;
-  
-
-  
+  color: white;
+  font-weight:bold;
+  border:solid white 2px;
 }
 
-@media only screen and (min-width: 1170px) {
-  .cd-btn.is-hidden {
-    /* assign a position fixed and move outside the viewport (on the right) */
-    opacity: 0;
-    position: fixed;
-    right: -20%;
-    top: 0;
-    padding: .8em 1.2em;
-    margin: 14px 0 0;
-    -webkit-transition: right 0.3s, opacity 0.3s;
-    -moz-transition: right 0.3s, opacity 0.3s;
-    transition: right 0.3s, opacity 0.3s;
-  }
-  .cd-btn.is-hidden.slide-in {
-    /* slide in when the secondary nav gets fixed */
-    right: 5%;
-    opacity: 1;
-  }
-}
 
 /* -------------------------------- 
 
@@ -304,8 +283,8 @@ Secondary Fixed Navigation
 @media only screen and (min-width: 1170px) {
   .cd-secondary-nav {
     z-index: 1;
-    height: 100px;
-    background-color: rgba(170, 185, 189, 1);
+    height: 60px;
+    background-color: #B7C891;
     -webkit-transition: height 0.3s;
     -moz-transition: height 0.3s;
     transition: height 0.3s;
@@ -335,7 +314,6 @@ Secondary Fixed Navigation
     position: relative;
     text-align: center;
     display: block;
-    padding: 58px 40px 0 40px;
     border-bottom: none;
     -webkit-transition: padding 0.2s;
     -moz-transition: padding 0.2s;
@@ -489,10 +467,6 @@ Secondary Fixed Navigation
 Placeholder Sections
 
 -------------------------------- */
-.cd-section {
-  margin: 0 auto;
-  padding: 2em 0;
-}
 .cd-section h2 {
   font-size: 20px;
   font-size: 1.25rem;
@@ -505,7 +479,7 @@ Placeholder Sections
 @media only screen and (min-width: 1170px) {
   .cd-section {
     margin: 0 auto;
-    padding: 4em 0;
+    padding: 1.3em 0;
   }
   .cd-section h2 {
     font-size: 30px;
@@ -607,7 +581,6 @@ Placeholder Sections
 }
 
 .contents {
-  padding: 20px;
   margin:0;
 }
 .slide-up, .slide-down {
@@ -632,7 +605,6 @@ Placeholder Sections
 	overflow: visible;
 	-webkit-transition: color 0.7s;
 	transition: color 0.7s;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .box{float:right;}
@@ -644,11 +616,13 @@ form
   display: block;
   overflow: hidden;
   background: transparent;
-  border: 1px solid #77878F;
+  border: 3px solid #4D6080;
   font-size: 0;
   font-family:"Roboto";
+  width:90%;
 }
 
+.form2{width: width:90%; }
 @media(min-width:800px){
   form > div {
     display: inline-block;
@@ -667,17 +641,16 @@ form > div > label
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #77878F;
+  color: #577EC3; 
   cursor: pointer;
 }
 
 form > div.col-2, form > div.col-3, form > div.col-4 { 
-  border-bottom: 1px solid #77878F;
   font-family:"Roboto";
 }
 
 @media(min-width: 800px){
-  form > div.col-2, form > div.col-3, form > div.col-4 { box-shadow: 1px 1px #AAB9BD; border: none; font-family:"Roboto";}  
+  form > div.col-2, form > div.col-3, form > div.col-4 { box-shadow: 1.6px 1px #4D6080; border: none; font-family:"Roboto";}  
 }
 
 @media(min-width:800px){
@@ -707,17 +680,15 @@ form > div > label > input
 #col-submit {
   font-family:"Roboto";
   font-size: 14px;
-  color: #F0ECEB;
+  color: #577EC3; 
   cursor: pointer;
-  border: 0;
+  border:solid 2px #577EC3;
   text-transform: uppercase;
-  background-color: rgba(119, 135, 143, 1);
   border-radius: 5px;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  -moz-osx-font-smoothing: grayscale;}
+  
+#col-submit:hover{color:#B7C891;border-color:#B7C891;}
 
 
 form > div.col-submit button:hover {
@@ -748,18 +719,16 @@ form > div > label > input:focus, form > div > label > select:focus
 
 .text{
   display: inline-block;
-  position: relative;
   width: 140%;
-  height: 47px;
+  height: 56px;
   line-height: 27px;
   border: none;
-  outline: none;
   border-radius: 3px;
   background: transparent;
   font-size: 14px;
-  font-weight: 200;
-  opacity: .66;
   transition: opacity .3s, box-shadow .3s;
   font-family:"Roboto";	
-	
-}
+  resize: none;
+  overflow: auto;
+  margin-right:50px;}
+  
