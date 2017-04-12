@@ -2,7 +2,7 @@ import app.models           as models
 
 from flask_wtf              import FlaskForm
 from wtforms                import (StringField, IntegerField, TextAreaField,
-                                    PasswordField)
+                                    PasswordField, BooleanField)
 from wtforms.validators     import (DataRequired, Email)
 
 
@@ -53,10 +53,10 @@ class NewTripForm(FlaskForm):
     location = StringField('location')
     about    = TextAreaField('about')
     length   = IntegerField('length')
+    complete = BooleanField('complete')
 
 class NewActivityForm(FlaskForm):
     title = StringField('activity_title', validators=[DataRequired()])
     location = StringField('activity_location')
     length = StringField('activity_length')
     description = TextAreaField('activity_description')
-    
