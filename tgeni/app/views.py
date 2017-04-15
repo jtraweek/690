@@ -95,7 +95,7 @@ def index():
 def add_trip(trip_id=None):
     trip = models.Trip.query.get(trip_id) if trip_id else models.Trip()
     activity = models.Activity()
-    saved_activities = trip.activities if trip.activities else []
+    saved_activities = queries.get_sorted_activities(trip)
     form = forms.NewTripForm(obj=trip)
     activity_form = forms.NewActivityForm(obj=activity)
     if form.validate_on_submit(): # handles POST?
