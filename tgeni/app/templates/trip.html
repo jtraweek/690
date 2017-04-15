@@ -40,51 +40,54 @@
             {% endif %}
       </div>
 
-      <form class="tc" action="" method="post" name="add_activity">
-            {{ activity_form.hidden_tag() }}
+      
+	  <form class="form2">
+			{{ activity_form.hidden_tag() }}
 
-            <div class="col-3">
-                  <label>
-                        Activity Name:
-                        {{ activity_form.title(size=80, placeholder = "What is your activity?")}}
-                        {% for error in activity_form.title.errors %}
-                        <span style="color: red;">[{{error}}]</span>
-                        {% endfor %}<br>
-                  </label>
-            </div>
-
-            <div class="col-3">
-                  <label>
-                        Where?
-                        {{ activity_form.location(size=80, placeholder = "Where is it going to be?") }}
-                        {% for error in activity_form.location.errors %}
-                        <span style="color: red;">[{{error}}]</span>
-                        {% endfor %}<br>
-                  </label>
-            </div>
-
-            <div class="col-3">
-                  <label>
-                        When?
+			<div class="col-3">
+							<label>
+							  Activity Name:
+							  {{ activity_form.title(placeholder = "What is your activity?")}}
+							  {% for error in activity_form.title.errors %}
+							  <span style="color: red;">[{{error}}]</span>
+							  {% endfor %}<br>
+							</label>
+						  </div>
+						  
+						  <div class="col-3">
+							<label>
+							Location:
+							  {{ activity_form.location(size=80, placeholder = "Where is it going to be?") }}
+							 {% for error in activity_form.location.errors %}
+							 <span style="color: red;">[{{error}}]</span>
+							{% endfor %}<br>
+							</label>
+						  </div>
+						  
+						  <div class="col-3">
+							<label>
+							 Date:
                         {{ activity_form.length(size=3, placeholder = "mm\dd\yy") }}
                         {% for error in activity_form.length.errors %}
                         <span style="color: red;">[{{error}}]</span>
                         {% endfor %}<br>
-                  </label>
-            </div>
-
-            <div>
-                  <label>
-                        Care to share more? <br>
-                        {{ activity_form.description(columns=80, rows=10, placeholder = "Description of activity") }}
+							</label>
+						  </div>
+						  
+						  <div>
+							<label>
+							   Care to share more? <br>
+                        {{ activity_form.description(rows = '5', cols = '68', placeholder = "Description of activity", style= "background-color: #E5E0CD") }}
                         {% for error in activity_form.description.errors %}
                         <span style="color: red;">[{{error}}]</span>
                         {% endfor %}<br>
-                  </label>
-            </div>
-            <p><input type="submit" value="Add Activity"class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:20px;"></p>
-
-      </form>
+							</label>
+						  </div>
+						  
+							<button type="submit" value="Submit" class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:30px;">Add Activity</button>
+						  
+						  
+            </form>
 
 </section> <!-- #cd-placeholder-2 -->
 
