@@ -93,7 +93,15 @@ def index():
 @tgeni.route('/edit_trip/<trip_id>', methods = ['GET', 'POST'])
 @login_required
 def add_trip(trip_id=None):
-    trip = models.Trip.query.get(trip_id) if trip_id else models.Trip()
+    if trip_id:
+        trip = models.Trip.query.get(trip_id)
+        if trip and trip in current_user.trips:
+            new_trip = False
+        else:
+            return flask.abort(401)
+    else:
+        trip = models.Trip()
+        new_trip = True
     activity = models.Activity()
     saved_activities = queries.get_sorted_activities(trip)
     form = forms.NewTripForm(obj=trip)
@@ -104,14 +112,22 @@ def add_trip(trip_id=None):
         db.session.add(trip)
         db.session.commit()
         trip_id = trip.trip_id
-        return redirect(url_for('add_trip', trip_id=trip_id))
+        return redirect(url_for('add_trip',
+                                    trip_id=trip_id,
+                                    new_trip=new_trip))
     elif activity_form.validate_on_submit():
-        activity.trip_id = trip_id
         activity_form.populate_obj(activity)
         db.session.add(activity)
+        trip.activities.append(activity)
         db.session.commit()
-        return redirect(url_for('add_trip', trip_id=trip_id))
-    return render_template('trip.html', form=form, activity_form=activity_form, saved_activities=saved_activities)
+        return redirect(url_for('add_trip',
+                                    trip_id=trip_id,
+                                    new_trip=new_trip))
+    return render_template('trip.html',
+                            form=form,
+                            activity_form=activity_form,
+                            saved_activities=saved_activities,
+                            new_trip=new_trip)
 
 @tgeni.route('/itineraries', methods = ['GET', 'POST'])
 @login_required
