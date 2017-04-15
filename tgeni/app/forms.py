@@ -49,14 +49,14 @@ class RegisterForm(FlaskForm):
 
 
 class NewTripForm(FlaskForm):
-    title    = StringField('title', validators=[DataRequired()])
-    location = StringField('location')
-    about    = TextAreaField('about')
-    length   = IntegerField('length')
-    complete = BooleanField('complete')
+    title    = StringField('Trip Name', validators=[DataRequired()])
+    location = StringField('Location')
+    about    = TextAreaField('Care to Show any Focus?')
+    length   = IntegerField('Number of Days')
+    complete = BooleanField('This Trip is Complete!')
 
 class NewActivityForm(FlaskForm):
     title = StringField('activity_title', validators=[DataRequired()])
     location = StringField('activity_location')
-    length = StringField('activity_length')
+    length = StringField('activity_length', validators=[DataRequired()])
     description = TextAreaField('activity_description')
