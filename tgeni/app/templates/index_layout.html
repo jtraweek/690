@@ -45,11 +45,9 @@
     {% if current_user.is_authenticated %}
     <nav>
       <ul class="cd-primary-nav">
-        <li><a href="{{ url_for('index') }}">Home</a></li>
         <li><a href="{{ url_for('add_trip') }}">New Trip</a></li>
+		<li><a href="{{ url_for('itineraries') }}">My Itineraries</a></li>
         <li><a href="#0">Discover Trips</a></li>
-        <li><a href="{{ url_for('itineraries') }}">Itinerary</a></li>
-        <li><a href="#0">Account</a></li>
         <li><a href="#0">About Us</a></li>
       </ul>
     </nav>
