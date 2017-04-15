@@ -17,7 +17,7 @@
 
 						<div class="filter">
 						<a href="{{ url_for('index') }}"><img src="static/css/Travel Geni.png" alt="Mountain View" style="width:130px;left:-20px;top:0;position:absolute;"></a><br><br><br>
-							<span class="topic">My Itineraries</span><br>
+							<span class="topic">Discover Trips</span><br>
 
 						</div>
 
@@ -32,16 +32,7 @@
                         </form>
 						</div><br>
 						<!-- trigger button -->
-						
-						<div class="dropdown2">
-						  <button class="dropbtn">Sort</button>
-						  <div class="dropdown-content">
-							<a href="#">Newest</a>
-							<a href="#">Oldest</a>
-						  </div>
-						</div>
-						
-						<!-- dropdown menu -->
+
 
 					    </div>
 
@@ -51,16 +42,13 @@
 
 				<section class="grid">
 
-                              {% for trip in current_user.trips %}
-					<a class="grid__item" href="{{ url_for('add_trip',trip_id = trip.trip_id) }}">
+                              {% for trip in trips %}
+					<a class="grid__item" href="">
 						<h2 class="title title--preview">{{ trip.title }}</h2>
 						<div class="loader"></div>
 						<span class="category">{{ trip.location }}</span>
 					</a>
-					
-					<div style="border:solid 1px #8EA86C; width:35px; height:35px;color:#ffffff;font-size:26px;background-color:#8EA86C; opacity:0.5;text-align:center;"><a href="{{ url_for('index') }}"class="fa fa-trash" aria-hidden="true" ></a></div>	
-
-                              {% endfor %}<br><br><br>
+                              {% endfor %}
 
 				</section>
 			</div>
