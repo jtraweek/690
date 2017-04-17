@@ -175,3 +175,21 @@ def search_trip_by_location(location_like):
         flash('Trips was found successfully', 'success')
     #don't know the real html file for search_trip func
     return render_template('trip_search.html', trips)
+    
+
+@tgeni.route('/trip/<int:activity_id>', methods = ['GET', 'POST'])
+@login_required
+def delete_activity(activity_id): 
+    activity = models.Activity.query.get(activity_id)
+    if not activity:
+        flask.abort(404)
+    if request.method == 'POST':
+        db.session.delete(activity)
+        db.session.commit()
+        flash('Activity was successfully deleted')
+        return redirect(url_for('trip.html'))
+    return render_template('trip.html', activity = activity, activity_id = activity_id)
+    
+        
+    
+    
