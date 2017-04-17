@@ -15,3 +15,4 @@ instance/
 tgeni/tmp
 tgeni/coverage
 .coverage
+tgeni/app/templates/Trip1.html

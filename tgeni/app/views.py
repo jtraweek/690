@@ -123,7 +123,7 @@ def add_trip(trip_id=None):
         return redirect(url_for('add_trip',
                                     trip_id=trip_id,
                                     new_trip=new_trip))
-    return render_template('trip.html',
+    return render_template('Trip1.html',
                             form=form,
                             activity_form=activity_form,
                             saved_activities=saved_activities,
@@ -132,6 +132,9 @@ def add_trip(trip_id=None):
 @tgeni.route('/itineraries', methods = ['GET', 'POST'])
 @login_required
 def itineraries():
+    """
+    Displays all trips a user has created.
+    """
     return render_template('itineraries.html')
 
 @tgeni.route('/complete_trip/<trip_id>', methods = ['GET', 'POST'])
@@ -148,8 +151,25 @@ def complete_trip(trip_id):
         return redirect(url_for('itineraries'))
     else:
         return flask.abort(401)
+        
+@tgeni.route('/discover_trips', methods = ['GET', 'POST'])
+@login_required
+def discover_trips():
+    """
+    Displays all trips that are marked complete
+    """
+    return render_template('discover_trips.html')
 
-@tgeni.route('/admin/delete/<int:trip_id>', methods=['GET','POST'])
+@tgeni.route('/view_complete_trip/<trip_id>')
+@login_required
+def view_complete_trip(trip_id):
+    trip = models.Trip.query.get(trip_id)
+    return render_template('view_complete_trip.html', trip = trip)
+###########################################################################
+#
+#    Functions to be integrated
+#
+@tgeni.route('/delete_trip/<trip_id>', methods=['GET','POST'])
 @login_required
 def delete_trip(trip_id):
     trip = models.Trip.query.get(trip_id)
@@ -158,9 +178,8 @@ def delete_trip(trip_id):
     if request.method == 'POST':
         db.session.delete(trip)
         db.session.commit()
-        flash('Trip was deleted successfully', 'success')
-        return redirect(url_for('index.html'))
-    return render_template('trip_delete.html', trip_title=trip.title, trip_id=trip_id)
+        return redirect(url_for('itineraries'))
+    return render_template('itineraries', trip_id=trip_id)
 
 #dmitriy for trip search by location
 def search_trip_by_location(location_like):

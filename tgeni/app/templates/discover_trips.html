@@ -42,13 +42,16 @@
 
 				<section class="grid">
 
-                              {% for trip in trips %}
-					<a class="grid__item" href="">
+                              { {% for trip in current_user.trips %}
+					<a class="grid__item" href="{{ url_for('view_complete_trip',trip_id = trip.trip_id) }}">
 						<h2 class="title title--preview">{{ trip.title }}</h2>
 						<div class="loader"></div>
 						<span class="category">{{ trip.location }}</span>
 					</a>
-                              {% endfor %}
+					
+					<div style="border:solid 1px #8EA86C; width:35px; height:35px;color:#ffffff;font-size:26px;background-color:#8EA86C; opacity:0.5;text-align:center;"><a href="{{ url_for('index') }}"class="fa fa-trash" aria-hidden="true" ></a></div>	
+
+                              {% endfor %}<br><br><br>
 
 				</section>
 			</div>
