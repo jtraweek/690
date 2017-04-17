@@ -51,40 +51,53 @@
 	<main class="cd-main-content">
 		<section id="cd-placeholder-1" class="cd-section cd-container">
 			<h2>Trip focus</h2>
-			
-			<body>
-						  <div class="col-3">
-							<label>
-							  Trip Name
-							<br>
-							{{ trip.title }}
-							  </label>
-						  </div>
-						  
-						  <div class="col-3">
-							<label>
-							  Location
-							<br>
-							{{ trip.location }}
-							</label> 
-						  </div>
-						  
-						  <div class="col-3">
-							<label>
-							  Length Of stay
-							<br>
-							{{ trip.length }}
-							 </label> 
-						  </div>
-						  
-						  <div>
-							<label>
-							  Any Trip Focus?
-							<br>
-							{{ trip.about }}
-							  </label>
-						  </div>
-            </body>
+			<form action="" name="add_trip">
+				{{ form.hidden_tag() }}
+
+				<div class="col-3">
+					<label>
+						Trip Name
+						<br>
+						{{ form.title(readonly=true, style= "background-color: #E5E0CD")}}
+						{% for error in form.title.errors %}
+						<span style="color: red;">[{{error}}]</span>
+						{% endfor %}<br>
+					</label>
+				</div>
+
+				<div class="col-3">
+					<label>
+						Location
+						<br>
+						{{ form.location(readonly=true, style= "background-color: #E5E0CD")}}
+						{% for error in form.location.errors %}
+						<span style="color: red;">[{{error}}]</span>
+						{% endfor %}<br>
+					</label>
+				</div>
+
+				<div class="col-3">
+					<label>
+						Length Of stay
+						<br>
+						{{ form.length(readonly=true, style= "background-color: #E5E0CD")}}
+						{% for error in form.length.errors %}
+						<span style="color: red;">[{{error}}]</span>
+						{% endfor %}<br>
+					</label>
+				</div>
+
+				<div>
+					<label>
+						Any Trip Focus?
+						<br>
+						{{ form.about(rows = '5', cols = '93', readonly=true, style= "background-color: #E5E0CD")|safe}}
+						{% for error in form.about.errors %}
+						<span style="color: red;">[{{error}}]</span>
+						{% endfor %}<br>
+					</label>
+				</div>
+			</form>
 			
 		</section> <!-- #cd-placeholder-1 -->
         

@@ -132,8 +132,7 @@ def add_trip(trip_id=None):
 @tgeni.route('/itineraries', methods = ['GET', 'POST'])
 @login_required
 def itineraries():
-    """
-    Displays all trips a user has created.
+    """ Displays all trips a user has created.
     """
     return render_template('itineraries.html')
 
@@ -155,16 +154,19 @@ def complete_trip(trip_id):
 @tgeni.route('/discover_trips', methods = ['GET', 'POST'])
 @login_required
 def discover_trips():
-    """
-    Displays all trips that are marked complete
+    """Displays all trips that are marked complete
     """
     return render_template('discover_trips.html')
 
 @tgeni.route('/view_complete_trip/<trip_id>')
 @login_required
 def view_complete_trip(trip_id):
+    """Displays information for a trip that has been marked complete
+    """
     trip = models.Trip.query.get(trip_id)
-    return render_template('view_complete_trip.html', trip = trip)
+    form = forms.NewTripForm(obj=trip)
+    saved_activities = queries.get_sorted_activities(trip)
+    return render_template('view_complete_trip.html', trip = trip, form = form, saved_activities = saved_activities)
 ###########################################################################
 #
 #    Functions to be integrated
