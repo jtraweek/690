@@ -168,22 +168,25 @@ def view_complete_trip(trip_id):
     form = forms.NewTripForm(obj=trip)
     saved_activities = queries.get_sorted_activities(trip)
     return render_template('view_complete_trip.html', trip = trip, form = form, saved_activities = saved_activities)
+
+@tgeni.route('/delete_trip/<trip_id>', methods=['GET','POST'])
+@login_required
+def delete_trip(trip_id):
+    """Deletes trip from database
+    """
+    trip = models.Trip.query.get(trip_id)
+    if not trip:
+        flask.abort(404)
+    else:
+        db.session.delete(trip)
+        db.session.commit()
+        return redirect(url_for('itineraries'))
+    return redirect(url_for('itineraries'))
+    
 ###########################################################################
 #
 #    Functions to be integrated
 #
-@tgeni.route('/delete_trip/<trip_id>', methods=['GET','POST'])
-@login_required
-def delete_trip(trip_id):
-    trip = models.Trip.query.get(trip_id)
-    if not trip:
-        flask.abort(404)
-    if request.method == 'POST':
-        db.session.delete(trip)
-        db.session.commit()
-        return redirect(url_for('itineraries'))
-    return render_template('itineraries', trip_id=trip_id)
-
 #dmitriy for trip search by location
 def search_trip_by_location(location_like):
 
