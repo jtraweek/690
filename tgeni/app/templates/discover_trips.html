@@ -42,7 +42,7 @@
 
 				<section class="grid">
 
-                              { {% for trip in current_user.trips %}
+                              { {% for trip in trips %}
 					<a class="grid__item" href="{{ url_for('view_complete_trip',trip_id = trip.trip_id) }}">
 						<h2 class="title title--preview">{{ trip.title }}</h2>
 						<div class="loader"></div>

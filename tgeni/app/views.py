@@ -156,7 +156,8 @@ def complete_trip(trip_id):
 def discover_trips():
     """Displays all trips that are marked complete
     """
-    return render_template('discover_trips.html')
+    trips= models.Trip.query.filter_by(complete = True)
+    return render_template('discover_trips.html', trips = trips)
 
 @tgeni.route('/view_complete_trip/<trip_id>')
 @login_required
