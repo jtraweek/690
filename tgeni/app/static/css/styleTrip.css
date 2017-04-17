@@ -1,4 +1,4 @@
-/* -------------------------------- 
+/* --------------------------------
 
 Primary style
 
@@ -31,33 +31,33 @@ h1{
 	text-align:center;
 	letter-spacing:16px;
 	color:white;
-	
+
 }
 ::-webkit-scrollbar {
     width: 9px;
 }
- 
+
 /* Track */
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(99, 170, 188, 1); 
+    -webkit-box-shadow: inset 0 0 6px rgba(99, 170, 188, 1);
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: rgba(139, 157, 99, 1); 
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    background: rgba(139, 157, 99, 1);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-	background: rgba(139, 157, 99, 1); 
+	background: rgba(139, 157, 99, 1);
 }
 
 
 
-/* -------------------------------- 
+/* --------------------------------
 
 Modules - reusable parts of our design
 
@@ -67,7 +67,7 @@ Modules - reusable parts of our design
   width: 90%;
   max-width: 768px;
   margin: 0 auto;
-  
+
 }
 .cd-container:after {
   content: "";
@@ -116,7 +116,7 @@ Modules - reusable parts of our design
 #mark:hover{color:#E6D969;border-color:#E6D969;}
 #del:active{color:#E6D969;border-color:#E6D969;}
 #del:hover{color:#E6D969;border-color:#E6D969;}
-/* -------------------------------- 
+/* --------------------------------
 
 Intro
 
@@ -128,9 +128,9 @@ Intro
   margin: 0 auto;
   background-size: 100% 100%;
 
-   
-  
-   
+
+
+
 }
 #cd-intro #cd-intro-tagline {
   width: auto;
@@ -152,11 +152,11 @@ Intro
   #cd-intro #cd-intro-tagline {
     padding-top: 160px;
   }
-  
+
 }
 @media only screen and (min-width: 1170px) {
   #cd-intro {
-    height: 180px; 
+    height: 180px;
   }
   #cd-intro #cd-intro-tagline {
     padding-top: 5px;
@@ -174,13 +174,13 @@ Intro
 .tc{
 	border:none;
 	text-align:center;
-	
-	
+
+
 }
 .foucs{
 	text-align:left;
-	
-	
+
+
 }
 
 .foucs input,textarea{
@@ -222,7 +222,7 @@ Intro
 }
 
 
-/* -------------------------------- 
+/* --------------------------------
 
 Secondary Fixed Navigation
 
@@ -326,7 +326,7 @@ Secondary Fixed Navigation
     font-weight: 700;
     color: rgba(240, 236, 235, 1);
   }
-  
+
   .cd-secondary-nav li a:hover b, .cd-secondary-nav li a.active b {
     color: #f0eee1;
   }
@@ -462,7 +462,7 @@ Secondary Fixed Navigation
   }
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
 Placeholder Sections
 
@@ -502,7 +502,7 @@ Placeholder Sections
   text-align:center;
   margin-top:20px;
 
-  
+
 
 
 }
@@ -515,7 +515,7 @@ Placeholder Sections
   margin-right: 8px;
   width: 200px;
   height: 100px;
- 
+
 }
 
 
@@ -524,16 +524,16 @@ Placeholder Sections
   max-width: 100%;
   height: auto;
   transition: transform .2s ease-in-out;
-  
+
 }
 
 .gallery {
    width: 1000px;
    margin: 50px auto;
    text-align:center;
-   
+
 }
- 
+
 .buddies {
    list-style: none;
    text-align:center;
@@ -547,7 +547,7 @@ Placeholder Sections
    overflow: hidden;
     position: relative;
     border-radius: 50%;
-	
+
    -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
 	   border-radius: 50%;
@@ -590,9 +590,9 @@ Placeholder Sections
   transform: translateY(-100%);
   transition: .4s ease-in-out;
 }
-.slide-down > div {            
+.slide-down > div {
   transform: translateY(0);
-} 
+}
 
 
 .cbutton {
@@ -641,19 +641,20 @@ form > div > label
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #577EC3; 
+  color: #577EC3;
   cursor: pointer;
 }
 
-form > div.col-2, form > div.col-3, form > div.col-4 { 
+form > div.col-1, form > div.col-2, form > div.col-3, form > div.col-4 {
   font-family:"Roboto";
 }
 
 @media(min-width: 800px){
-  form > div.col-2, form > div.col-3, form > div.col-4 { box-shadow: 1.6px 1px #4D6080; border: none; font-family:"Roboto";}  
+  form > div.col-1, form > div.col-2, form > div.col-3, form > div.col-4 { box-shadow: 1.6px 1px #4D6080; border: none; font-family:"Roboto";}
 }
 
 @media(min-width:800px){
+  form > div.col-1 { width: 100% }
   form > div.col-2 { width: 50% }
   form > div.col-3 { width: 33.3333333333% }
   form > div.col-4 { width: 25% }
@@ -680,14 +681,14 @@ form > div > label > input
 #col-submit {
   font-family:"Roboto";
   font-size: 14px;
-  color: #577EC3; 
+  color: #577EC3;
   cursor: pointer;
   border:solid 2px #577EC3;
   text-transform: uppercase;
   border-radius: 5px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;}
-  
+
 #col-submit:hover{color:#B7C891;border-color:#B7C891;}
 
 
@@ -727,8 +728,7 @@ form > div > label > input:focus, form > div > label > select:focus
   background: transparent;
   font-size: 14px;
   transition: opacity .3s, box-shadow .3s;
-  font-family:"Roboto";	
+  font-family:"Roboto";
   resize: none;
   overflow: auto;
   margin-right:50px;}
-  

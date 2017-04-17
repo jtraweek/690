@@ -5,10 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/reset.css') }}"> <!-- CSS reset -->
-    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styleTrip.css') }}"> <!-- Resource style -->
-	<href= "{{ url_for('static',filename='js/mainTrip.js') }}"> 
+	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styleTrip.css') }}"> <!-- Resource style -->
+	<href= "{{ url_for('static',filename='js/mainTrip.js') }}">
 	<href= "{{ url_for('static',filename='js/jquery-2.1.1.js') }}">
 
 
@@ -16,17 +16,17 @@
 </head>
 <body>
 	<header>
-	<section id="cd-intro">
-		<div id="cd-intro-tagline">
-			<a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='css/fonts/Travel Geni.png') }}" alt="Mountain View" style="width:130px;left:-120px;top:0;position:absolute;"></a>
+		<section id="cd-intro">
+			<div id="cd-intro-tagline">
+				<a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='css/fonts/Travel Geni.png') }}" alt="Mountain View" style="width:130px;left:-120px;top:0;position:absolute;"></a>
 
-		     <h1 style="top:0;">Edit Trip</h1>
-			<a href="" class="cd-btn" id="mark">Mark Trip Complete</a>
+				<h1 style="top:0;">Edit Trip</h1>
+				<a href="" class="cd-btn" id="mark">Mark Trip Complete</a>
 
 
-		</div> <!-- #cd-intro-tagline -->
-	</section> <!-- #cd-intro -->
-</header>
+			</div> <!-- #cd-intro-tagline -->
+		</section> <!-- #cd-intro -->
+	</header>
 	<div class="cd-secondary-nav">
 		<a href="#0" class="cd-secondary-nav-trigger">Menu<span></span></a> <!-- button visible on small devices -->
 		<nav style="height:20px;">
@@ -51,223 +51,199 @@
 	</div> <!-- .cd-secondary-nav -->
 	<main class="cd-main-content">
 		<section id="cd-placeholder-1" class="cd-section cd-container">
-			<h2>Trip focus</h2>
-			
-			<form action="" method="post" name="add_trip">
-			{{ form.hidden_tag() }}
+			<h2>Trip Focus</h2>
 
-						  <div class="col-3">
-							<label>
-							  Trip Name
-							<br>
-							  {{ form.title(placeholder = "What is the name of your trip?", style= "background-color: #E5E0CD")}}
-                              {% for error in form.title.errors %}
-                              <span style="color: red;">[{{error}}]</span>
-                              {% endfor %}<br>
-							  </label>
-						  </div>
-						  
-						  <div class="col-3">
-							<label>
-							  Location
-							<br>
-							  {{ form.location(placeholder = "Where are you going?", style= "background-color: #E5E0CD")}}
-                              {% for error in form.location.errors %}
-                              <span style="color: red;">[{{error}}]</span>
-                              {% endfor %}<br>
-							</label> 
-						  </div>
-						  
-						  <div class="col-3">
-							<label>
-							  Length Of stay
-							<br>
-							  {{ form.length(placeholder = "How many days?", style= "background-color: #E5E0CD")}}
-                              {% for error in form.length.errors %}
-                              <span style="color: red;">[{{error}}]</span>
-                              {% endfor %}<br>
-							 </label> 
-						  </div>
-						  
-						  <div>
-							<label>
-							  Any Trip Focus?
-							<br>
-							  {{ form.about(rows = '5', cols = '75', placeholder = "Description of activity", style= "background-color: #E5E0CD")|safe}}
-                              {% for error in form.about.errors %}
-                              <span style="color: red;">[{{error}}]</span>
-                              {% endfor %}<br>
-							  </label>
-						  </div>
-						  
-							<button type="submit" value="Submit" class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:30px;">Save</button>
-						  
-						  
-            </form>
-			
-		</section> <!-- #cd-placeholder-1 -->
-        
-		<section id="cd-placeholder-2" class="cd-section cd-container">
-			<h2>Activities</h2>		
-						{% if saved_activities %}
-                        <ul>
-                              {% for activity in saved_activities %}
-                              <li>{{ activity.title }}</li>
-                              <ul>
-                                    <li>Location: {{ activity.location }}</li>
-                                    <li>When: {{ activity.length }} </li>
-                                    <li>Description: {{ activity.description }}</li>
-                              </ul>
-                              {% endfor %}
-                        </ul>
-                        {% endif %}
-					    
-						
-			<form class="form2" style="margin-top:20px;" action="" method="post" name="add_trip">
-			{{ form.hidden_tag() }}
-						  <div class="col-3">
-							<label>
-							  Activity Name:
-                                    {{ activity_form.title(size=80, placeholder = "What is your activity?")}}
-                                    {% for error in activity_form.title.errors %}
-                                    <span style="color: red;">[{{error}}]</span>
-                                    {% endfor %}<br>
-							</label>
-						  </div>
-						  
-						  <div class="col-3">
-							<label>
-							  Where?
-                                    {{ activity_form.location(placeholder = "Where is it going to be?") }}
-                                    {% for error in activity_form.location.errors %}
-                                    <span style="color: red;">[{{error}}]</span>
-                                    {% endfor %}<br>
-							</label>
-						  </div>
-						  
-						  <div class="col-3">
-							<label>
-							 When?
-                                    {{ activity_form.length(size=3, placeholder = "mm\dd\yy") }}
-                                    {% for error in activity_form.length.errors %}
-                                    <span style="color: red;">[{{error}}]</span>
-                                    {% endfor %}<br>
-							</label>
-						  </div>
-						  
-						  <div>
-							<label>
-							  Care to share more? <br><br>
-                                    {{ activity_form.description(rows = '5', cols = '68', placeholder = "Description of activity", style= "background-color: #E5E0CD")|safe }}
-                                    {% for error in activity_form.description.errors %}
-                                    <span style="color: red;">[{{error}}]</span>
-									{% endfor %}<br>
-							</label>
-						  </div>
-						  
-							<button type="submit" value="Submit" class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:50px;">Add Activity</button>
-						  
-						  
-            </form>
-						
-						
-				    </div>
+			<form action="" method="post" name="add_trip">
+				{{ form.hidden_tag() }}
+
+				<div class="col-3">
+					<label>
+						Trip Name
+						<br>
+						{{ form.title(placeholder = "What is the name of your trip?", style= "background-color: #E5E0CD")}}
+						{% for error in form.title.errors %}
+						<span style="color: red;">[{{error}}]</span>
+						{% endfor %}<br>
+					</label>
 				</div>
-			</div>
-           
-		</section> <!-- #cd-placeholder-2 -->
+
+				<div class="col-3">
+					<label>
+						Location
+						<br>
+						{{ form.location(placeholder = "Where are you going?", style= "background-color: #E5E0CD")}}
+						{% for error in form.location.errors %}
+						<span style="color: red;">[{{error}}]</span>
+						{% endfor %}<br>
+					</label>
+				</div>
+
+				<div class="col-3">
+					<label>
+						Length Of stay
+						<br>
+						{{ form.length(placeholder = "How many days?", style= "background-color: #E5E0CD")}}
+						{% for error in form.length.errors %}
+						<span style="color: red;">[{{error}}]</span>
+						{% endfor %}<br>
+					</label>
+				</div>
+
+				<div>
+					<label>
+						Any Trip Focus?
+						<br>
+						{{ form.about(rows = '5', cols = '75', placeholder = "Description of activity", style= "background-color: #E5E0CD")|safe}}
+						{% for error in form.about.errors %}
+						<span style="color: red;">[{{error}}]</span>
+						{% endfor %}<br>
+					</label>
+				</div>
+
+				<button type="submit" value="Submit" class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:30px;">Save</button>
+
+				<div class="col-1">
+					<label>
+						This trip is complete!
+						<br>
+						{{ form.complete }}<br>
+					</label>
+				</div>
+
+			</form>
+
+		</section> <!-- #cd-placeholder-1 -->
+
+{% if not new_trip %}
+
+		<section id="cd-placeholder-2" class="cd-section cd-container">
+			<h2>Activities</h2>
+			{% if saved_activities %}
+			<ul>
+				{% for activity in saved_activities %}
+				<li>{{ activity.title }}</li>
+				<ul>
+					<li>Location: {{ activity.location }}</li>
+					<li>When: {{ activity.length }} </li>
+					<li>Description: {{ activity.description }}</li>
+				</ul>
+				{% endfor %}
+			</ul>
+			{% endif %}
+
+			<form class="form2" style="margin-top:20px;" action="" method="post" name="add_trip">
+				{{ form.hidden_tag() }}
+				<div class="col-3">
+					<label>
+						Activity Name:
+						{{ activity_form.title(size=80, placeholder = "What is your activity?")}}
+						{% for error in activity_form.title.errors %}
+						<span style="color: red;">[{{error}}]</span>
+						{% endfor %}<br>
+					</label>
+				</div>
+
+				<div class="col-3">
+					<label>
+						Where?
+						{{ activity_form.location(placeholder = "Where is it going to be?") }}
+						{% for error in activity_form.location.errors %}
+						<span style="color: red;">[{{error}}]</span>
+						{% endfor %}<br>
+					</label>
+				</div>
+
+				<div class="col-3">
+					<label>
+						When?
+						{{ activity_form.length(size=3, placeholder = "mm\dd\yy") }}
+						{% for error in activity_form.length.errors %}
+						<span style="color: red;">[{{error}}]</span>
+						{% endfor %}<br>
+					</label>
+				</div>
+
+				<div>
+					<label>
+						Care to share more? <br><br>
+						{{ activity_form.description(rows = '5', cols = '68', placeholder = "Description of activity", style= "background-color: #E5E0CD")|safe }}
+						{% for error in activity_form.description.errors %}
+						<span style="color: red;">[{{error}}]</span>
+						{% endfor %}<br>
+					</label>
+				</div>
+
+				<button type="submit" value="Submit" class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:50px;">Add Activity</button>
+
+			</form>
+
+		</div>
+	</div>
+</div>
+
+</section> <!-- #cd-placeholder-2 -->
 
 <section id="cd-placeholder-3" class="cd-section cd-container">
-			<h2>Photos</h2>
-
+	<h2>Photos</h2>
 
 	<div class="grid-photos">
 		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2016/05/31/22/42/village-1428010_1280.jpg" alt="" class="img-grid">
+			<img src="https://cdn.pixabay.com/photo/2016/05/31/22/42/village-1428010_1280.jpg" alt="" class="img-grid">
 		</figure>
-	  
+
 		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2013/08/12/18/09/staniel-cay-yacht-club-171902_1280.jpg" alt="" class="img-grid">
+			<img src="https://cdn.pixabay.com/photo/2013/08/12/18/09/staniel-cay-yacht-club-171902_1280.jpg" alt="" class="img-grid">
 		</figure>
-	  
+
 		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2016/11/21/14/02/architecture-1845560_1280.jpg" alt="" class="img-grid">
+			<img src="https://cdn.pixabay.com/photo/2016/11/21/14/02/architecture-1845560_1280.jpg" alt="" class="img-grid">
 		</figure>
-	  
+
 		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2017/02/21/18/24/prague-2086967_1280.jpg" alt="" class="img-grid">
+			<img src="https://cdn.pixabay.com/photo/2017/02/21/18/24/prague-2086967_1280.jpg" alt="" class="img-grid">
 		</figure>
-	  
+
 		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2012/11/28/09/46/lava-67574_1280.jpg" alt="" class="img-grid">
+			<img src="https://cdn.pixabay.com/photo/2012/11/28/09/46/lava-67574_1280.jpg" alt="" class="img-grid">
 		</figure>
-	  
+
 		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2016/06/24/12/36/surf-1477175_1280.jpg" alt="" class="img-grid">
+			<img src="https://cdn.pixabay.com/photo/2016/06/24/12/36/surf-1477175_1280.jpg" alt="" class="img-grid">
 		</figure>
-	  
+
 		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2016/12/05/11/38/austria-1883647_1280.jpg" alt="" class="img-grid">
+			<img src="https://cdn.pixabay.com/photo/2016/12/05/11/38/austria-1883647_1280.jpg" alt="" class="img-grid">
 		</figure>
-	  
+
 		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2015/03/18/22/05/bora-bora-680115_1280.jpg" alt="" class="img-grid">
+			<img src="https://cdn.pixabay.com/photo/2015/03/18/22/05/bora-bora-680115_1280.jpg" alt="" class="img-grid">
 		</figure>
-	  
+
 		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2017/01/30/07/54/church-2020258_1280.jpg" alt="" class="img-grid">
+			<img src="https://cdn.pixabay.com/photo/2017/01/30/07/54/church-2020258_1280.jpg" alt="" class="img-grid">
 		</figure>
-	  
+
 		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2016/12/06/14/33/log-cabin-1886620_1280.jpg" alt="" class="img-grid">
+			<img src="https://cdn.pixabay.com/photo/2016/12/06/14/33/log-cabin-1886620_1280.jpg" alt="" class="img-grid">
 		</figure>
-		
+
 		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2017/02/22/16/50/multnomah-falls-2089902_1280.jpg" alt="" class="img-grid">
+			<img src="https://cdn.pixabay.com/photo/2017/02/22/16/50/multnomah-falls-2089902_1280.jpg" alt="" class="img-grid">
 		</figure>
-	  
+
 		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2010/12/23/12/58/horseshoe-bend-4040_1280.jpg" alt="" class="img-grid">
+			<img src="https://cdn.pixabay.com/photo/2010/12/23/12/58/horseshoe-bend-4040_1280.jpg" alt="" class="img-grid">
 		</figure>
-	  
+
 	</div>
-			
+
 </section> <!-- #cd-placeholder-3 -->
 
-	</main> <!-- .cd-main-content -->
-	
+{% endif %} <!-- not new_trip -->
+
+</main> <!-- .cd-main-content -->
+
 <script src="js/jquery-2.1.1.js"></script>
 <script src="js/mainTrip.js"></script> <!-- Resource jQuery -->
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
