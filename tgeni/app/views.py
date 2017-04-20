@@ -8,7 +8,8 @@ from flask import (Response, flash, redirect, render_template,
                    request, url_for)
 from flask_login import (login_required, login_user, logout_user, current_user)
 
-
+from sqlalchemy import desc
+from sqlalchemy import asc
 
 ##########################################################################
 #
@@ -215,6 +216,29 @@ def delete_activity(activity_id):
         return redirect(url_for('trip.html'))
     return render_template('trip.html', activity = activity, activity_id = activity_id)
     
+"""
+def search_trip_by_location(location_like):
+
+    sz_like="%"+location_like+"%"
+    trip = models.Trip.location.ilike(sz_like)
+    if trip and trip in current_user.trips:
+        trip.complete = True
+	    db.session.add(trip)
+	    db.session.commit()
+	    return redirect(url_for('itineraries'))
+	else:
+	    return flask.abort(401)
+"""
+
+def search_trip_by_location(location_like):
+    sz_like="%"+location_like+"%"
+    return current_user.trips.location.ilike(sz_like)
+
+def current_user_trip_orderby_desc():
+    return current_user.trips.order_by(desc(models.Trip.location))
+
+def current_user_trip_orderby_asc():
+    return current_user.trips.order_by(asc(models.Trip.location))
         
     
     
