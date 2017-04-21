@@ -35,11 +35,9 @@ def test():
 def cov():
     """Runs the unit tests with coverage.
     """
-    cov_report = coverage(branch=True, include='app/*')
+    cov_report = coverage(branch=True, include=['app/*', 'app/utils/*'])
     cov_report.start()
-    tests  = unittest.TestLoader().discover('.', pattern='test*.py')
-    result = unittest.TextTestRunner(verbosity=2).run(tests)
-    if result.wasSuccessful():
+    if test() == 0:
         cov_report.stop()
         cov_report.save()
         print('Coverage Report:')
@@ -48,7 +46,8 @@ def cov():
         cov_report.html_report(directory=directory)
         cov_report.erase()
         return 0
-    return 1
+    else:
+        return 1
 
 
 @manager.command

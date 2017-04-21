@@ -1,10 +1,11 @@
+coverage==4.3.4
 Flask==0.12
 Flask_Bcrypt==0.7.1
 Flask_Login==0.3.2
 Flask_Migrate==2.0.3
 Flask_Script==2.0.5
 Flask_SQLAlchemy==2.1
-Flask_Testing==0.6.2
+Flask-Uploads==0.2.1
 Flask_WTF==0.14.2
 SQLAlchemy==1.1.5
 WTForms==2.1

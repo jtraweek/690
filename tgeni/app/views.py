@@ -151,7 +151,7 @@ def complete_trip(trip_id):
         return redirect(url_for('itineraries'))
     else:
         return flask.abort(401)
-        
+
 @tgeni.route('/discover_trips', methods = ['GET', 'POST'])
 @login_required
 def discover_trips():
@@ -183,7 +183,7 @@ def delete_trip(trip_id):
         db.session.commit()
         return redirect(url_for('itineraries'))
     return redirect(url_for('itineraries'))
-    
+
 ###########################################################################
 #
 #    Functions to be integrated
@@ -201,11 +201,11 @@ def search_trip_by_location(location_like):
         flash('Trips was found successfully', 'success')
     #don't know the real html file for search_trip func
     return render_template('trip_search.html', trips)
-    
+
 
 @tgeni.route('/trip/<int:activity_id>', methods = ['GET', 'POST'])
 @login_required
-def delete_activity(activity_id): 
+def delete_activity(activity_id):
     activity = models.Activity.query.get(activity_id)
     if not activity:
         flask.abort(404)
@@ -215,7 +215,7 @@ def delete_activity(activity_id):
         flash('Activity was successfully deleted')
         return redirect(url_for('trip.html'))
     return render_template('trip.html', activity = activity, activity_id = activity_id)
-    
+
 """
 def search_trip_by_location(location_like):
 
@@ -239,6 +239,3 @@ def current_user_trip_orderby_desc():
 
 def current_user_trip_orderby_asc():
     return current_user.trips.order_by(asc(models.Trip.location))
-        
-    
-    

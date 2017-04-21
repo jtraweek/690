@@ -16,4 +16,6 @@ class Config(object):
 
 class TestConfig(Config):
     TESTING = True
+    BCRYPT_LOG_ROUNDS = 3
+    WTF_CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(TMPDIR, 'tgeni_test.sqlite3')
