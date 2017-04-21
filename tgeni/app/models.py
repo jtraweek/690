@@ -72,7 +72,7 @@ class Trip(db.Model):
                                 backref=db.backref('trips', lazy='dynamic'))
 
     def __repr__(self):
-        return "Trip %s" % self.trip_name
+        return "Trip %s" % self.title
 
     def mark_complete(self):
         self.complete = True
@@ -80,6 +80,16 @@ class Trip(db.Model):
     def invite(self, user):
         if user not in self.users:
             self.users.append(user)
+
+    def get_sorted_activities(self):
+        """ Returns the activities of a trip, sorted by date.
+        """
+        activities = self.activities
+        if activities:
+            sorted_activities = sorted(activities, key=lambda act: act.length)
+            return sorted_activities
+        else:
+            return []
 
 
 
@@ -98,3 +108,18 @@ class Activity(db.Model):
 
     def __repr__(self):
         return "Activity %s" % self.title
+
+
+
+########################################################################
+#   Store filepaths to photo files for a trip.
+#
+class TripPhoto(db.Model):
+    __tablename__ = 'trip_photo'
+    id          = db.Column(db.Integer,  primary_key=True)
+    filepath    = db.Column(db.String)
+    trip_id     = db.Column(db.Integer, db.ForeignKey('trip.trip_id'))
+    trip        = db.relationship("Trip", backref="photos")
+
+    def __repr__(self):
+        return "TripPhoto %s" % self.filepath

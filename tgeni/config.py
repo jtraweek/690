@@ -2,7 +2,15 @@ import os
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 TMPDIR  = os.path.join(BASEDIR, 'tmp/')
-DBDIR   = TMPDIR
+
+DBDIR = TMPDIR
+UPLOADDIR = os.path.join(BASEDIR, 'app/static/upload')
+
+# Create these directories if needed.
+os.makedirs(DBDIR, exist_ok=True)
+os.makedirs(UPLOADDIR, exist_ok=True)
+
+
 
 class Config(object):
     # anti-forgery stuff
@@ -13,6 +21,10 @@ class Config(object):
     # initialize database settings
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(TMPDIR, 'tgeni.sqlite3')
     SQLALCHEMY_TRACK_MODIFICATIONS = False   # silence this warning
+    # initialize upload settings
+    UPLOADED_PHOTOS_DEST = UPLOADDIR
+
+
 
 class TestConfig(Config):
     TESTING = True

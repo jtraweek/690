@@ -116,9 +116,9 @@
 
 		<section id="cd-placeholder-2" class="cd-section cd-container">
 			<h2>Activities</h2>
-			{% if saved_activities %}
+			{% if trip.activities %}
 			<ul>
-				{% for activity in saved_activities %}
+				{% for activity in trip.get_sorted_activities() %}
 				<li>{{ activity.title }}</li>
 				<ul>
 					<li>Location: {{ activity.location }}</li>
@@ -183,58 +183,17 @@
 
 <section id="cd-placeholder-3" class="cd-section cd-container">
 	<h2>Photos</h2>
-
 	<div class="grid-photos">
-		<figure class="pic">
-			<img src="https://cdn.pixabay.com/photo/2016/05/31/22/42/village-1428010_1280.jpg" alt="" class="img-grid">
-		</figure>
-
-		<figure class="pic">
-			<img src="https://cdn.pixabay.com/photo/2013/08/12/18/09/staniel-cay-yacht-club-171902_1280.jpg" alt="" class="img-grid">
-		</figure>
-
-		<figure class="pic">
-			<img src="https://cdn.pixabay.com/photo/2016/11/21/14/02/architecture-1845560_1280.jpg" alt="" class="img-grid">
-		</figure>
-
-		<figure class="pic">
-			<img src="https://cdn.pixabay.com/photo/2017/02/21/18/24/prague-2086967_1280.jpg" alt="" class="img-grid">
-		</figure>
-
-		<figure class="pic">
-			<img src="https://cdn.pixabay.com/photo/2012/11/28/09/46/lava-67574_1280.jpg" alt="" class="img-grid">
-		</figure>
-
-		<figure class="pic">
-			<img src="https://cdn.pixabay.com/photo/2016/06/24/12/36/surf-1477175_1280.jpg" alt="" class="img-grid">
-		</figure>
-
-		<figure class="pic">
-			<img src="https://cdn.pixabay.com/photo/2016/12/05/11/38/austria-1883647_1280.jpg" alt="" class="img-grid">
-		</figure>
-
-		<figure class="pic">
-			<img src="https://cdn.pixabay.com/photo/2015/03/18/22/05/bora-bora-680115_1280.jpg" alt="" class="img-grid">
-		</figure>
-
-		<figure class="pic">
-			<img src="https://cdn.pixabay.com/photo/2017/01/30/07/54/church-2020258_1280.jpg" alt="" class="img-grid">
-		</figure>
-
-		<figure class="pic">
-			<img src="https://cdn.pixabay.com/photo/2016/12/06/14/33/log-cabin-1886620_1280.jpg" alt="" class="img-grid">
-		</figure>
-
-		<figure class="pic">
-			<img src="https://cdn.pixabay.com/photo/2017/02/22/16/50/multnomah-falls-2089902_1280.jpg" alt="" class="img-grid">
-		</figure>
-
-		<figure class="pic">
-			<img src="https://cdn.pixabay.com/photo/2010/12/23/12/58/horseshoe-bend-4040_1280.jpg" alt="" class="img-grid">
-		</figure>
-
+		{% if trip.photos %}
+			{% for trip_photo in trip.photos %}
+				<figure class="pic">
+					<img src="{{ trip_photo.filepath }}" alt="" class="img-grid">
+				</figure>
+			{% endfor %}
+		{% else %}
+			<p>No photos have been added yet.</p>
+		{% endif %}
 	</div>
-
 </section> <!-- #cd-placeholder-3 -->
 
 {% endif %} <!-- not new_trip -->

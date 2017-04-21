@@ -3,7 +3,7 @@ import app.forms    as forms
 import app.models   as models
 import app.utils.queries as queries
 
-from app   import (tgeni, db, login_manager)
+from app   import (tgeni, db, login_manager, uploaded_photos)
 from flask import (Response, flash, redirect, render_template,
                    request, url_for)
 from flask_login import (login_required, login_user, logout_user, current_user)
@@ -79,12 +79,6 @@ def not_found_404(er):
 #   user views
 #
 @tgeni.route('/')
-def index_():
-    """ This view serves as the homepage for a signed-in user.
-    """
-    return redirect(url_for('index'))
-
-@tgeni.route('/index')
 def index():
     """ This view serves as the homepage for a signed-in user.
     """
@@ -107,6 +101,7 @@ def add_trip(trip_id=None):
     saved_activities = queries.get_sorted_activities(trip)
     form = forms.NewTripForm(obj=trip)
     activity_form = forms.NewActivityForm(obj=activity)
+    ####------------------------------------------
     if form.validate_on_submit(): # handles POST?
         form.populate_obj(trip)
         trip.invite(current_user)
@@ -123,12 +118,14 @@ def add_trip(trip_id=None):
         db.session.commit()
         return redirect(url_for('add_trip',
                                     trip_id=trip_id,
-                                    new_trip=new_trip))
+                                    new_trip=False))
+    ####------------------------------------------
     return render_template('Trip1.html',
                             form=form,
                             activity_form=activity_form,
-                            saved_activities=saved_activities,
+                            trip=trip,
                             new_trip=new_trip)
+
 
 @tgeni.route('/itineraries', methods = ['GET', 'POST'])
 @login_required
