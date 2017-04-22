@@ -7,6 +7,7 @@ from app   import (tgeni, db, login_manager, uploaded_photos)
 from flask import (Response, flash, redirect, render_template,
                    request, url_for)
 from flask_login import (login_required, login_user, logout_user, current_user)
+from glob        import glob
 
 from sqlalchemy import desc
 from sqlalchemy import asc
@@ -98,7 +99,7 @@ def add_trip(trip_id=None):
         trip = models.Trip()
         new_trip = True
     activity = models.Activity()
-    saved_activities = queries.get_sorted_activities(trip)
+    ####------------------------------------------
     form = forms.NewTripForm(obj=trip)
     activity_form = forms.NewActivityForm(obj=activity)
     ####------------------------------------------
@@ -124,7 +125,9 @@ def add_trip(trip_id=None):
                             form=form,
                             activity_form=activity_form,
                             trip=trip,
-                            new_trip=new_trip)
+                            new_trip=new_trip,
+                            thumbnail_options=glob('static/img/itin_*'))
+
 
 
 @tgeni.route('/itineraries', methods = ['GET', 'POST'])

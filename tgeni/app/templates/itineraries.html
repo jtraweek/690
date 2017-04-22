@@ -1,69 +1,65 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Itenraries</title>
-		<meta name="author" content="Codrops" />
-		<link rel="stylesheet" type="text/css" href="static/css/normalizeit.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="static/css/style1.css" />
-		<link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
-	</head>
+<head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Itineraries</title>
+      <link rel="stylesheet" type="text/css" href="static/css/normalizeit.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="static/css/itineraries.css" />
+      <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+</head>
 
-	<body>
-                <header class="top-bar">
+<body>
+      <header class="top-bar">
 
-						<div class="filter">
-						<a href="{{ url_for('index') }}"><img src="static/css/Travel Geni.png" alt="Mountain View" style="width:130px;left:-20px;top:0;position:absolute;"></a><br><br><br>
-							<span class="topic">My Itineraries</span><br>
+            <div class="filter">
+                  <a href="{{ url_for('index') }}"><img src="static/css/Travel Geni.png" alt="Mountain View" style="width:130px;left:-20px;top:0;position:absolute;"></a><br><br><br>
+                  <span class="topic">My Itineraries</span><br>
+            </div>
 
-						</div>
+            <div class="dropdown">
+                  <div>
+                        <form>
+                              <button type="submit">
+                                    <i class="fa fa-search" id="searchicon" ></i>
+                              </button>
 
-						<div class="dropdown">
-						<div>
-						<form>
-						<button type="submit">
-                            <i class="fa fa-search" id="searchicon" ></i>
-                        </button>
-
-						<input type="text" name="location" placeholder="Search locations.." class="search">
+                              <input type="text" name="location" placeholder="Search locations.." class="search">
                         </form>
-						</div><br>
-						<!-- trigger button -->
-						
-						<div class="dropdown2">
-						  <button class="dropbtn">Sort</button>
-						  <div class="dropdown-content">
-							<a href="#">Newest</a>
-							<a href="#">Oldest</a>
-						  </div>
-						</div>
-						
-						<!-- dropdown menu -->
+                  </div><br>
+                  <!-- trigger button -->
 
-					    </div>
+                  <div class="dropdown2">
+                        <button class="dropbtn">Sort</button>
+                        <div class="dropdown-content">
+                              <a href="#">Newest</a>
+                              <a href="#">Oldest</a>
+                        </div>
+                  </div>
+                  <!-- dropdown menu -->
+            </div>
+      </header>
 
-	            </header>
-			<div class="container">
-			<div id="theGrid" class="main">
+      <div class="container">
+            <div id="theGrid" class="main">
 
-				<section class="grid">
+                  <section class="grid">
 
-                              {% for trip in current_user.trips %}
-					<a class="grid__item" href="{{ url_for('add_trip',trip_id = trip.trip_id) }}">
-						<h2 class="title title--preview">{{ trip.title }}</h2>
-						<div class="loader"></div>
-						<span class="category">{{ trip.location }}</span>
-					</a>
-					
-					<div style="border:solid 1px #8EA86C; width:35px; height:35px;color:#ffffff;font-size:26px;background-color:#8EA86C; opacity:0.5;text-align:center;"><a href="{{ url_for('delete_trip', trip_id = trip.trip_id) }}"class="fa fa-trash" aria-hidden="true" ></a></div>	
+                        {% for trip in current_user.trips %}
+                        <a class="grid__item" href="{{ url_for('add_trip',trip_id = trip.trip_id) }}">
+                              <h2 class="title title--preview">{{ trip.title }}</h2>
+                              <div class="loader"></div>
+                              <span class="category">{{ trip.location }}</span>
+                        </a>
 
-                              {% endfor %}<br><br><br>
+                        <div style="border:solid 1px #8EA86C; width:35px; height:35px;color:#ffffff;font-size:26px;background-color:#8EA86C; opacity:0.5;text-align:center;"><a href="{{ url_for('delete_trip', trip_id = trip.trip_id) }}"class="fa fa-trash" aria-hidden="true" ></a></div>
 
-				</section>
-			</div>
-		</div><!-- /container -->
-	</body>
+                        {% endfor %}<br><br><br>
+
+                  </section>
+            </div>
+      </div><!-- /container -->
+</body>
 </html>

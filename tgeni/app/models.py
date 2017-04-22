@@ -67,6 +67,10 @@ class Trip(db.Model):
     about    = db.Column(db.String)
     length   = db.Column(db.Integer)
     complete = db.Column(db.Boolean)
+    itinerary_image = db.Column(db.String) # The image for the trip that will
+                                           # appear on the itineraries page.
+                                           # Expected to be located in
+                                           # static/img/.
     users    = db.relationship('User',
                                 secondary=user_trips,
                                 backref=db.backref('trips', lazy='dynamic'))
