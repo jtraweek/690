@@ -23,12 +23,16 @@
 
 						<div class="dropdown">
 						<div>
-						<form>
+						<form method="post" name="search_trip">
+						{{ form.hidden_tag() }}
 						<button type="submit">
                             <i class="fa fa-search" id="searchicon" ></i>
                         </button>
 
-						<input type="text" name="location" placeholder="Search locations.." class="search">
+						{{ form.location_search(placeholder = "Search Locations...")}}
+						{% for error in form.location_search.errors %}
+						<span style="color: red;">[{{error}}]</span>
+						{% endfor %}<br>
                         </form>
 						</div><br>
 						<!-- trigger button -->
