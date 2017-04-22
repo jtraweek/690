@@ -4,8 +4,7 @@
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Discover Trips</title>
-      <meta name="author" content="Codrops" />
+      <title>Itenraries</title>
       <link rel="stylesheet" type="text/css" href="static/css/normalizeit.css" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" type="text/css" href="static/css/itineraries.css" />
@@ -23,12 +22,16 @@
 
             <div class="dropdown">
                   <div>
-                        <form>
+                        <form method="post" name="search_trip">
+                              {{ form.hidden_tag() }}
                               <button type="submit">
                                     <i class="fa fa-search" id="searchicon" ></i>
                               </button>
 
-                              <input type="text" name="location" placeholder="Search locations.." class="search">
+                              {{ form.location_search(placeholder = "Search Locations...")}}
+                              {% for error in form.location_search.errors %}
+                              <span style="color: red;">[{{error}}]</span>
+                              {% endfor %}<br>
                         </form>
                   </div><br>
                   <!-- trigger button -->

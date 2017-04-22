@@ -155,10 +155,15 @@ def complete_trip(trip_id):
 @tgeni.route('/discover_trips', methods = ['GET', 'POST'])
 @login_required
 def discover_trips():
-    """Displays all trips that are marked complete
+    """Displays all trips that are marked complete. Allows filter by location.
     """
+    form = forms.SearchLocationForm()
     trips= models.Trip.query.filter_by(complete = True)
-    return render_template('discover_trips.html', trips = trips)
+    if form.validate_on_submit():
+        search_filter = form.location_search.data
+        filtered_trips = models.Trip.query.filter_by(complete = True, location = search_filter)
+        return render_template('discover_trips.html', trips = filtered_trips, form = form)
+    return render_template('discover_trips.html', trips = trips, form = form)
 
 @tgeni.route('/view_complete_trip/<trip_id>')
 @login_required

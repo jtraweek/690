@@ -60,3 +60,6 @@ class NewActivityForm(FlaskForm):
     location = StringField('activity_location')
     length = StringField('activity_length', validators=[DataRequired()])
     description = TextAreaField('activity_description')
+
+class SearchLocationForm(FlaskForm):
+    location_search = StringField('Search Locations')
