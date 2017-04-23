@@ -130,43 +130,54 @@ def add_trip(trip_id=None):
                             thumbnail_options=glob('static/img/itin_*'))
 
 
+
+##########################################################################
+#
+#   itinerary views
+#
+def _render_itineraries(route_name, get_trips):
+    """ Executes common logic for itinerary-related pages.
+    """
+    form = forms.SearchLocationForm()
+    if form.validate_on_submit():
+        search_filter = form.location_search.data
+        return redirect(url_for(route_name, search=search_filter))
+    else:
+        unfiltered_trips = get_trips()
+        # filter
+        search_filter = request.args.get('search', '')
+        if search_filter:
+            unsorted_trips = [tr for tr in unfiltered_trips
+                     if re.search(search_filter, tr.location, re.IGNORECASE)]
+        else:
+            unsorted_trips = unfiltered_trips
+        # sort
+        sortfunc_lookup = {
+            'newest'  : (lambda ts: sorted(ts, key=lambda t: t.length, reverse=True)),
+            'oldest'  : (lambda ts: sorted(ts, key=lambda t: t.length)),
+            'location': (lambda ts: sorted(ts, key=lambda t: t.location))
+        }
+        #---------------------------------------
+        sort_field = request.args.get('sort', '')
+        sortfunc = sortfunc_lookup.get(sort_field, lambda ts: ts)
+        trips = sortfunc(unsorted_trips)
+        return render_template(route_name+'.html', trips=trips, form=form)
+
 @tgeni.route('/itineraries', methods = ['GET', 'POST'])
 @login_required
 def itineraries():
     """ Displays all trips a user has created.
     """
-    form = forms.SearchLocationForm()
-    if form.validate_on_submit():
-        search_filter = form.location_search.data
-        return redirect(url_for('itineraries', search=search_filter))
-    else:
-        unfiltered_trips = current_user.trips
-        search_filter = request.args.get('search', None)
-        if search_filter:
-            trips = [tr for tr in unfiltered_trips
-                     if re.search(search_filter, tr.location, re.IGNORECASE)]
-        else:
-            trips = unfiltered_trips
-        return render_template('itineraries.html', trips=trips, form=form)
+    return _render_itineraries('itineraries',
+                                get_trips= lambda: current_user.trips)
 
 @tgeni.route('/discover_trips', methods = ['GET', 'POST'])
 @login_required
 def discover_trips():
     """Displays all trips that are marked complete. Allows filter by location.
     """
-    form = forms.SearchLocationForm()
-    if form.validate_on_submit():
-        search_filter = form.location_search.data
-        return redirect(url_for('discover_trips', search=search_filter))
-    else:
-        unfiltered_trips = models.Trip.query.filter_by(complete=True)
-        search_filter = request.args.get('search', None)
-        if search_filter:
-            trips = [tr for tr in unfiltered_trips
-                     if re.search(search_filter, tr.location, re.IGNORECASE)]
-        else:
-            trips = unfiltered_trips
-        return render_template('discover_trips.html', trips=trips, form=form)
+    return _render_itineraries('discover_trips',
+                                get_trips= lambda: models.Trip.query.filter_by(complete=True))
 
 @tgeni.route('/view_complete_trip/<trip_id>')
 @login_required

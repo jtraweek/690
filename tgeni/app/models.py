@@ -82,9 +82,10 @@ class Trip(db.Model):
     def mark_complete(self):
         self.complete = True
 
-    def invite(self, user):
-        if user not in self.users:
-            self.users.append(user)
+    def invite(self, *invitees):
+        for user in invitees:
+            if user not in self.users:
+                self.users.append(user)
 
     def get_sorted_activities(self):
         """ Returns the activities of a trip, sorted by date.

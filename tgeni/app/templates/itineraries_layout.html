@@ -37,8 +37,9 @@
                         <button class="dropbtn">Sort</button>
                         <div class="dropdown-content">
                               {% block dropdown_content %}
-                              <a href="#">Newest</a>
-                              <a href="#">Oldest</a>
+                              <a href="{{ request.path }}?sort=newest">Newest</a>
+                              <a href="{{ request.path }}?sort=oldest">Oldest</a>
+                              <a href="{{ request.path }}?sort=location">Location</a>
                               {% endblock %}
                         </div>
                   </div>
