@@ -1,3 +1,4 @@
+import app.utils.helpers as helpers
 import flask_login
 import flask_sqlalchemy
 import sqlalchemy.ext.hybrid
@@ -88,12 +89,8 @@ class Trip(db.Model):
     def get_sorted_activities(self):
         """ Returns the activities of a trip, sorted by date.
         """
-        activities = self.activities
-        if activities:
-            sorted_activities = sorted(activities, key=lambda act: act.length)
-            return sorted_activities
-        else:
-            return []
+        return helpers.get_sorted_activities(self)
+
 
 
 
@@ -112,6 +109,7 @@ class Activity(db.Model):
 
     def __repr__(self):
         return "Activity %s" % self.title
+
 
 
 

@@ -1,16 +1,17 @@
 import flask
-import app.forms    as forms
-import app.models   as models
-import app.utils.queries as queries
+import app.forms            as forms
+import app.models           as models
+import app.utils.queries    as queries
+import re
 
-from app   import (tgeni, db, login_manager, uploaded_photos)
-from flask import (Response, flash, redirect, render_template,
-                   request, url_for)
-from flask_login import (login_required, login_user, logout_user, current_user)
-from glob        import glob
+from   app                  import (tgeni, db, login_manager, uploaded_photos)
+from   flask                import (Response, flash, redirect, render_template,
+                                    request, url_for)
+from   flask_login          import (login_required, login_user, logout_user,
+                                    current_user)
+from   glob                 import glob
 
-from sqlalchemy import desc
-from sqlalchemy import asc
+
 
 ##########################################################################
 #
@@ -129,28 +130,24 @@ def add_trip(trip_id=None):
                             thumbnail_options=glob('static/img/itin_*'))
 
 
-
 @tgeni.route('/itineraries', methods = ['GET', 'POST'])
 @login_required
 def itineraries():
     """ Displays all trips a user has created.
     """
-    return render_template('itineraries.html')
-
-@tgeni.route('/complete_trip/<trip_id>', methods = ['GET', 'POST'])
-@login_required
-def complete_trip(trip_id):
-    """ Marks the specified trip as "complete" so that it can be viewed at the
-        Discover Trip page.
-    """
-    trip = models.Trip.query.get(trip_id)
-    if trip and trip in current_user.trips:
-        trip.complete = True
-        db.session.add(trip)
-        db.session.commit()
-        return redirect(url_for('itineraries'))
+    form = forms.SearchLocationForm()
+    if form.validate_on_submit():
+        search_filter = form.location_search.data
+        return redirect(url_for('itineraries', search=search_filter))
     else:
-        return flask.abort(401)
+        unfiltered_trips = current_user.trips
+        search_filter = request.args.get('search', None)
+        if search_filter:
+            trips = [tr for tr in unfiltered_trips
+                     if re.search(search_filter, tr.location, re.IGNORECASE)]
+        else:
+            trips = unfiltered_trips
+        return render_template('itineraries.html', trips=trips, form=form)
 
 @tgeni.route('/discover_trips', methods = ['GET', 'POST'])
 @login_required
@@ -158,12 +155,18 @@ def discover_trips():
     """Displays all trips that are marked complete. Allows filter by location.
     """
     form = forms.SearchLocationForm()
-    trips= models.Trip.query.filter_by(complete = True)
     if form.validate_on_submit():
         search_filter = form.location_search.data
-        filtered_trips = models.Trip.query.filter_by(complete = True, location = search_filter)
-        return render_template('discover_trips.html', trips = filtered_trips, form = form)
-    return render_template('discover_trips.html', trips = trips, form = form)
+        return redirect(url_for('discover_trips', search=search_filter))
+    else:
+        unfiltered_trips = models.Trip.query.filter_by(complete=True)
+        search_filter = request.args.get('search', None)
+        if search_filter:
+            trips = [tr for tr in unfiltered_trips
+                     if re.search(search_filter, tr.location, re.IGNORECASE)]
+        else:
+            trips = unfiltered_trips
+        return render_template('discover_trips.html', trips=trips, form=form)
 
 @tgeni.route('/view_complete_trip/<trip_id>')
 @login_required
@@ -220,27 +223,3 @@ def delete_activity(activity_id):
         flash('Activity was successfully deleted')
         return redirect(url_for('trip.html'))
     return render_template('trip.html', activity = activity, activity_id = activity_id)
-
-"""
-def search_trip_by_location(location_like):
-
-    sz_like="%"+location_like+"%"
-    trip = models.Trip.location.ilike(sz_like)
-    if trip and trip in current_user.trips:
-        trip.complete = True
-	    db.session.add(trip)
-	    db.session.commit()
-	    return redirect(url_for('itineraries'))
-	else:
-	    return flask.abort(401)
-"""
-
-def search_trip_by_location(location_like):
-    sz_like="%"+location_like+"%"
-    return current_user.trips.location.ilike(sz_like)
-
-def current_user_trip_orderby_desc():
-    return current_user.trips.order_by(desc(models.Trip.location))
-
-def current_user_trip_orderby_asc():
-    return current_user.trips.order_by(asc(models.Trip.location))
