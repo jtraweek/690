@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/reset.css') }}"> <!-- CSS reset -->
 	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styleTrip.css') }}"> <!-- Resource style -->
+	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/trip_icons.css') }}">
 	<href= "{{ url_for('static',filename='js/mainTrip.js') }}">
 	<href= "{{ url_for('static',filename='js/jquery-2.1.1.js') }}">
 
@@ -101,7 +102,7 @@
 				<button type="submit" value="Submit" class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:30px;">Save</button>
 				
 				<br><br><br>
-				<div style="">
+				<div>
 					<label>
 						Choose your trip picture<br><br>
 							 <div class="cc-selector-2">
@@ -157,16 +158,18 @@
 			<h2>Activities</h2>
 			{% if trip.activities %}
 			<ul>
-				{% for activity in trip.get_sorted_activities() %}
-				<li>{{ activity.title }}</li>
+		
+				{% for activity in trip.get_sorted_activities() %}	<div style="border:solid 2px #B7C891;width:90%;padding:10px;">
 				<ul>
-					<li>Location: {{ activity.location }}</li>
-					<li>When: {{ activity.length }} </li>
-					<li>Description: {{ activity.description }}</li>
+					<li style="padding:3px;font-weight:bold;font-size:19px;">{{ activity.title }}</li>
+
+					<li style="padding:3px;">Location: {{ activity.location }}</li>
+					<li style="padding:3px;">When: {{ activity.length }} </li>
+					<li style="padding:3px;">Description: {{ activity.description }}</li>
 				</ul>
-				<div id="name">
-					<div style="border:solid 1px #B7C891; width:30px; height:30px;color:#ffffff;font-size:26px;background-color:#B7C891; text-align:center;float:right;margin-right:78px;"><a href="{{ url_for('delete_activity', activity_id = activity.activity_id) }}"class="fa fa-trash" aria-hidden="true" ></a></div>
-				<br><br>
+			
+					<div style="border:solid 1px #B7C891; width:30px; height:30px;font-size:26px;background-color:#B7C891; text-align:center;float:right;margin-right:10px;margin-top:-60px;"><a href="{{ url_for('delete_activity', activity_id = activity.activity_id) }}"class="fa fa-trash" aria-hidden="true" ></a></div>
+				</div><br>
 				{% endfor %}
 			</ul>
 			{% endif %}

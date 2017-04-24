@@ -230,16 +230,6 @@ Intro
     z-index:999;
 }
 
-.safari{background-image:url('../img/travel8.jpg')}
-.city{background-image:url('../img/travel5.jpg')}
-.skiing{background-image:url('../img/travel7.jpg')}
-.mosque{background-image:url('../img/travel10.jpg')}
-.beach{background-image:url('../img/travel4.jpg')}
-.koo5{background-image:url('../img/travel2.jpg')}
-.italy{background-image:url('../img/travel3.jpg')}
-.original{background-image:url('../img/travel1.jpg')}
-.sea{background-image:url('../img/travel9.jpg')}
-.castle{background-image:url('../img/travel6.jpg')}
 /*
 .safari{background-image:url(https://pixabay.com/get/eb35b20e2df7083ed1534705fb0938c9bd22ffd41db813499df9c579a7/mountain-landscape-2031539_1920.jpg);}
 .safari{background-image:url(https://pixabay.com/get/eb35b20e2df7083ed1534705fb0938c9bd22ffd41db813499df9c579a7/mountain-landscape-2031539_1920.jpg);}*/
@@ -620,6 +610,8 @@ Placeholder Sections
   margin: 0 auto;
   text-align: center;
 }
+
+.fa-trash{color:#FFFFFF;}
  
 .11-columns{ display: inline-block;width:50px;height:50px;}
 .12-columns{ display: inline-block;width:;height:;}

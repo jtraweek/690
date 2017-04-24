@@ -9,6 +9,7 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" type="text/css" href="static/css/itineraries.css" />
       <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+	  <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/trip_icons.css') }}">
       {% block css %}{% endblock %}
       {% block js %}{% endblock %}
 </head>
@@ -33,12 +34,11 @@
                         </form>
                   </div><br>
                   <!-- trigger button -->
-                  <div class="dropdown2">
+                  <div class="dropdown2" >
                         <button class="dropbtn">Sort</button>
                         <div class="dropdown-content">
                               {% block dropdown_content %}
                               <a href="{{ request.path }}?sort=newest">Newest</a>
-                              <a href="{{ request.path }}?sort=oldest">Oldest</a>
                               <a href="{{ request.path }}?sort=location">Location</a>
                               {% endblock %}
                         </div>

@@ -207,10 +207,11 @@ def delete_activity(activity_id):
     if not activity:
         flask.abort(404)
     else:
+        trip_id = activity.trip_id
         db.session.delete(activity)
         db.session.commit()
-        return redirect(url_for('add_trip'))
-    return redirect(url_for('add_trip'))
+        return redirect('/edit_trip/{trip_id}'.format(trip_id=trip_id))
+    return redirect('/edit_trip/')
 
 ###########################################################################
 #
