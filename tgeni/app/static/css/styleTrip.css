@@ -1,4 +1,4 @@
-/* --------------------------------
+/* -------------------------------- 
 
 Primary style
 
@@ -31,33 +31,33 @@ h1{
 	text-align:center;
 	letter-spacing:16px;
 	color:white;
-
+	
 }
 ::-webkit-scrollbar {
     width: 9px;
 }
-
+ 
 /* Track */
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(99, 170, 188, 1);
+    -webkit-box-shadow: inset 0 0 6px rgba(99, 170, 188, 1); 
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
-
+ 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: rgba(139, 157, 99, 1);
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    background: rgba(139, 157, 99, 1); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-	background: rgba(139, 157, 99, 1);
+	background: rgba(139, 157, 99, 1); 
 }
 
 
 
-/* --------------------------------
+/* -------------------------------- 
 
 Modules - reusable parts of our design
 
@@ -67,7 +67,7 @@ Modules - reusable parts of our design
   width: 90%;
   max-width: 768px;
   margin: 0 auto;
-
+  
 }
 .cd-container:after {
   content: "";
@@ -116,7 +116,7 @@ Modules - reusable parts of our design
 #mark:hover{color:#E6D969;border-color:#E6D969;}
 #del:active{color:#E6D969;border-color:#E6D969;}
 #del:hover{color:#E6D969;border-color:#E6D969;}
-/* --------------------------------
+/* -------------------------------- 
 
 Intro
 
@@ -126,11 +126,7 @@ Intro
   background: url('fonts/trees.jpg') no-repeat center center;
   z-index: 2;
   margin: 0 auto;
-  background-size: 100% 100%;
-
-
-
-
+  background-size: 100% 100%;  
 }
 #cd-intro #cd-intro-tagline {
   width: auto;
@@ -152,11 +148,11 @@ Intro
   #cd-intro #cd-intro-tagline {
     padding-top: 160px;
   }
-
+  
 }
 @media only screen and (min-width: 1170px) {
   #cd-intro {
-    height: 180px;
+    height: 180px; 
   }
   #cd-intro #cd-intro-tagline {
     padding-top: 5px;
@@ -174,13 +170,13 @@ Intro
 .tc{
 	border:none;
 	text-align:center;
-
-
+	
+	
 }
 .foucs{
 	text-align:left;
-
-
+	
+	
 }
 
 .foucs input,textarea{
@@ -222,7 +218,128 @@ Intro
 }
 
 
-/* --------------------------------
+.cc-selector input{
+    margin:0;padding:0;
+    -webkit-appearance:none;
+       -moz-appearance:none;
+            appearance:none;
+}
+
+.cc-selector-2 input{
+    position:absolute;
+    z-index:999;
+}
+
+.safari{background-image:url(https://pixabay.com/get/eb37b50e2bf2013ed1534705fb0938c9bd22ffd41db8134894f5c770a6/elephant-2241360_1920.jpg);}
+.city{background-image:url(https://pixabay.com/get/e837b00f28f4023ed1534705fb0938c9bd22ffd41db8134895f5c17eae/world-trade-center-1210003_1920.jpg);}
+.skiing{background-image:url(https://pixabay.com/get/e83db40c2cf0043ed1534705fb0938c9bd22ffd41db8134897f8c27ca5/atlantic-1853445_1920.jpg);}
+.mosque{background-image:url(https://pixabay.com/get/eb34b5082ef7053ed1534705fb0938c9bd22ffd41db8134895f3c770a6/venice-2147634_1920.jpg);}
+.beach{background-image:url(https://pixabay.com/get/ee37b4062ef01c22d2524518a33219c8b66ae3d110b318439df5c57d/rodeo-drive-725964_1280.jpg);}
+.koo5{background-image:url(https://pixabay.com/get/e83db9092ef6013ed1534705fb0938c9bd22ffd41db8134895f4c771a7/log-cabin-1886620_1920.jpg);}
+.italy{background-image:url(https://pixabay.com/get/ec33b7082af61c22d9584518a33219c8b66ae3d110b318439df8c278/alaska-566722_1920.jpg);}
+.original{background-image:url(https://pixabay.com/get/e833b60820f2023ed1534705fb0938c9bd22ffd41db8134897f1c57aaf/morocco-1677863_1920.jpg);}
+.sea{background-image:url(https://pixabay.com/get/eb37b00620f0053ed1534705fb0938c9bd22ffd41db8134897f6c870a4/cruise-boat-2219844_1920.jpg);}
+.castle{background-image:url(https://pixabay.com/get/e835b3072cf41c22d2524518a33219c8b66ae3d110b318439cf0c870/louvre-102840_1280.jpg);}
+/*
+.safari{background-image:url(https://pixabay.com/get/eb35b20e2df7083ed1534705fb0938c9bd22ffd41db813499df9c579a7/mountain-landscape-2031539_1920.jpg);}
+.safari{background-image:url(https://pixabay.com/get/eb35b20e2df7083ed1534705fb0938c9bd22ffd41db813499df9c579a7/mountain-landscape-2031539_1920.jpg);}*/
+
+.cc-selector-2 input:active +.drinkcard-cc, .cc-selector input:active +.drinkcard-cc{opacity: .9;}
+.cc-selector-2 input:checked +.drinkcard-cc, .cc-selector input:checked +.drinkcard-cc{
+    -webkit-filter: none;
+       -moz-filter: none;
+            filter: none;
+}
+.drinkcard-cc{
+    cursor:pointer;
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    width:100px;
+	height:150px;
+    -webkit-transition: all 100ms ease-in;
+       -moz-transition: all 100ms ease-in;
+            transition: all 100ms ease-in;
+    
+}
+/* Extras */
+.cc-selector-2 input{ margin: 5px 0 0 12px; }
+.cc-selector-2 label{ margin-left: 7px; }
+
+
+.row{
+    display: block;
+    position: relative;
+    overflow: hidden;	
+}
+.nameact{
+    height: auto;
+    display: inline-block;
+	border:solid 2px #B7C891;
+	margin-top:10px;
+	width:30%;
+	border-right:none;
+	height:50px;
+    overflow: hidden;
+	border-bottom:none;
+
+}
+.whereisit{
+    height: auto;
+    display: inline-block;
+	border:solid 2px #B7C891;
+	width:30%;
+	border-right:none;
+	border-left:none;
+	height:50px;
+	overflow: hidden;
+	border-bottom:none;
+	text-align:center;
+
+
+
+}
+.when{
+    height: auto;
+    display: inline-block;
+	border:solid 2px #B7C891;
+	width:30%;
+	border-left:none;
+	height:50px;
+	overflow: hidden;
+	border-bottom:none;
+	text-align:right;
+
+
+
+ }
+.describtion{
+    height: auto;
+    display: block;
+	border:solid 2px #B7C891;
+	width:90%;
+	height:70px;
+	overflow: hidden;
+	border-top:none;
+
+
+}
+
+
+/* -------------------------------- 
+
+Secondary Fixed Navigation
+
+.row{display:table-row;}
+.nameact{border:solid 2px #B7C891;width:90%;border-bottom:none;margin-top:10px;}
+.whereisit{border:solid 2px #B7C891;width:90%;border-bottom:none;border-top:none;}
+.when{border:solid 2px #B7C891;width:90%;border-bottom:none;border-top:none;}
+.describtion{border:solid 2px #B7C891;width:90%;border-top:none;}
+
+-------------------------------- */
+
+
+/* -------------------------------- 
 
 Secondary Fixed Navigation
 
@@ -326,7 +443,7 @@ Secondary Fixed Navigation
     font-weight: 700;
     color: rgba(240, 236, 235, 1);
   }
-
+  
   .cd-secondary-nav li a:hover b, .cd-secondary-nav li a.active b {
     color: #f0eee1;
   }
@@ -462,7 +579,7 @@ Secondary Fixed Navigation
   }
 }
 
-/* --------------------------------
+/* -------------------------------- 
 
 Placeholder Sections
 
@@ -496,75 +613,23 @@ Placeholder Sections
     src: url('../css/fonts/SummerHearts-Regular.woff') format('woff');
 }
 
-.grid-photos {
-  display: inline-block;
+.container {
+  position: relative;
+  width: 90%;
+  max-width: 960px;
   margin: 0 auto;
-  text-align:center;
-  margin-top:20px;
-
-
-
-
+  text-align: center;
 }
-
-.pic {
-  margin: 0;
-  overflow: hidden;
-  display: inline-block;
-  margin-bottom: 8px;
-  margin-right: 8px;
-  width: 200px;
-  height: 100px;
-
-}
-
-
-.img-grid {
-  border: none;
-  max-width: 100%;
-  height: auto;
-  transition: transform .2s ease-in-out;
-
-}
-
-.gallery {
-   width: 1000px;
-   margin: 50px auto;
-   text-align:center;
-
-}
-
-.buddies {
-   list-style: none;
-   text-align:center;
-}
-
-.gallery li {
-   height: 100px;
-   width: 100px;
-   margin: 25px;
-   float: left;
-   overflow: hidden;
-    position: relative;
-    border-radius: 50%;
-
-   -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-	   border-radius: 50%;
-}
-
-.gallery li img {
-   margin-top: -70px;
-	display: inline;
-    margin: 0 auto;
-    height: 100%;
-    width: auto;
-   -webkit-transition: margin 1.5s ease;
-      -moz-transition: margin 1.5s ease;
-       -ms-transition: margin 1.5s ease;
-        -o-transition: margin 1.5s ease;
-           transition: margin 1.5s ease;
-}
+ 
+.11-columns{ display: inline-block;width:50px;height:50px;}
+.12-columns{ display: inline-block;width:;height:;}
+.13-columns{ display: inline-block;width:;height:;}
+.21-columns{ display: inline-block;width:;height:;}
+.22-columns{ display: inline-block;width:;height:;}
+.31-columns{ display: inline-block;width:;height:;}
+.32-columns{ display: inline-block;width:;height:;}
+.41-columns{ display: inline-block;width:;height:;}
+.42-columns{ display: inline-block;width:;height:;}
 
 .icon::before {
     display: inline-block;
@@ -590,24 +655,9 @@ Placeholder Sections
   transform: translateY(-100%);
   transition: .4s ease-in-out;
 }
-.slide-down > div {
+.slide-down > div {            
   transform: translateY(0);
-}
-
-
-.cbutton {
-	position: relative;
-	display: inline-block;
-	padding: 0;
-	border: none;
-	background: none;
-	font-size: 1.4em;
-	overflow: visible;
-	-webkit-transition: color 0.7s;
-	transition: color 0.7s;
-}
-
-.box{float:right;}
+} 
 
 
 
@@ -622,7 +672,6 @@ form
   width:90%;
 }
 
-.form2{width: width:90%; }
 @media(min-width:800px){
   form > div {
     display: inline-block;
@@ -641,20 +690,19 @@ form > div > label
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #577EC3;
+  color: #577EC3; 
   cursor: pointer;
 }
 
-form > div.col-1, form > div.col-2, form > div.col-3, form > div.col-4 {
+form > div.col-2, form > div.col-3, form > div.col-4 { 
   font-family:"Roboto";
 }
 
 @media(min-width: 800px){
-  form > div.col-1, form > div.col-2, form > div.col-3, form > div.col-4 { box-shadow: 1.6px 1px #4D6080; border: none; font-family:"Roboto";}
+  form > div.col-2, form > div.col-3, form > div.col-4 { box-shadow: 1.6px 1px #4D6080; border: none; font-family:"Roboto";}  
 }
 
 @media(min-width:800px){
-  form > div.col-1 { width: 100% }
   form > div.col-2 { width: 50% }
   form > div.col-3 { width: 33.3333333333% }
   form > div.col-4 { width: 25% }
@@ -681,14 +729,14 @@ form > div > label > input
 #col-submit {
   font-family:"Roboto";
   font-size: 14px;
-  color: #577EC3;
+  color: #577EC3; 
   cursor: pointer;
   border:solid 2px #577EC3;
   text-transform: uppercase;
   border-radius: 5px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;}
-
+  
 #col-submit:hover{color:#B7C891;border-color:#B7C891;}
 
 
@@ -728,7 +776,8 @@ form > div > label > input:focus, form > div > label > select:focus
   background: transparent;
   font-size: 14px;
   transition: opacity .3s, box-shadow .3s;
-  font-family:"Roboto";
+  font-family:"Roboto";	
   resize: none;
   overflow: auto;
   margin-right:50px;}
+  

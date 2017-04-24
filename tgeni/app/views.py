@@ -197,6 +197,20 @@ def delete_trip(trip_id):
         db.session.commit()
         return redirect(url_for('itineraries'))
     return redirect(url_for('itineraries'))
+    
+@tgeni.route('/delete_activity/<activity_id>', methods = ['GET', 'POST'])
+@login_required
+def delete_activity(activity_id):
+    """Deletes activity from database
+    """
+    activity = models.Activity.query.get(activity_id)
+    if not activity:
+        flask.abort(404)
+    else:
+        db.session.delete(activity)
+        db.session.commit()
+        return redirect(url_for('add_trip'))
+    return redirect(url_for('add_trip'))
 
 ###########################################################################
 #
@@ -217,15 +231,3 @@ def search_trip_by_location(location_like):
     return render_template('trip_search.html', trips)
 
 
-@tgeni.route('/trip/<int:activity_id>', methods = ['GET', 'POST'])
-@login_required
-def delete_activity(activity_id):
-    activity = models.Activity.query.get(activity_id)
-    if not activity:
-        flask.abort(404)
-    if request.method == 'POST':
-        db.session.delete(activity)
-        db.session.commit()
-        flash('Activity was successfully deleted')
-        return redirect(url_for('trip.html'))
-    return render_template('trip.html', activity = activity, activity_id = activity_id)

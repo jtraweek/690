@@ -99,10 +99,49 @@
 				</div>
 
 				<button type="submit" value="Submit" class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:30px;">Save</button>
-
-				<div class="col-1">
+				
+				<br><br><br>
+				<div style="">
 					<label>
-						Make this trip public!
+						Choose your trip picture<br><br>
+							 <div class="cc-selector-2">
+								<input id="mastercard2" type="radio" name="creditcard" value="safari"/>
+								<label class="drinkcard-cc safari" for="mastercard"></label>
+								
+								<input id="mastercard2" type="radio" name="creditcard" value="city" />
+								<label class="drinkcard-cc city"for="mastercard2"></label>
+								
+								<input id="mastercard2" type="radio" name="creditcard" value="skiing"/>
+								<label class="drinkcard-cc skiing" for="mastercard2"></label>
+								
+								<input id="visa2" type="radio" name="creditcard" value="mosque"/>
+								<label class="drinkcard-cc mosque" for="visa2"></label>
+								
+								<input id="mastercard2" type="radio" name="creditcard" value="beach" />
+								<label class="drinkcard-cc beach"for="mastercard2"></label><br>
+								</div>
+								
+								 <div class="cc-selector-2" style="margin-top:-70px;">
+								<input id="visa2" type="radio" name="creditcard" value="koo5" />
+								<label class="drinkcard-cc koo5" for="visa2"></label>
+								
+								<input id="visa2" type="radio" name="creditcard" value="original" />
+								<label class="drinkcard-cc original" for="visa2"></label>
+								
+								<input id="mastercard2" type="radio" name="creditcard" value="italy" />
+								<label class="drinkcard-cc italy"for="mastercard2"></label>
+								
+								<input id="visa2" type="radio" name="creditcard" value="sea" />
+								<label class="drinkcard-cc sea" for="visa2"></label>
+								
+								<input  id="mastercard2" type="radio" name="creditcard" value="castle" />
+								<label class="drinkcard-cc castle"for="mastercard2"></label>
+							</div>
+					</label>
+				</div>
+				<div class="col-1" style="margin-top:-190px;">
+					<label>
+						<p style="color:#B1103C;font-size: 14px;font-weight:bold;">Publish My Trip!</p>
 						<br>
 						{{ form.complete }}<br>
 					</label>
@@ -125,6 +164,9 @@
 					<li>When: {{ activity.length }} </li>
 					<li>Description: {{ activity.description }}</li>
 				</ul>
+				<div id="name">
+					<div style="border:solid 1px #B7C891; width:30px; height:30px;color:#ffffff;font-size:26px;background-color:#B7C891; text-align:center;float:right;margin-right:78px;"><a href="{{ url_for('delete_activity', activity_id = activity.activity_id) }}"class="fa fa-trash" aria-hidden="true" ></a></div>
+				<br><br>
 				{% endfor %}
 			</ul>
 			{% endif %}
