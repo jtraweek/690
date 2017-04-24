@@ -230,16 +230,16 @@ Intro
     z-index:999;
 }
 
-.safari{background-image:url(https://pixabay.com/get/eb37b50e2bf2013ed1534705fb0938c9bd22ffd41db8134894f5c770a6/elephant-2241360_1920.jpg);}
-.city{background-image:url(https://pixabay.com/get/e837b00f28f4023ed1534705fb0938c9bd22ffd41db8134895f5c17eae/world-trade-center-1210003_1920.jpg);}
-.skiing{background-image:url(https://pixabay.com/get/e83db40c2cf0043ed1534705fb0938c9bd22ffd41db8134897f8c27ca5/atlantic-1853445_1920.jpg);}
-.mosque{background-image:url(https://pixabay.com/get/eb34b5082ef7053ed1534705fb0938c9bd22ffd41db8134895f3c770a6/venice-2147634_1920.jpg);}
-.beach{background-image:url(https://pixabay.com/get/ee37b4062ef01c22d2524518a33219c8b66ae3d110b318439df5c57d/rodeo-drive-725964_1280.jpg);}
-.koo5{background-image:url(https://pixabay.com/get/e83db9092ef6013ed1534705fb0938c9bd22ffd41db8134895f4c771a7/log-cabin-1886620_1920.jpg);}
-.italy{background-image:url(https://pixabay.com/get/ec33b7082af61c22d9584518a33219c8b66ae3d110b318439df8c278/alaska-566722_1920.jpg);}
-.original{background-image:url(https://pixabay.com/get/e833b60820f2023ed1534705fb0938c9bd22ffd41db8134897f1c57aaf/morocco-1677863_1920.jpg);}
-.sea{background-image:url(https://pixabay.com/get/eb37b00620f0053ed1534705fb0938c9bd22ffd41db8134897f6c870a4/cruise-boat-2219844_1920.jpg);}
-.castle{background-image:url(https://pixabay.com/get/e835b3072cf41c22d2524518a33219c8b66ae3d110b318439cf0c870/louvre-102840_1280.jpg);}
+.safari{background-image:url('../img/travel8.jpg')}
+.city{background-image:url('../img/travel5.jpg')}
+.skiing{background-image:url('../img/travel7.jpg')}
+.mosque{background-image:url('../img/travel10.jpg')}
+.beach{background-image:url('../img/travel4.jpg')}
+.koo5{background-image:url('../img/travel2.jpg')}
+.italy{background-image:url('../img/travel3.jpg')}
+.original{background-image:url('../img/travel1.jpg')}
+.sea{background-image:url('../img/travel9.jpg')}
+.castle{background-image:url('../img/travel6.jpg')}
 /*
 .safari{background-image:url(https://pixabay.com/get/eb35b20e2df7083ed1534705fb0938c9bd22ffd41db813499df9c579a7/mountain-landscape-2031539_1920.jpg);}
 .safari{background-image:url(https://pixabay.com/get/eb35b20e2df7083ed1534705fb0938c9bd22ffd41db813499df9c579a7/mountain-landscape-2031539_1920.jpg);}*/
