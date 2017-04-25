@@ -100,44 +100,23 @@
 				</div>
 
 				<button type="submit" value="Submit" class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:30px;">Save</button>
-				
+
 				<br><br><br>
 				<div>
 					<label>
 						Choose your trip picture<br><br>
-							 <div class="cc-selector-2">
-								<input id="mastercard2" type="radio" name="creditcard" value="safari"/>
-								<label class="drinkcard-cc safari" for="mastercard"></label>
-								
-								<input id="mastercard2" type="radio" name="creditcard" value="city" />
-								<label class="drinkcard-cc city"for="mastercard2"></label>
-								
-								<input id="mastercard2" type="radio" name="creditcard" value="skiing"/>
-								<label class="drinkcard-cc skiing" for="mastercard2"></label>
-								
-								<input id="visa2" type="radio" name="creditcard" value="mosque"/>
-								<label class="drinkcard-cc mosque" for="visa2"></label>
-								
-								<input id="mastercard2" type="radio" name="creditcard" value="beach" />
-								<label class="drinkcard-cc beach"for="mastercard2"></label><br>
-								</div>
-								
-								 <div class="cc-selector-2" style="margin-top:-70px;">
-								<input id="visa2" type="radio" name="creditcard" value="koo5" />
-								<label class="drinkcard-cc koo5" for="visa2"></label>
-								
-								<input id="visa2" type="radio" name="creditcard" value="original" />
-								<label class="drinkcard-cc original" for="visa2"></label>
-								
-								<input id="mastercard2" type="radio" name="creditcard" value="italy" />
-								<label class="drinkcard-cc italy"for="mastercard2"></label>
-								
-								<input id="visa2" type="radio" name="creditcard" value="sea" />
-								<label class="drinkcard-cc sea" for="visa2"></label>
-								
-								<input  id="mastercard2" type="radio" name="creditcard" value="castle" />
-								<label class="drinkcard-cc castle"for="mastercard2"></label>
-							</div>
+						<div class="cc-selector-2">
+                                          {% for icon_name in ('safari','city','skiing','mosque','beach') %}
+							<input id="icon_opt_{{ icon_name }}" type="radio" name="icon_choice" value="{{ icon_name }}" {{ 'checked' if (trip.icon==icon_name) else '' }} >
+							<label class="drinkcard-cc {{ icon_name }}" for="icon_opt_{{ icon_name }}"></label>
+                                          {% endfor %}
+						</div>
+                                    <div class="cc-selector-2" style="margin-top:-70px;">
+                                          {% for icon_name in ('koo5','italy','original','sea','castle') %}
+                                          <input id="icon_opt_{{ icon_name }}" type="radio" name="icon_choice" value="{{ icon_name }}" {{ 'checked' if (trip.icon==icon_name) else '' }} >
+                                          <label class="drinkcard-cc {{ icon_name }}" for="icon_opt_{{ icon_name }}"></label>
+                                          {% endfor %}
+                                    </div>
 					</label>
 				</div>
 				<div class="col-1" style="margin-top:-190px;">
@@ -158,7 +137,7 @@
 			<h2>Activities</h2>
 			{% if trip.activities %}
 			<ul>
-		
+
 				{% for activity in trip.get_sorted_activities() %}	<div style="border:solid 2px #B7C891;width:90%;padding:10px;">
 				<ul>
 					<li style="padding:3px;font-weight:bold;font-size:19px;">{{ activity.title }}</li>
@@ -167,7 +146,7 @@
 					<li style="padding:3px;">When: {{ activity.length }} </li>
 					<li style="padding:3px;">Description: {{ activity.description }}</li>
 				</ul>
-			
+
 					<div style="border:solid 1px #B7C891; width:30px; height:30px;font-size:26px;background-color:#B7C891; text-align:center;float:right;margin-right:10px;margin-top:-60px;"><a href="{{ url_for('delete_activity', activity_id = activity.activity_id) }}"class="fa fa-trash" aria-hidden="true" ></a></div>
 				</div><br>
 				{% endfor %}

@@ -89,10 +89,10 @@ def demo():
     add_all([julie, maryam, william, basil, dmitriy, aboubacar])
     commit()
     # Add some trips.
-    disney_world = Trip(title='Disney World', location='Florida', about='Going to Disney World!', length=7, complete=False)
-    carnival     = Trip(title='Carnival',  location='Brazil',  about='asdf', length=10, complete=False)
-    everest      = Trip(title='Mt Everest', location='Nepal',  about='climbing Mt Everest', length=8, complete=True)
-    caribbean    = Trip(title='Boat Trip',  location='Caribbean', about='Sailing to the caribbean islands', length=14, complete=False)
+    disney_world = Trip(title='Disney World', location='Florida', about='Going to Disney World!', length=7, complete=False, icon='castle')
+    carnival     = Trip(title='Carnival',  location='Brazil',  about='asdf', length=10, complete=False, icon='city')
+    everest      = Trip(title='Mt Everest', location='Nepal',  about='climbing Mt Everest', length=8, complete=True, icon='skiing')
+    caribbean    = Trip(title='Boat Trip',  location='Caribbean', about='Sailing to the caribbean islands', length=14, complete=False, icon='sea')
     add_all([disney_world, carnival, everest, caribbean])
     commit()
     # invite travellers.

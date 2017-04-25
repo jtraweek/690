@@ -94,6 +94,7 @@ def add_trip(trip_id=None):
     else:
         trip = models.Trip()
         new_trip = True
+    trip.icon = trip.icon or 'original'
     activity = models.Activity()
     ####------------------------------------------
     form = forms.NewTripForm(obj=trip)
@@ -101,6 +102,7 @@ def add_trip(trip_id=None):
     ####------------------------------------------
     if form.validate_on_submit(): # handles POST?
         form.populate_obj(trip)
+        trip.icon = request.form['icon_choice'] or 'original'
         trip.invite(current_user)
         db.session.add(trip)
         db.session.commit()
@@ -121,8 +123,7 @@ def add_trip(trip_id=None):
                             form=form,
                             activity_form=activity_form,
                             trip=trip,
-                            new_trip=new_trip,
-                            thumbnail_options=glob('static/img/itin_*'))
+                            new_trip=new_trip)
 
 
 
@@ -197,7 +198,7 @@ def delete_trip(trip_id):
         db.session.commit()
         return redirect(url_for('itineraries'))
     return redirect(url_for('itineraries'))
-    
+
 @tgeni.route('/delete_activity/<activity_id>', methods = ['GET', 'POST'])
 @login_required
 def delete_activity(activity_id):
@@ -230,5 +231,3 @@ def search_trip_by_location(location_like):
         flash('Trips was found successfully', 'success')
     #don't know the real html file for search_trip func
     return render_template('trip_search.html', trips)
-
-

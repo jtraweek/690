@@ -4,7 +4,7 @@
 
 {% block grid_items %}
       {% for trip in trips %}
-      <a class="grid__item original" href="{{ url_for('add_trip', trip_id=trip.trip_id) }}" style = "margin-left:10px;">
+      <a class="grid__item {{ trip.icon }}" href="{{ url_for('add_trip', trip_id=trip.trip_id) }}" style = "margin-left:10px;">
             <h2 class="title title--preview">{{ trip.title }}</h2>
             <div class="loader"></div>
             <span class="category">{{ trip.location }}</span>
