@@ -1,0 +1,45 @@
+{% extends "base_layout.html" %}
+{% block title %}Add New Trip{% endblock %}
+{% block content %}
+
+<h2>Activities</h2>
+			{% for activity.activity_id in activity %}
+					<p>Name:</p> {{ activiity.title }}
+					<p>Location:</p> {{ activiity.location }}
+					<p>Length:</p> {{ activiity.length }}
+					<p>Description:</p> {{ activity.description }}
+					
+            {% endfor %}	
+<form action="" method="post" name="add_trip">
+    {{ form.hidden_tag() }}
+    <p>
+        Please enter a trip title:<br>
+        {{ form.title(size=80) }}
+        {% for error in form.title.errors %}
+          <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p>
+        Where will you be going?:<br>
+        {{ form.location(size=80) }}
+        {% for error in form.location.errors %}
+          <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p>
+        Please enter a trip focus:<br>
+        {{ form.about(columns=80, rows=20) }}
+        {% for error in form.about.errors %}
+          <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p>
+        Length of stay:<br>
+        {{ form.length(size=3) }}
+        {% for error in form.length.errors %}
+          <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p><input type="submit" value="Add Trip"></p>
+</form>
+{% endblock %}

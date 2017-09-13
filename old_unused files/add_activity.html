@@ -1,0 +1,36 @@
+{% extends "base_layout.html" %}
+{% block title %}Add New Activity{% endblock %}
+{% block content %}
+<form action="" method="post" name="add_activity">
+    {{ activity_form.hidden_tag() }}
+    <p>
+        Please enter an activity title:<br>
+        {{ activity_form.title(size=80) }}
+        {% for error in activity_form.title.errors %}
+          <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p>
+        Where will you be going?:<br>
+        {{ activity_form.location(size=80) }}
+        {% for error in activity_form.location.errors %}
+          <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p>
+        What will you be doing?:<br>
+        {{ activity_form.description(columns=80, rows=20) }}
+        {% for error in activity_form.description.errors %}
+          <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p>
+        Length of stay:<br>
+        {{ activity_form.length(size=3) }}
+        {% for error in activity_form.length.errors %}
+          <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p><input type="submit" value="Add Activity"></p>
+</form>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Travel Geni :: {% block title %}{% endblock %}</title>
+      <link rel="stylesheet" type="text/css" href="static/css/normalizeit.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="static/css/itineraries.css" />
+      <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+	  <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/trip_icons.css') }}">
+      {% block css %}{% endblock %}
+      {% block js %}{% endblock %}
+</head>
+
+<body>
+      <header class="top-bar">
+            <div class="filter">
+                  <a href="{{ url_for('index') }}"><img src="static/css/Travel Geni.png" alt="Mountain View" style="width:130px;left:-20px;top:0;position:absolute;"></a><br><br><br>
+                  <span class="topic">{% block topic %}{% endblock %}</span><br>
+            </div>
+            <div class="dropdown">
+                  <div>
+                        <form method="post" name="search_trip">
+                              {{ form.hidden_tag() }}
+                              <button type="submit">
+                                    <i class="fa fa-search" id="searchicon" ></i>
+                              </button>
+                              {{ form.location_search(placeholder = "Search Locations...", class_='search') }}
+                              {% for error in form.location_search.errors %}
+                              <span style="color: red;">[{{error}}]</span>
+                              {% endfor %}<br>
+                        </form>
+                  </div><br>
+                  <!-- trigger button -->
+                  <div class="dropdown2" >
+                        <button class="dropbtn">Sort</button>
+                        <div class="dropdown-content">
+                              {% block dropdown_content %}
+                              <a href="{{ request.path }}?sort=newest">Newest</a>
+                              <a href="{{ request.path }}?sort=location">Location</a>
+                              {% endblock %}
+                        </div>
+                  </div>
+                  <!-- dropdown menu -->
+            </div>
+      </header>
+      <div class="container">
+            <div id="theGrid" class="main">
+                  <section class="grid">
+                        {% block grid_items %}
+                              <!-- grid boxes go here (probably anchors) -->
+                        {% endblock %}<br><br><br>
+                  </section>
+            </div>
+      </div><!-- /container -->
+</body>
+</html>
