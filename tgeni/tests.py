@@ -17,8 +17,6 @@ class BaseTestCase(TestCase):
     def setUp(self):
         tgeni.config.from_object('config.TestConfig')
         self.client = tgeni.test_client()
-        db.drop_all()
-        db.create_all()
         # Start with a fresh db.
         db.drop_all()
         db.create_all()

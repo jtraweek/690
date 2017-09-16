@@ -2,7 +2,6 @@
 import app
 import config
 import os
-import run
 import unittest
 
 from coverage           import coverage
@@ -20,7 +19,7 @@ manager.add_command('db', MigrateCommand)
 def dev():
     """ Runs the main TGeni application (dev version).
     """
-    run.main()
+    app.tgeni.run(debug=True)
 
 
 @manager.command
