@@ -8,11 +8,15 @@ __pycache__/
 # Flask stuff:
 instance/
 .webassets-cache
-.sqlite3
 
+# Database files
+*.sqlite3
+*.db
 
 # Temp/coverage
-tgeni/tmp
-tgeni/coverage
+tmp/
+coverage/
 .coverage
-tgeni/app/static/upload
+
+# User-uploaded photos
+app/static/upload/
