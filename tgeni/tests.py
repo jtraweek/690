@@ -64,18 +64,6 @@ class IndexViewTestCase(BaseTestCase):
 
 
 # --------------------------------------------------------------------------
-class IndexViewTestCase(BaseTestCase):
-    """
-    """
-    def test_index_renders(self):
-        """ Test that the main index page renders.
-        """
-        response =  self.client.get('/', follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn('Travel Geni', str(response.data))
-
-
-# --------------------------------------------------------------------------
 class RegisterViewTestCase(BaseTestCase):
     """
     """
