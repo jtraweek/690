@@ -1,7 +1,7 @@
 import flask
 import app.forms            as forms
 import app.models           as models
-import app.utils.queries    as queries
+import app.utils.queries    as queries   
 import re
 
 from   app                  import (tgeni, db, login_manager, uploaded_photos)
@@ -128,32 +128,35 @@ def view_complete_trip(trip_id):
 def delete_trip(trip_id):
     """Deletes trip from database
     """
-    trip = models.Trip.query.get(trip_id)
     if not trip:
         flask.abort(404)
     else:
-        db.session.delete(trip)
-        db.session.commit()
-        return redirect(url_for('itineraries'))
+        win=app.utils.PopUp.Confirm(self.delete_tripid)
+        win.mainloop()
     return redirect(url_for('itineraries'))
-
-
+ 
+def delete_tripid(trip_id):
+      trip = models.Trip.query.get(trip_id)
+      db.session.delete(trip)
+      db.session.commit()
+      
 @tgeni.route('/delete_activity/<activity_id>', methods = ['GET', 'POST'])
 @login_required
 def delete_activity(activity_id):
     """Deletes activity from database
     """
-    activity = models.Activity.query.get(activity_id)
     if not activity:
         flask.abort(404)
     else:
-        trip_id = activity.trip_id
-        db.session.delete(activity)
-        db.session.commit()
-        return redirect('/edit_trip/{trip_id}'.format(trip_id=trip_id))
+         win=app.utils.PopUp.Confirm(self.delete_activityid)
+         win.mainloop()
     return redirect('/edit_trip/')
 
-
+def delete_activityid(activity_id):
+    activity = models.Activity.query.get(activity_id)
+    db.session.delete(activity)
+    db.session.commit()
+        
 @tgeni.errorhandler(401)
 def fail_login(er):
     return '<h2>401 error.</h2>'
