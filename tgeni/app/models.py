@@ -46,6 +46,10 @@ class CRUDMixin(object):
         db.session.delete(self)
         return commit and db.session.commit()
 
+    @classmethod
+    def get_or_404(cls, id):
+        return cls.query.get_or_404(int(id))
+
 
 #   Relationship table to link users and their trips
 user_trips = db.Table('user_trips',
