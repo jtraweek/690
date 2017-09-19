@@ -6,22 +6,54 @@ import sqlalchemy.ext.hybrid
 from app import db, crypt
 
 
+class CRUDMixin(object):
+    """ Provides a base class with methods used by every model. This
+        automates much of the database session management.
+    """
+    __table_args__ = { 'extend_existing': True }
+
+    # TODO: Create an ID field shared by all models?
+
+    @classmethod
+    def create(cls, commit=True, **kwargs):
+        """ Create a new object in the database. 'commit' indicates whether
+            to commit the change right away (if not it will need to be saved
+            later).
+            Returns the new object.
+            This is a static method.
+        """
+        obj = cls(**kwargs)
+        return obj.save(commit=commit)
+
+    @classmethod
+    def get(cls, id):
+        return cls.query.get(int(id))
+
+    def save(self, commit=True):
+        db.session.add(self)
+        if commit:
+            db.session.commit()
+        return self
+
+    def update(self, commit=True, **kwargs):
+        """
+        """
+        for (attr, val) in kwargs.items():
+            setattr(self, attr, val)
+        return self.save(commit=commit)
+
+    def delete(self, commit=True):
+        db.session.delete(self)
+        return commit and db.session.commit()
 
 
-########################################################################
 #   Relationship table to link users and their trips
 user_trips = db.Table('user_trips',
             db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
             db.Column('trip_id', db.Integer, db.ForeignKey('trip.trip_id')))
 
 
-
-
-########################################################################
-#   User database definitions
-#
-class User(db.Model, flask_login.UserMixin):
-
+class User(db.Model, flask_login.UserMixin, CRUDMixin):
     """ User database model
         Class to hold database records for registered users. This class
         handles password hashing and login functionality.
@@ -55,12 +87,7 @@ class User(db.Model, flask_login.UserMixin):
         return self.id
 
 
-
-
-########################################################################
-#   Trip database definitions
-#
-class Trip(db.Model):
+class Trip(db.Model, CRUDMixin):
     __tablename__ = 'trip'
     trip_id  = db.Column(db.Integer, primary_key=True)
     title    = db.Column(db.String)
@@ -93,12 +120,7 @@ class Trip(db.Model):
         return helpers.get_sorted_activities(self)
 
 
-
-
-########################################################################
-#   Activity database definitions
-#
-class Activity(db.Model):
+class Activity(db.Model, CRUDMixin):
     __tablename__ = 'activity'
     activity_id = db.Column(db.Integer,  primary_key=True)
     title       = db.Column(db.String, nullable=True)
@@ -112,12 +134,7 @@ class Activity(db.Model):
         return "Activity %s" % self.title
 
 
-
-
-########################################################################
-#   Store filepaths to photo files for a trip.
-#
-class TripPhoto(db.Model):
+class TripPhoto(db.Model, CRUDMixin):
     __tablename__ = 'trip_photo'
     id          = db.Column(db.Integer,  primary_key=True)
     filepath    = db.Column(db.String)
