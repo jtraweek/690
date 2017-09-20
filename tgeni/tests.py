@@ -247,6 +247,63 @@ class ItinerariesViewTestCase(BaseTestCase):
             self.assertNotIn('Boat Trip', str(response.data))
 
 
+class DiscoverTripsViewTestCase(BaseTestCase):
+    """
+    """
+    def setUp(self):
+        super(DiscoverTripsViewTestCase, self).setUp()
+        # Add some users.
+        self.test_user = models.User.create(username='testuser', email='testuser@email.web', password='testpwd')
+        # Add some trips.
+        self.disney_world = models.Trip.create(title='Disney World', location='Florida', about='Going to Disney World!', length=7, complete=True, icon='castle')
+        self.carnival     = models.Trip.create(title='Carnival',  location='Brazil',  about='asdf', length=10, complete=False, icon='city')
+        self.everest      = models.Trip.create(title='Mt Everest', location='Nepal',  about='climbing Mt Everest', length=8, complete=True, icon='skiing')
+        self.caribbean    = models.Trip.create(title='Boat Trip',  location='Caribbean', about='Sailing to the caribbean islands', length=14, complete=False, icon='sea')
+        self.test_user.trips.extend((self.disney_world,self.carnival,self.everest,self.caribbean))
+        self.test_user.save()
+        # Log in test user
+        self.login('testuser', 'testpwd')
+
+    def test_discover_trips_signin_required(self):
+        """ Try to access the page while not logged in.
+        """
+        self.logout()
+        response =  self.client.get('/discover_trips', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('Sign In', str(response.data))
+        self.assertIn('Username', str(response.data))
+        self.assertIn('Password', str(response.data))
+
+    def test_discover_trips_renders(self):
+        with self.client:
+            response =  self.client.get('/discover_trips', follow_redirects=True)
+            self.assertIn('Discover', str(response.data))
+            self.assertIn('Disney World', str(response.data))
+            self.assertNotIn('Carnival', str(response.data))
+            self.assertIn('Mt Everest', str(response.data))
+            self.assertNotIn('Boat Trip', str(response.data))
+
+    def test_discover_trips_updates(self):
+        with self.client:
+            self.carnival.update(complete=True)
+            response =  self.client.get('/discover_trips', follow_redirects=True)
+            self.assertIn('Discover', str(response.data))
+            self.assertIn('Disney World', str(response.data))
+            self.assertIn('Carnival', str(response.data))
+            self.assertIn('Mt Everest', str(response.data))
+            self.assertNotIn('Boat Trip', str(response.data))
+
+
+    def test_discover_trips_filtered(self):
+        with self.client:
+            response =  self.client.get('/discover_trips?search=flo', follow_redirects=True)
+            self.assertIn('Discover', str(response.data))
+            self.assertIn('Disney World', str(response.data))
+            self.assertNotIn('Carnival', str(response.data))
+            self.assertNotIn('Mt Everest', str(response.data))
+            self.assertNotIn('Boat Trip', str(response.data))
+
+
 class ErrorHandlerTestCase(BaseTestCase):
     """ Test HTTP error message pages.
     """
