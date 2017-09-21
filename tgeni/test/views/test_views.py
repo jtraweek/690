@@ -1,87 +1,9 @@
-import app
-import app.models   as models
-import os
-import unittest
-import urllib
-import tempfile
 
-from app            import tgeni, db
-from flask          import url_for
-from unittest       import TestCase
-from flask_login    import current_user, AnonymousUserMixin
-
-
-class BaseTestCase(TestCase):
-    """ Some base test case methods to be used for all test cases.
-    """
-    def setUp(self):
-        tgeni.config.from_object('config.TestConfig')
-        self.client = tgeni.test_client()
-        # Start with a fresh db.
-        db.drop_all()
-        db.create_all()
-        # Ensure we are in testing mode.
-        self.assertFalse(tgeni.debug)
-
-    def tearDown(self):
-        db.drop_all()
-
-    def register(self, username, email, password):
-        return self.client.post(
-            '/register',
-            data=dict(username=username, email=email, password=password),
-            follow_redirects=True
-            )
-
-    def login(self, username, password):
-        return self.client.post(
-            '/signin',
-            data=dict(username=username, password=password),
-            follow_redirects=True
-            )
-
-    def logout(self):
-        return self.client.get(
-            '/signout',
-            follow_redirects=True
-            )
-
-
-class CRUDMixinTestCase(BaseTestCase):
-
-    def test_create(self):
-        test_user = models.User.create(username='test_user',
-                                        email='test_user@email.web',
-                                        password='pwd')
-        self.assertEqual(test_user.username, 'test_user')
-        self.assertEqual(test_user.email, 'test_user@email.web')
-        self.assertTrue(test_user.password_matches('pwd'))
-
-    def test_get(self):
-        test_user = models.User.create(username='test_user',
-                                        email='test_user@email.web',
-                                        password='pwd')
-        lookup_user = models.User.get(test_user.id)
-        self.assertIsNotNone(test_user)
-
-    def test_update(self):
-        test_user = models.User.create(username='test_user',
-                                        email='test_user@email.web',
-                                        password='pwd')
-        test_user.update(username='different_name', email='different@email.web')
-        self.assertEqual(test_user.username, 'different_name')
-        self.assertEqual(test_user.email, 'different@email.web')
-
-    def test_delete(self):
-        user_id = 42
-        test_user = models.User.create(
-                                id=user_id,
-                                username='test_user',
-                                email='test_user@email.web',
-                                password='pwd')
-        self.assertIsNotNone(models.User.get(user_id))
-        test_user.delete()
-        self.assertIsNone(models.User.get(user_id))
+from app         import db
+from app.models  import User, Trip
+from flask       import url_for
+from flask_login import current_user, AnonymousUserMixin
+from test.base   import BaseTestCase
 
 
 class IndexViewTestCase(BaseTestCase):
@@ -109,7 +31,7 @@ class RegisterViewTestCase(BaseTestCase):
         """
         response = self.register(username='test', email='testuser@email.web', password='testpwd')
         self.assertEqual(response.status_code, 200)
-        user = models.User.query.filter_by(username='test').first()
+        user = User.query.filter_by(username='test').first()
         self.assertIsNotNone(user)
         self.assertEqual(user.username, 'test')
         self.assertEqual(user.email, 'testuser@email.web')
@@ -207,12 +129,12 @@ class ItinerariesViewTestCase(BaseTestCase):
     def setUp(self):
         super(ItinerariesViewTestCase, self).setUp()
         # Add some users.
-        self.test_user = models.User.create(username='testuser', email='testuser@email.web', password='testpwd')
+        self.test_user = User.create(username='testuser', email='testuser@email.web', password='testpwd')
         # Add some trips.
-        disney_world = models.Trip.create(title='Disney World', location='Florida', about='Going to Disney World!', length=7, complete=False, icon='castle')
-        carnival     = models.Trip.create(title='Carnival',  location='Brazil',  about='asdf', length=10, complete=False, icon='city')
-        everest      = models.Trip.create(title='Mt Everest', location='Nepal',  about='climbing Mt Everest', length=8, complete=True, icon='skiing')
-        caribbean    = models.Trip.create(title='Boat Trip',  location='Caribbean', about='Sailing to the caribbean islands', length=14, complete=False, icon='sea')
+        disney_world = Trip.create(title='Disney World', location='Florida', about='Going to Disney World!', length=7, complete=False, icon='castle')
+        carnival     = Trip.create(title='Carnival',  location='Brazil',  about='asdf', length=10, complete=False, icon='city')
+        everest      = Trip.create(title='Mt Everest', location='Nepal',  about='climbing Mt Everest', length=8, complete=True, icon='skiing')
+        caribbean    = Trip.create(title='Boat Trip',  location='Caribbean', about='Sailing to the caribbean islands', length=14, complete=False, icon='sea')
         self.test_user.trips.extend((disney_world,carnival,everest,caribbean))
         self.test_user.save()
         # Log in test user
@@ -253,12 +175,12 @@ class DiscoverTripsViewTestCase(BaseTestCase):
     def setUp(self):
         super(DiscoverTripsViewTestCase, self).setUp()
         # Add some users.
-        self.test_user = models.User.create(username='testuser', email='testuser@email.web', password='testpwd')
+        self.test_user = User.create(username='testuser', email='testuser@email.web', password='testpwd')
         # Add some trips.
-        self.disney_world = models.Trip.create(title='Disney World', location='Florida', about='Going to Disney World!', length=7, complete=True, icon='castle')
-        self.carnival     = models.Trip.create(title='Carnival',  location='Brazil',  about='asdf', length=10, complete=False, icon='city')
-        self.everest      = models.Trip.create(title='Mt Everest', location='Nepal',  about='climbing Mt Everest', length=8, complete=True, icon='skiing')
-        self.caribbean    = models.Trip.create(title='Boat Trip',  location='Caribbean', about='Sailing to the caribbean islands', length=14, complete=False, icon='sea')
+        self.disney_world = Trip.create(title='Disney World', location='Florida', about='Going to Disney World!', length=7, complete=True, icon='castle')
+        self.carnival     = Trip.create(title='Carnival',  location='Brazil',  about='asdf', length=10, complete=False, icon='city')
+        self.everest      = Trip.create(title='Mt Everest', location='Nepal',  about='climbing Mt Everest', length=8, complete=True, icon='skiing')
+        self.caribbean    = Trip.create(title='Boat Trip',  location='Caribbean', about='Sailing to the caribbean islands', length=14, complete=False, icon='sea')
         self.test_user.trips.extend((self.disney_world,self.carnival,self.everest,self.caribbean))
         self.test_user.save()
         # Log in test user
@@ -310,7 +232,3 @@ class ErrorHandlerTestCase(BaseTestCase):
     def test_404(self):
         response =  self.client.get('/nonexistent')
         self.assertIn('Oh no, 404!', str(response.data))
-
-
-if __name__ == '__main__':
-    unittest.main()
