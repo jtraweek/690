@@ -1,7 +1,7 @@
 import flask
 import app.forms            as forms
 import app.models           as models
-import app.utils.queries    as queries   
+import app.utils.queries    as queries
 import re
 
 from   app                  import (tgeni, db, login_manager, uploaded_photos)
@@ -105,7 +105,7 @@ def add_trip(trip_id=None):
                                     trip_id=trip_id,
                                     new_trip=False))
     ####------------------------------------------
-    return render_template('Trip1.html',
+    return render_template('trip.html',
                             form=form,
                             activity_form=activity_form,
                             trip=trip,
@@ -134,12 +134,12 @@ def delete_trip(trip_id):
         win=app.utils.PopUp.Confirm(self.delete_tripid)
         win.mainloop()
     return redirect(url_for('itineraries'))
- 
+
 def delete_tripid(trip_id):
       trip = models.Trip.query.get(trip_id)
       db.session.delete(trip)
       db.session.commit()
-      
+
 @tgeni.route('/delete_activity/<activity_id>', methods = ['GET', 'POST'])
 @login_required
 def delete_activity(activity_id):
@@ -156,7 +156,7 @@ def delete_activityid(activity_id):
     activity = models.Activity.query.get(activity_id)
     db.session.delete(activity)
     db.session.commit()
-        
+
 @tgeni.errorhandler(401)
 def fail_login(er):
     return '<h2>401 error.</h2>'
