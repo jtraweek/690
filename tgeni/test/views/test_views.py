@@ -159,7 +159,16 @@ class ItinerariesViewTestCase(BaseTestCase):
             self.assertIn('Mt Everest', str(response.data))
             self.assertIn('Boat Trip', str(response.data))
 
-    def test_itineraries_filtered(self):
+    def test_itineraries_filtered_by_title(self):
+        with self.client:
+            response =  self.client.get('/itineraries?search=Dis', follow_redirects=True)
+            self.assertIn('Itineraries', str(response.data))
+            self.assertIn('Disney World', str(response.data))
+            self.assertNotIn('Carnival', str(response.data))
+            self.assertNotIn('Mt Everest', str(response.data))
+            self.assertNotIn('Boat Trip', str(response.data))
+
+    def test_itineraries_filtered_by_location(self):
         with self.client:
             response =  self.client.get('/itineraries?search=Flo', follow_redirects=True)
             self.assertIn('Itineraries', str(response.data))
@@ -215,8 +224,16 @@ class DiscoverTripsViewTestCase(BaseTestCase):
             self.assertIn('Mt Everest', str(response.data))
             self.assertNotIn('Boat Trip', str(response.data))
 
+    def test_discover_trips_filtered_by_title(self):
+        with self.client:
+            response =  self.client.get('/discover_trips?search=ever', follow_redirects=True)
+            self.assertIn('Discover', str(response.data))
+            self.assertNotIn('Disney World', str(response.data))
+            self.assertNotIn('Carnival', str(response.data))
+            self.assertIn('Mt Everest', str(response.data))
+            self.assertNotIn('Boat Trip', str(response.data))
 
-    def test_discover_trips_filtered(self):
+    def test_discover_trips_filtered_by_location(self):
         with self.client:
             response =  self.client.get('/discover_trips?search=flo', follow_redirects=True)
             self.assertIn('Discover', str(response.data))

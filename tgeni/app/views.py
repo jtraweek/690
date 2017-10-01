@@ -184,8 +184,11 @@ def _render_itineraries(route_name, get_trips):
         # filter
         search_filter = request.args.get('search', '')
         if search_filter:
-            unsorted_trips = [tr for tr in unfiltered_trips
-                     if re.search(search_filter, tr.location, re.IGNORECASE)]
+            unsorted_trips = \
+                [tr for tr in unfiltered_trips
+                     if re.search(search_filter, tr.location, re.IGNORECASE)
+                        or
+                        re.search(search_filter, tr.title, re.IGNORECASE)]
         else:
             unsorted_trips = unfiltered_trips
         # sort
