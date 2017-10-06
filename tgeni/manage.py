@@ -130,5 +130,74 @@ def demo():
     app.tgeni.run(debug=True)
 
 
+
+@manager.command
+def demo2():
+    """ Runs the main TGeni application (dev version).
+    """
+    from app.models import (User, Trip, Activity, TripPhoto)
+    # Set up demo configuration (with a separate database)
+    print('Loading demo configuration...')
+    app.tgeni.config.from_object('config.DemoConfig')
+    # Start with a fresh db.
+    print('Creating database files...')
+    app.db.drop_all()
+    app.db.create_all()
+    #
+    add = app.db.session.add
+    add_all = app.db.session.add_all
+    commit = app.db.session.commit
+    # Add some users.
+    print('Adding users...')
+    julie = User(username='julie', email='julie@mail.com', password='pwd')
+    maryam = User(username='maryam', email='maryam@mail.com', password='pwd')
+    william = User(username='william', email='william@mail.com', password='pwd')
+    basil = User(username='basil', email='basil@mail.com', password='pwd')
+    dmitriy = User(username='dmitriy', email='dmitriy@mail.com', password='pwd')
+    aboubacar = User(username='aboubacar', email='aboubacar@mail.com', password='pwd')
+    add_all([julie, maryam, william, basil, dmitriy, aboubacar])
+    commit()
+    # Add some trips.
+    print('Adding trips...')
+    disney_world = Trip(title='Disney World', location='Florida', about='Going to Disney World!', length=7, complete=False, icon='castle')
+    carnival     = Trip(title='Carnival',  location='Brazil',  about='asdf', length=10, complete=False, icon='city')
+    everest      = Trip(title='Mt Everest', location='Nepal',  about='climbing Mt Everest', length=8, complete=True, icon='skiing')
+    caribbean    = Trip(title='Boat Trip',  location='Caribbean', about='Sailing to the caribbean islands', length=14, complete=True, icon='sea')
+    add_all([disney_world, carnival, everest, caribbean])
+    commit()
+    # invite travellers.
+    print('Adding users to trips...')
+    disney_world.invite(julie, william, basil)
+    carnival.invite(julie, maryam, basil, dmitriy)
+    everest.invite(william, aboubacar)
+    caribbean.invite(maryam, basil, dmitriy, aboubacar)
+    commit()
+    # Create activity
+    print('Adding activities...')
+    epcot_center = Activity(title='Epcot Center',location='Epcot Center',length='1/10/2017',description='Visit the Epcot Center')
+    space_mountain = Activity(title='Space Mountain',location='Disney',length='1/9/2017',description='Ride Space Mountain')
+    base_camp = Activity(title='Base Camp',location='Everest',length='6/1/2017',description='camping and prep')
+    climbing = Activity(title='Climbing',location='Everest',length='6/5/2017',description='climbing to the top!')
+    peak = Activity(title='Peak',location='Everest',length='6/10/2017',description='reached to top!')
+    commit()
+    # Add activities to trips.
+    print('Adding activities to trips...')
+    disney_world.activities.append(epcot_center)
+    disney_world.activities.append(space_mountain)
+    everest.activities.append(climbing)
+    everest.activities.append(base_camp)
+    everest.activities.append(peak)
+    commit()
+    #
+    print('Adding trips to discover...')
+    Trip.create(title='Disney World', location='Florida', about='Going to Disney World!', length=4, complete=True, icon='castle')
+    Trip.create(title='Disney World', location='Orlando, Florida', about='Epcot Center!', length=4, complete=True, icon='castle')
+    Trip.create(title='Sea World', location='San Diego', about='Sea World!', length=4, complete=True, icon='sea')
+    Trip.create(title='Disney World', location='Florida', about='  ', length=7, complete=True, icon='castle')
+    #
+    print('Starting web app...')
+    app.tgeni.run(debug=True)
+
+
 if __name__ == '__main__':
     manager.run()
