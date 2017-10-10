@@ -37,3 +37,11 @@ def current_user_trips_sorted(descending=False):
     """
     sort_func = desc if descending else asc
     return current_user.trips.order_by(sort_func(models.Trip.location))
+
+def add_number_of_Likes(trip_id):
+    trip = models.Trip.query.get(trip_id)
+    trip.add_number_of_Likes()
+        
+def get_number_of_likes(trip_id):
+    trip = models.Trip.query.get(trip_id)
+    return trip.get_number_of_likes()

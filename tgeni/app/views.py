@@ -221,3 +221,9 @@ def search_trip_by_location(location_like):
         flash('Trips was found successfully', 'success')
     #don't know the real html file for search_trip func
     return render_template('trip_search.html', trips)
+
+def add_number_of_likes_to_trip(trip_id):
+    queries.add_number_of_likes_to_trip(trip_id)
+    
+def get_number_of_likes_for_trip(trip_id):
+    return queries.get_number_of_likes_for_trip()
