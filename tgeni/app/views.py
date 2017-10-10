@@ -1,8 +1,12 @@
+
 import flask
+import os
+import re
+import uuid
+
 import app.forms            as forms
 import app.models           as models
 import app.utils.queries    as queries
-import re
 
 from   app                  import (tgeni, db, login_manager, uploaded_photos)
 from   flask                import (Response, flash, redirect, render_template,
@@ -110,6 +114,33 @@ def add_trip(trip_id=None):
                             activity_form=activity_form,
                             trip=trip,
                             new_trip=new_trip)
+
+
+@tgeni.route('/upload_photos/<trip_id>', methods=['GET', 'POST'])
+@login_required
+def upload_photos(trip_id):
+
+    trip = models.Trip.get(trip_id)
+    user = current_user
+    if user and trip and (trip in user.trips):
+        pass # test that current_user is on trip
+    else:
+        return flask.abort(404)
+
+    form = forms.TripPhotoUploadForm()
+    if form.validate_on_submit():
+        for photo in request.files.getlist('photo'):
+            extension = os.path.splitext(photo.filename)[-1]
+            filename = str(uuid.uuid4()) + extension  # generate a filename
+            uploaded_photos.save(photo, name=filename)
+            models.TripPhoto.create(filepath=filename, trip_id=trip.trip_id, trip=trip)
+        return redirect(url_for('upload_photos', trip_id=trip_id))
+
+    photo_filenames = [photo.filepath for photo in trip.photos]
+
+    return render_template('upload_photos.html',
+                            form=form,
+                            photo_filenames=photo_filenames)
 
 
 @tgeni.route('/view_complete_trip/<trip_id>')
@@ -224,6 +255,6 @@ def search_trip_by_location(location_like):
 
 def add_number_of_likes_to_trip(trip_id):
     queries.add_number_of_likes_to_trip(trip_id)
-    
+
 def get_number_of_likes_for_trip(trip_id):
     return queries.get_number_of_likes_for_trip()
