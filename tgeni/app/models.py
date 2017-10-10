@@ -103,7 +103,7 @@ class Trip(db.Model, CRUDMixin):
                                            # appear on the itineraries page.
                                            # Expected to be located in
                                            # static/img/.
-    number_of_likes=db.Column(db.integer,default=0)
+    number_of_likes=db.Column(db.Integer,default=0)
     users    = db.relationship('User',
                                 secondary=user_trips,
                                 backref=db.backref('trips', lazy='dynamic'))
@@ -124,13 +124,14 @@ class Trip(db.Model, CRUDMixin):
         """
         return helpers.get_sorted_activities(self)
 
-    def add_number_of_Likes(self):
+    def add_number_of_likes(self):
         num=self.number_of_likes+1
         self.number_of_likes=num
-        
+
     def get_number_of_likes(self):
         return self.number_of_likes
-    
+
+
 class Activity(db.Model, CRUDMixin):
     __tablename__ = 'activity'
     activity_id = db.Column(db.Integer,  primary_key=True)
