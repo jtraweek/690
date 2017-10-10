@@ -125,7 +125,8 @@ class Trip(db.Model, CRUDMixin):
         return helpers.get_sorted_activities(self)
 
     def add_number_of_Likes(self):
-        self.number_of_likes+1
+        num=self.number_of_likes+1
+        self.number_of_likes=num
         
     def get_number_of_likes(self):
         return self.number_of_likes
