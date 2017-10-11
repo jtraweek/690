@@ -85,10 +85,8 @@ def add_trip(trip_id=None):
         trip = models.Trip()
         new_trip = True
     trip.icon = trip.icon or 'original'
-    activity = models.Activity()
     ####------------------------------------------
     form = forms.NewTripForm(obj=trip)
-    activity_form = forms.NewActivityForm(obj=activity)
     ####------------------------------------------
     if form.validate_on_submit(): # handles POST?
         form.populate_obj(trip)
@@ -97,23 +95,57 @@ def add_trip(trip_id=None):
         db.session.add(trip)
         db.session.commit()
         trip_id = trip.trip_id
-        return redirect(url_for('add_trip',
+        return redirect(url_for('add_activity',
                                     trip_id=trip_id,
-                                    new_trip=new_trip))
-    elif activity_form.validate_on_submit():
+                                    activity_id=None))
+    ####------------------------------------------
+    return render_template('trip.html',
+                            form=form,
+                            trip=trip,
+                            new_trip=new_trip)
+
+@tgeni.route('/trip/<trip_id>/add_activity', methods = ['GET', 'POST'])
+@tgeni.route('/trip/<trip_id>/add_activity/<activity_id>', methods = ['GET', 'POST'])
+@login_required
+def add_activity(trip_id, activity_id=None):
+    if trip_id is None:
+        return flask.abort(401)
+
+    if trip_id:
+        trip = models.Trip.query.get(trip_id)
+        if not trip or trip not in current_user.trips:
+            return flask.abort(401)
+
+    if activity_id:
+        activity = models.Activity.query.get(activity_id)
+        if activity and activity in current_user.activities:
+            new_activity = False
+        else:
+            return flask.abort(401)
+    else:
+        activity = models.Activity()
+        new_activity = True
+
+    trip.icon = trip.icon or 'original'
+    activity = models.Activity()
+    ####------------------------------------------
+    activity_form = forms.NewActivityForm(obj=activity)
+    ####------------------------------------------
+    if activity_form.validate_on_submit():
         activity_form.populate_obj(activity)
         db.session.add(activity)
         trip.activities.append(activity)
         db.session.commit()
-        return redirect(url_for('add_trip',
+        return redirect(url_for('add_activity',
                                     trip_id=trip_id,
+                                    activity_id=None,
                                     new_trip=False))
     ####------------------------------------------
-    return render_template('trip.html',
-                            form=form,
+    return render_template('activity.html',
                             activity_form=activity_form,
                             trip=trip,
-                            new_trip=new_trip)
+                            activity=activity,
+                            new_activity=new_activity)
 
 
 @tgeni.route('/upload_photos/<trip_id>', methods=['GET', 'POST'])

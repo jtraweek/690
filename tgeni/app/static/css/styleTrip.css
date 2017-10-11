@@ -653,7 +653,7 @@ Placeholder Sections
 
 
 
-form
+form, .activity
 {
   display: block;
   overflow: hidden;
@@ -673,7 +673,7 @@ form
   }
 }
 
-form > div > label
+form > div > label, .activity label
 {
   display: block;
   padding: 20px 20px 10px;
@@ -771,5 +771,42 @@ form > div > label > input:focus, form > div > label > select:focus
   font-family:"Roboto";	
   resize: none;
   overflow: auto;
-  margin-right:50px;}
+  margin-right:50px;
+}
+
+.activity {
+  margin-top: 20px;
+  width: 90%;
+}
+
+.activity .col-3 {
+  display: inline-block;
+  height: 60px;
+  width: 33.3333333333%;
+  float: left;
+  box-shadow: 1.6px 1px #4D6080;
+}
+
+.activity .col-8 {
+  min-height: 100%;
+  width: 65%;
+  float: left;
+}
+
+.activity .col-4 {
+  border-left: solid 1px #4D6080;
+  width: 35%;
+  float: left;
+}
+
+.trip-img {
+  box-shadow: 1.6px 1px #4D6080;
+  background-size: cover;
+}
+
+.activity-desc {
+  display: inline-block;
+  padding: 20px;
+  font-size: 11px !important;
+}
   
