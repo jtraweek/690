@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <title>Travel Geni :: {% block title %}{% endblock %}</title>
+
+      <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/reset.css') }}"> <!-- CSS reset -->
+      <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styleTrip.css') }}"> <!-- Resource style -->
+      <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/trip_icons.css') }}">
+      <href= "{{ url_for('static',filename='js/mainTrip.js') }}">
+      <href= "{{ url_for('static',filename='js/jquery-2.1.1.js') }}">
+
+      {% block css %}{% endblock %}
+      {% block js %}{% endblock %}
+</head>
+<body>
+      <header>
+            <section id="cd-intro">
+                  <div id="cd-intro-tagline">
+                        <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='css/fonts/Travel Geni.png') }}" alt="Mountain View" style="width:130px;left:-120px;top:0;position:absolute;"></a>
+                        <h1 style="top:0;">{% block subtitle %}{% endblock %}</h1>
+
+                  </div> <!-- #cd-intro-tagline -->
+            </section> <!-- #cd-intro -->
+      </header>
+      <div class="cd-secondary-nav">
+            <a href="#0" class="cd-secondary-nav-trigger">Menu<span></span></a> <!-- button visible on small devices -->
+            <nav style="height:20px;">
+                  <ul>
+                        <li>
+                              <a href="{{ url_for('add_trip', trip_id=trip.trip_id) }}">
+                                    <b>Trip focus</b>
+                              </a>
+                        </li>
+                        {% if not new_trip %}
+                        <li>
+                              <a href="{{ url_for('add_activity', activity_id=None, trip_id=trip.trip_id) }}">
+                                    <b>Activities</b>
+                              </a>
+                        </li>
+                        <li>
+                              <a href="{{ url_for('upload_photos', trip_id=trip.trip_id) }}">
+                                    <b>Photos</b>
+                              </a>
+                        </li>
+                        {% endif %}
+                  </ul>
+            </nav>
+      </div> <!-- .cd-secondary-nav -->
+
+      <main class="cd-main-content">
+      {% block main_content %}{% endblock %}
+      </main> <!-- .cd-main-content -->
+
+      <script src="js/jquery-2.1.1.js"></script>
+      <script src="js/mainTrip.js"></script> <!-- Resource jQuery -->
+</body>
+</html>

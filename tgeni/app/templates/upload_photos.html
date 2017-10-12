@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<title>Upload Photo</title>
-<h1>Upload Photos</h1>
-<hr>
+{% extends "trip_layout.html" %}
+{% block title %}Photos{% endblock %}
+{% block subtitle %}Photos{% endblock %}
+
+{% block main_content %}
 
 {# 'enctype="multipart/form-data"' is needed for flask-upload! #}
 
@@ -17,3 +18,5 @@
 {% for photo_filename in photo_filenames %}
     <p><img src="{{ url_for('static', filename='upload/'+photo_filename) }}">
 {% endfor %}
+
+{% endblock main_content %}

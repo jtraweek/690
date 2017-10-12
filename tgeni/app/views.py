@@ -71,38 +71,38 @@ def discover_trips():
                                 get_trips= lambda: models.Trip.query.filter_by(complete=True))
 
 
-@tgeni.route('/add_trip', methods = ['GET', 'POST'])
-@tgeni.route('/edit_trip/<trip_id>', methods = ['GET', 'POST'])
+@tgeni.route('/trip', methods = ['GET', 'POST'])
+@tgeni.route('/trip/<trip_id>', methods = ['GET', 'POST'])
 @login_required
 def add_trip(trip_id=None):
+
+    user = current_user
+
     if trip_id:
-        trip = models.Trip.query.get(trip_id)
-        if trip and trip in current_user.trips:
+        trip = models.Trip.get(trip_id)
+        if trip and trip in user.trips:
             new_trip = False
         else:
             return flask.abort(401)
     else:
         trip = models.Trip()
         new_trip = True
+
     trip.icon = trip.icon or 'original'
-    ####------------------------------------------
     form = forms.NewTripForm(obj=trip)
-    ####------------------------------------------
+
     if form.validate_on_submit(): # handles POST?
         form.populate_obj(trip)
         trip.icon = request.form['icon_choice'] or 'original'
-        trip.invite(current_user)
-        db.session.add(trip)
-        db.session.commit()
-        trip_id = trip.trip_id
-        return redirect(url_for('add_activity',
-                                    trip_id=trip_id,
-                                    activity_id=None))
-    ####------------------------------------------
+        trip.invite(user)
+        trip.save()
+        return redirect(url_for('add_trip', trip_id=trip.trip_id))
+
     return render_template('trip.html',
                             form=form,
                             trip=trip,
                             new_trip=new_trip)
+
 
 @tgeni.route('/trip/<trip_id>/add_activity', methods = ['GET', 'POST'])
 @tgeni.route('/trip/<trip_id>/add_activity/<activity_id>', methods = ['GET', 'POST'])
@@ -148,7 +148,7 @@ def add_activity(trip_id, activity_id=None):
                             new_activity=new_activity)
 
 
-@tgeni.route('/upload_photos/<trip_id>', methods=['GET', 'POST'])
+@tgeni.route('/trip/<trip_id>/photos', methods=['GET', 'POST'])
 @login_required
 def upload_photos(trip_id):
 
@@ -172,6 +172,7 @@ def upload_photos(trip_id):
 
     return render_template('upload_photos.html',
                             form=form,
+                            trip=trip,
                             photo_filenames=photo_filenames)
 
 

@@ -1,164 +1,112 @@
-<!doctype html>
-<html lang="en" class="no-js">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "trip_layout.html" %}
+{% block title %}My Activities{% endblock %}
+{% block subtitle %}My Activities{% endblock %}
 
-  <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/reset.css') }}"> <!-- CSS reset -->
-  <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styleTrip.css') }}"> <!-- Resource style -->
-  <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/trip_icons.css') }}">
-  <href= "{{ url_for('static',filename='js/mainTrip.js') }}">
-  <href= "{{ url_for('static',filename='js/jquery-2.1.1.js') }}">
-
-
-  <title>Activities</title>
-</head>
-<body>
-  <header>
-    <section id="cd-intro">
-      <div id="cd-intro-tagline">
-        <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='css/fonts/Travel Geni.png') }}" alt="Mountain View" style="width:130px;left:-120px;top:0;position:absolute;"></a>
-
-        <h1 style="top:0;">Edit Trip Activities</h1>
-
-      </div> <!-- #cd-intro-tagline -->
-    </section> <!-- #cd-intro -->
-  </header>
-  <div class="cd-secondary-nav">
-    <a href="#0" class="cd-secondary-nav-trigger">Menu<span></span></a> <!-- button visible on small devices -->
-    <nav style="height:20px;">
-      <ul>
-        <li>
-          <a href="{{ url_for('add_trip', trip_id=trip.trip_id) }}">
-            <b>Trip focus</b>
-          </a>
-        </li>
-        <li>
-          <a href="{{ url_for('add_activity', activity_id=None, trip_id=trip.trip_id) }}">
-            <b>Activities</b>
-          </a>
-        </li>
-        <li>
-          <a href="#cd-placeholder-3">
-            <b>Photos</b>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div> <!-- .cd-secondary-nav -->
-  <main class="cd-main-content">
-
-    <section id="cd-placeholder-1" class="cd-section cd-container">
+{% block main_content %}
+<section id="cd-placeholder-1" class="cd-section cd-container">
       <div class="activity">
-          <div class="col-8">
-            <div class="row">
-              <div class="col-3">
-                <label>
-                  {{ trip.title }}
-                </label>
-              </div>
+            <div class="col-8">
+                  <div class="row">
+                        <div class="col-3">
+                              <label>
+                                    {{ trip.title }}
+                              </label>
+                        </div>
 
-              <div class="col-3">
-                <label>
-                  {{ trip.location }}
-                </label>
-              </div>
+                        <div class="col-3">
+                              <label>
+                                    {{ trip.location }}
+                              </label>
+                        </div>
 
-              <div class="col-3">
-                <label>
-                  {{ trip.length }}
-                </label>
-              </div>
+                        <div class="col-3">
+                              <label>
+                                    {{ trip.length }}
+                              </label>
+                        </div>
 
-              <div class="activity-desc">
-                {{ trip.about }}
-              </div>
+                        <div class="activity-desc">
+                              {{ trip.about }}
+                        </div>
 
+                  </div>
             </div>
-          </div>
-          <div class="col-4 trip-img drinkcard-cc {{ trip.icon }}">
-          </div>
+            <div class="col-4 trip-img drinkcard-cc {{ trip.icon }}">
+            </div>
 
       </div>
-    </section> <!-- #cd-placeholder-1 -->
+</section> <!-- #cd-placeholder-1 -->
 
-    <section id="cd-placeholder-2" class="cd-section cd-container">
+<section id="cd-placeholder-2" class="cd-section cd-container">
       <h2>Activities</h2>
       {% if trip.activities %}
       <ul>
 
-        {% for activity in trip.get_sorted_activities() %}  <div style="border:solid 2px #B7C891;width:90%;padding:10px;">
-        <ul>
-          <li style="padding:3px;font-weight:bold;font-size:19px;">{{ activity.title }}</li>
+            {% for activity in trip.get_sorted_activities() %}  <div style="border:solid 2px #B7C891;width:90%;padding:10px;">
+                  <ul>
+                        <li style="padding:3px;font-weight:bold;font-size:19px;">{{ activity.title }}</li>
 
-          <li style="padding:3px;">Location: {{ activity.location }}</li>
-          <li style="padding:3px;">When: {{ activity.length }} </li>
-          <li style="padding:3px;">Description: {{ activity.description }}</li>
-        </ul>
+                        <li style="padding:3px;">Location: {{ activity.location }}</li>
+                        <li style="padding:3px;">When: {{ activity.length }} </li>
+                        <li style="padding:3px;">Description: {{ activity.description }}</li>
+                  </ul>
 
-          <div style="border:solid 1px #B7C891; width:30px; height:30px;font-size:26px;background-color:#B7C891; text-align:center;float:right;margin-right:10px;margin-top:-60px;"><a href="{{ url_for('delete_activity', activity_id = activity.activity_id) }}"class="fa fa-trash" aria-hidden="true" ></a></div>
-        </div><br>
-        {% endfor %}
+                  <div style="border:solid 1px #B7C891; width:30px; height:30px;font-size:26px;background-color:#B7C891; text-align:center;float:right;margin-right:10px;margin-top:-60px;"><a href="{{ url_for('delete_activity', activity_id = activity.activity_id) }}"class="fa fa-trash" aria-hidden="true" ></a></div>
+            </div><br>
+            {% endfor %}
       </ul>
       {% endif %}
 
       <form class="form" style="margin-top:20px;" action="" method="post" name="add_activity">
-        {{ activity_form.hidden_tag() }}
-        <div class="col-3">
-          <label>
-            Activity Name:
-            {{ activity_form.title(size=80, placeholder = "What is your activity?")}}
-            {% for error in activity_form.title.errors %}
-            <span style="color: red;">[{{error}}]</span>
-            {% endfor %}<br>
-          </label>
-        </div>
+            {{ activity_form.hidden_tag() }}
+            <div class="col-3">
+                  <label>
+                        Activity Name:
+                        {{ activity_form.title(size=80, placeholder = "What is your activity?")}}
+                        {% for error in activity_form.title.errors %}
+                        <span style="color: red;">[{{error}}]</span>
+                        {% endfor %}<br>
+                  </label>
+            </div>
 
-        <div class="col-3">
-          <label>
-            Where?
-            {{ activity_form.location(placeholder = "Where is it going to be?") }}
-            {% for error in activity_form.location.errors %}
-            <span style="color: red;">[{{error}}]</span>
-            {% endfor %}<br>
-          </label>
-        </div>
+            <div class="col-3">
+                  <label>
+                        Where?
+                        {{ activity_form.location(placeholder = "Where is it going to be?") }}
+                        {% for error in activity_form.location.errors %}
+                        <span style="color: red;">[{{error}}]</span>
+                        {% endfor %}<br>
+                  </label>
+            </div>
 
-        <div class="col-3">
-          <label>
-            When?
-            {{ activity_form.length(size=3, placeholder = "mm\dd\yy") }}
-            {% for error in activity_form.length.errors %}
-            <span style="color: red;">[{{error}}]</span>
-            {% endfor %}<br>
-          </label>
-        </div>
+            <div class="col-3">
+                  <label>
+                        When?
+                        {{ activity_form.length(size=3, placeholder = "mm\dd\yy") }}
+                        {% for error in activity_form.length.errors %}
+                        <span style="color: red;">[{{error}}]</span>
+                        {% endfor %}<br>
+                  </label>
+            </div>
 
-        <div>
-          <label>
-            Care to share more? <br><br>
-            {{ activity_form.description(rows = '5', cols = '68', placeholder = "Description of activity", style= "background-color: #E5E0CD")|safe }}
-            {% for error in activity_form.description.errors %}
-            <span style="color: red;">[{{error}}]</span>
-            {% endfor %}<br>
-          </label>
-        </div>
+            <div>
+                  <label>
+                        Care to share more? <br><br>
+                        {{ activity_form.description(rows = '5', cols = '68', placeholder = "Description of activity", style= "background-color: #E5E0CD")|safe }}
+                        {% for error in activity_form.description.errors %}
+                        <span style="color: red;">[{{error}}]</span>
+                        {% endfor %}<br>
+                  </label>
+            </div>
 
-        <button type="submit" value="Submit" class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:50px;">Add Activity</button>
+            <button type="submit" value="Submit" class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:50px;">Add Activity</button>
 
       </form>
 
-    </div>
-  </div>
+</div>
+</div>
 </div>
 
 </section> <!-- #cd-placeholder-2 -->
 
-</main> <!-- .cd-main-content -->
-
-<script src="js/jquery-2.1.1.js"></script>
-<script src="js/mainTrip.js"></script> <!-- Resource jQuery -->
-</body>
-</html>
+{% endblock main_content %}
