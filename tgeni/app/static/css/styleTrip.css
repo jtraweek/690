@@ -569,6 +569,19 @@ Secondary Fixed Navigation
   }
 }
 
+.crossed-nav{
+	color:white;
+	font-size:1.3em;
+	padding:.5em;
+	font-family: 'Arvo', serif;
+	border-radius: .5em;
+    background: rgba(77, 96, 128, 0.7); 
+}
+
+.crossed-nav-li{
+	display:inline;
+}	
+
 /* -------------------------------- 
 
 Placeholder Sections

@@ -7,6 +7,7 @@
       <title>Travel Geni :: {% block title %}{% endblock %}</title>
 
       <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+	  <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/reset.css') }}"> <!-- CSS reset -->
       <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styleTrip.css') }}"> <!-- Resource style -->
@@ -21,19 +22,27 @@
       <header>
             <section id="cd-intro">
                   <div id="cd-intro-tagline">
-                        <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='css/fonts/Travel Geni.png') }}" alt="Mountain View" style="width:130px;left:-120px;top:0;position:absolute;"></a>
-                        <h1 style="top:0;">{% block subtitle %}{% endblock %}</h1>
+                        <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='css/fonts/Travel Geni.png') }}" alt="Travel Bus" style="width:130px;left:-120px;top:0;position:absolute;"></a>
+					<nav>
+						<ul>
+							<li class = "crossed-nav-li"><a href="{{ url_for('add_trip') }}" class = "crossed-nav">New Trip</a></li>
+							<li class = "crossed-nav-li"><a href="{{ url_for('itineraries') }}" class = "crossed-nav">My Itineraries</a></li>
+							<li class = "crossed-nav-li"><a href="{{ url_for('discover_trips') }}" class = "crossed-nav">Discover Trips</a></li>
+							<li class = "crossed-nav-li"><a href="#" class = "crossed-nav">My Profile</a></li>
+							<li class = "crossed-nav-li"><a href="#" class = "crossed-nav">About Us</a></li>
+						</ul>
+					</nav>
+						<h1 style="top:0;">{% block subtitle %}{% endblock %}</h1>
 
                   </div> <!-- #cd-intro-tagline -->
             </section> <!-- #cd-intro -->
       </header>
       <div class="cd-secondary-nav">
-            <a href="#0" class="cd-secondary-nav-trigger">Menu<span></span></a> <!-- button visible on small devices -->
             <nav style="height:20px;">
                   <ul>
                         <li>
                               <a href="{{ url_for('add_trip', trip_id=trip.trip_id) }}">
-                                    <b>Trip focus</b>
+                                    <b>Edit Trip</b>
                               </a>
                         </li>
                         {% if not new_trip %}
