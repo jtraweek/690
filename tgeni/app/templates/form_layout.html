@@ -1,0 +1,60 @@
+{#
+      Base layout for full-page size forms.
+
+      This should be used as a common layout for all forms on
+      the website.
+#}
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <title>Travel Geni :: {% block title %}{% endblock %}</title>
+
+      <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/reset.css') }}"> <!-- CSS reset -->
+      <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styleTrip.css') }}"> <!-- Resource style -->
+
+      {# Put any CSS files specific to the page here. #}
+      {% block css %}{% endblock %}
+
+      <href= "{{ url_for('static',filename='js/mainTrip.js') }}">
+      <href= "{{ url_for('static',filename='js/jquery-2.1.1.js') }}">
+
+      {# Put any Javascript files specific to the page here. #}
+      {% block js %}{% endblock %}
+
+</head>
+<body>
+      <header>
+            <section id="cd-intro">
+                  <div id="cd-intro-tagline">
+                        <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='css/fonts/Travel Geni.png') }}" alt="Travel Bus" style="width:130px;left:-120px;top:0;position:absolute;"></a>
+					<nav>
+						<ul>
+							<li class = "crossed-nav-li"><a href="{{ url_for('add_trip') }}" class = "crossed-nav">New Trip</a></li>
+							<li class = "crossed-nav-li"><a href="{{ url_for('itineraries') }}" class = "crossed-nav">My Itineraries</a></li>
+							<li class = "crossed-nav-li"><a href="{{ url_for('discover_trips') }}" class = "crossed-nav">Discover Trips</a></li>
+							<li class = "crossed-nav-li"><a href="#" class = "crossed-nav">My Profile</a></li>
+							<li class = "crossed-nav-li"><a href="#" class = "crossed-nav">About Us</a></li>
+						</ul>
+					</nav>
+					<h1 style="top:0;">{% block subtitle %}{% endblock %}</h1>
+                  </div> <!-- #cd-intro-tagline -->
+            </section> <!-- #cd-intro -->
+      </header>
+      <div class="cd-secondary-nav">
+            <nav style="height:20px;">
+                  {% block secondary_nav_options %}{% endblock %}
+            </nav>
+      </div> <!-- .cd-secondary-nav -->
+
+      <main class="cd-main-content">
+      {% block main_content %}{% endblock %}
+      </main> <!-- .cd-main-content -->
+
+</body>
+</html>
