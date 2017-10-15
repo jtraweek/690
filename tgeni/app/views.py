@@ -53,6 +53,21 @@ def signout():
     return redirect(url_for('index'))
 
 
+@tgeni.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    user = current_user
+    if not user:
+        return abort(404)
+
+    form = forms.UpdateProfileForm(obj=user)
+    if form.validate_on_submit():
+        user.update(**form.data)
+        return redirect(url_for('edit_profile'))
+
+    return render_template('edit_profile.html', form=form)
+
+
 @tgeni.route('/itineraries', methods = ['GET', 'POST'])
 @login_required
 def itineraries():

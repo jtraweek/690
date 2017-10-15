@@ -109,6 +109,41 @@ class SigninViewTestCase(BaseTestCase):
             self.assertFalse(current_user.is_authenticated)
 
 
+class EditProfileViewTestCase(BaseTestCase):
+    """
+    """
+    def setUp(self):
+        super(EditProfileViewTestCase, self).setUp()
+        # Add test users.
+        self.user = User.create(
+            username='test',
+            email='test@email.web',
+            password='pwd',
+            bio='Some test bio info.')
+        # Log in test user
+        self.login(self.user.username, self.user.password)
+
+    def test_edit_profile_signin_required(self):
+        """ Try to access the page while not logged in.
+        """
+        self.logout()
+        response =  self.client.get('/edit_profile', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('Sign In', str(response.data))
+        self.assertIn('Username', str(response.data))
+        self.assertIn('Password', str(response.data))
+
+    # def test_edit_profile_renders(self):
+    #     with self.client:
+    #         response =  self.client.get('/edit_profile', follow_redirects=True)
+    #         self.assertEqual(response.status_code, 200)
+    #         self.assertIn('Edit Profile', str(response.data))
+    #         self.assertIn(self.user.username, str(response.data))
+    #         self.assertIn(self.user.password, str(response.data))
+    #         self.assertIn(self.user.email, str(response.data))
+    #         self.assertIn(self.user.bio, str(response.data))
+
+
 class SignoutViewTestCase(BaseTestCase):
     """
     """

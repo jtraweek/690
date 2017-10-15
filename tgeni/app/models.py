@@ -66,6 +66,9 @@ class User(db.Model, flask_login.UserMixin, CRUDMixin):
     username  = db.Column(db.String,  unique=True)
     email     = db.Column(db.String,  unique=True)
     _password = db.Column(db.String(128)) # hashed
+    # user profile fields
+    avatar_filename = db.Column(db.String)
+    bio             = db.Column(db.String)
 
     def __repr__(self):
         return '<User %r>' % (self.username)

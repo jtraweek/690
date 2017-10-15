@@ -5,7 +5,7 @@ from flask_wtf.file         import (FileField, FileRequired, FileAllowed)
 from wtforms                import (StringField, IntegerField, TextAreaField,
                                     PasswordField, BooleanField,
                                     SubmitField)
-from wtforms.validators     import (DataRequired, Email)
+from wtforms.validators     import (DataRequired, Email, EqualTo)
 
 from app import uploaded_photos
 
@@ -48,6 +48,12 @@ class RegisterForm(FlaskForm):
                 return True
         else:
             return False
+
+
+class UpdateProfileForm(FlaskForm):
+    username = StringField('Username')
+    email = StringField('Email', validators=[Email()])
+    bio = TextAreaField('Bio')
 
 
 class NewTripForm(FlaskForm):
