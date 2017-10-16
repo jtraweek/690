@@ -56,6 +56,16 @@ class UpdateProfileForm(FlaskForm):
     bio = TextAreaField('Bio')
 
 
+class ChangePasswordForm(FlaskForm):
+    password = PasswordField('New Password',
+                                validators=[DataRequired()])
+    confirm  = PasswordField('Confirm New Password',
+                                validators=[
+                                    DataRequired(),
+                                    EqualTo('password', message='Passwords must match')
+                                ])
+
+
 class NewTripForm(FlaskForm):
     title    = StringField('Trip Name', validators=[DataRequired()])
     location = StringField('Location')

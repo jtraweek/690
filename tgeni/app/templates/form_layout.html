@@ -4,6 +4,20 @@
       This should be used as a common layout for all forms on
       the website.
 #}
+
+{% macro render_field(field, div_class) -%}
+<div class="{{ div_class }}">
+	<label>
+		{{ field.label }}
+		<br>
+		{{ field(style="background-color: #E5E0CD", **kwargs) |safe}}
+		{% for error in field.errors %}
+		<span style="color: red;">[{{error}}]</span>
+		{% endfor %}<br>
+	</label>
+</div>
+{%- endmacro %}
+
 <!doctype html>
 <html lang="en" class="no-js">
 <head>

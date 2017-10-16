@@ -68,6 +68,21 @@ def edit_profile():
     return render_template('edit_profile.html', form=form)
 
 
+@tgeni.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    user = current_user
+    if not user:
+        return abort(404)
+
+    form = forms.ChangePasswordForm()
+    if form.validate_on_submit():
+        user.update(password=form.password.data)
+        return redirect(url_for('change_password'))
+
+    return render_template('change_password.html', form=form)
+
+
 @tgeni.route('/itineraries', methods = ['GET', 'POST'])
 @login_required
 def itineraries():
