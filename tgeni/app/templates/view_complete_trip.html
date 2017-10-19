@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/reset.css') }}"> <!-- CSS reset -->
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styleTrip.css') }}"> <!-- Resource style -->
@@ -19,7 +20,15 @@
 	<section id="cd-intro">
 		<div id="cd-intro-tagline">
 			<a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='css/fonts/Travel Geni.png') }}" alt="Mountain View" style="width:130px;left:-120px;top:0;position:absolute;"></a>
-
+			<nav>
+						<ul>
+							<li class = "crossed-nav-li"><a href="{{ url_for('add_trip') }}" class = "crossed-nav">New Trip</a></li>
+							<li class = "crossed-nav-li"><a href="{{ url_for('itineraries') }}" class = "crossed-nav">My Itineraries</a></li>
+							<li class = "crossed-nav-li"><a href="{{ url_for('discover_trips') }}" class = "crossed-nav">Discover Trips</a></li>
+							<li class = "crossed-nav-li"><a href="#" class = "crossed-nav">My Profile</a></li>
+							<li class = "crossed-nav-li"><a href="#" class = "crossed-nav">About Us</a></li>
+						</ul>
+					</nav>
 		     <h1 style="top:0;">View Trip</h1>
 
 
@@ -38,11 +47,6 @@
 				<li>
 					<a href="#cd-placeholder-2">
 						<b>Activities</b>
-					</a>
-				</li>
-				<li>
-					<a href="#cd-placeholder-3">
-						<b>Photos</b>
 					</a>
 				</li>
 			</ul>
@@ -121,64 +125,6 @@
 			</div>
            
 		</section> <!-- #cd-placeholder-2 -->
-
-<section id="cd-placeholder-3" class="cd-section cd-container">
-			<h2>Photos</h2>
-
-
-	<div class="grid-photos">
-		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2016/05/31/22/42/village-1428010_1280.jpg" alt="" class="img-grid">
-		</figure>
-	  
-		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2013/08/12/18/09/staniel-cay-yacht-club-171902_1280.jpg" alt="" class="img-grid">
-		</figure>
-	  
-		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2016/11/21/14/02/architecture-1845560_1280.jpg" alt="" class="img-grid">
-		</figure>
-	  
-		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2017/02/21/18/24/prague-2086967_1280.jpg" alt="" class="img-grid">
-		</figure>
-	  
-		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2012/11/28/09/46/lava-67574_1280.jpg" alt="" class="img-grid">
-		</figure>
-	  
-		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2016/06/24/12/36/surf-1477175_1280.jpg" alt="" class="img-grid">
-		</figure>
-	  
-		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2016/12/05/11/38/austria-1883647_1280.jpg" alt="" class="img-grid">
-		</figure>
-	  
-		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2015/03/18/22/05/bora-bora-680115_1280.jpg" alt="" class="img-grid">
-		</figure>
-	  
-		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2017/01/30/07/54/church-2020258_1280.jpg" alt="" class="img-grid">
-		</figure>
-	  
-		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2016/12/06/14/33/log-cabin-1886620_1280.jpg" alt="" class="img-grid">
-		</figure>
-		
-		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2017/02/22/16/50/multnomah-falls-2089902_1280.jpg" alt="" class="img-grid">
-		</figure>
-	  
-		<figure class="pic">
-		  <img src="https://cdn.pixabay.com/photo/2010/12/23/12/58/horseshoe-bend-4040_1280.jpg" alt="" class="img-grid">
-		</figure>
-	  
-	</div>
-			
-</section> <!-- #cd-placeholder-3 -->
-
 	</main> <!-- .cd-main-content -->
 	
 <script src="js/jquery-2.1.1.js"></script>

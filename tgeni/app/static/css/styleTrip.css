@@ -571,9 +571,9 @@ Secondary Fixed Navigation
 
 .crossed-nav{
 	color:white;
-	font-size:1.3em;
+	font-size:1em;
 	padding:.5em;
-	font-family: 'Arvo', serif;
+	font-family: 'Poppins', sans-serif;
 	border-radius: .5em;
     background: rgba(77, 96, 128, 0.7); 
 }

@@ -95,7 +95,7 @@ button:focus {
 .top-bar {
   background:url('../img/trees.jpg') no-repeat center center;
   width: 100%;
-  height: 180px;
+  height: 250px;
   z-index: 2;
   margin: 0 auto;
   background-size: 100% 100%;
@@ -182,6 +182,24 @@ button:focus {
   -webkit-transform: translateY(7px);
   transform: translateY(7px);
 }
+
+.crossed-nav-list{
+	text-align: center;
+}
+
+.crossed-nav{
+	margin-top:0;
+	color:white;
+	font-size:1em;
+	padding:.5em;
+	font-family: 'Poppins', sans-serif;
+	border-radius: .5em;
+    background: rgba(77, 96, 128, 0.7); 
+}
+
+.crossed-nav-li{
+	display:inline;
+}	
 
 /* Filter/dropdown dummy on the right */
 .filter {

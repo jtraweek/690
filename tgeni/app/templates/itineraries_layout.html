@@ -9,6 +9,7 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" type="text/css" href="static/css/itineraries.css" />
       <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
+	  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 	  <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/trip_icons.css') }}">
       {% block css %}{% endblock %}
       {% block js %}{% endblock %}
@@ -16,9 +17,20 @@
 
 <body>
       <header class="top-bar">
+			<div class = "crossed-nav-list">
+			 <a href="{{ url_for('index') }}"><img src="static/css/Travel Geni.png" alt="Mountain View" style="width:130px;left:-20px;top:0;position:absolute"></a><br><br><br>
+			<nav>
+					<ul>
+						<li class = "crossed-nav-li"><a href="{{ url_for('add_trip') }}" class = "crossed-nav">New Trip</a></li>
+						<li class = "crossed-nav-li"><a href="{{ url_for('itineraries') }}" class = "crossed-nav">My Itineraries</a></li>
+						<li class = "crossed-nav-li"><a href="{{ url_for('discover_trips') }}" class = "crossed-nav">Discover Trips</a></li>
+						<li class = "crossed-nav-li"><a href="#" class = "crossed-nav">My Profile</a></li>
+						<li class = "crossed-nav-li"><a href="#" class = "crossed-nav">About Us</a></li>
+						</ul>
+					</nav>
+			</div>
             <div class="filter">
-                  <a href="{{ url_for('index') }}"><img src="static/css/Travel Geni.png" alt="Mountain View" style="width:130px;left:-20px;top:0;position:absolute;"></a><br><br><br>
-                  <span class="topic">{% block topic %}{% endblock %}</span><br>
+			                  <span class="topic">{% block topic %}{% endblock %}</span><br>
             </div>
             <div class="dropdown">
                   <div>
