@@ -124,13 +124,14 @@ Intro
 
 #cd-intro {
   background: url('fonts/trees.jpg') no-repeat center center;
+  width: 100%;
   z-index: 2;
   margin: 0 auto;
   background-size: 100% 100%;  
 }
 #cd-intro #cd-intro-tagline {
   width: auto;
-  width:90%;
+  width:100%;
   position:relative;
   max-width: 1170px;
   margin: 0 auto;
@@ -143,7 +144,7 @@ Intro
 
 @media only screen and (min-width: 768px) {
   #cd-intro {
-    height: 80px;
+    height: 250px;
   }
   #cd-intro #cd-intro-tagline {
     padding-top: 160px;
@@ -152,7 +153,7 @@ Intro
 }
 @media only screen and (min-width: 1170px) {
   #cd-intro {
-    height: 180px; 
+    height: 250px; 
   }
   #cd-intro #cd-intro-tagline {
     padding-top: 5px;
@@ -576,6 +577,10 @@ Secondary Fixed Navigation
 	font-family: 'Poppins', sans-serif;
 	border-radius: .5em;
   background: rgba(77, 96, 128, 0.7); 
+}
+
+.crossed-nav-list{
+  text-align: center;
 }
 
 .crossed-nav-li{

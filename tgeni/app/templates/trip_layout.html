@@ -22,18 +22,18 @@
       <header>
             <section id="cd-intro">
                   <div class = "crossed-nav-list">
+                        <nav>
+                                    <ul>
+                                          <li class = "crossed-nav-li"><a href="{{ url_for('add_trip') }}" class = "crossed-nav">New Trip</a></li>
+                                          <li class = "crossed-nav-li"><a href="{{ url_for('itineraries') }}" class = "crossed-nav">My Itineraries</a></li>
+                                          <li class = "crossed-nav-li"><a href="{{ url_for('discover_trips') }}" class = "crossed-nav">Discover Trips</a></li>
+                                          <li class = "crossed-nav-li"><a href="#" class = "crossed-nav">My Profile</a></li>
+                                          <li class = "crossed-nav-li"><a href="#" class = "crossed-nav">About Us</a></li>
+                                    </ul>
+                              </nav>
+                  <div>
                   <div id="cd-intro-tagline">
-                        <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='css/fonts/Travel Geni.png') }}" alt="Travel Bus" style="width:130px;left:-120px;top:0;position:absolute;"></a>
-					<nav>
-						<ul>
-							<li class = "crossed-nav-li"><a href="{{ url_for('add_trip') }}" class = "crossed-nav">New Trip</a></li>
-							<li class = "crossed-nav-li"><a href="{{ url_for('itineraries') }}" class = "crossed-nav">My Itineraries</a></li>
-							<li class = "crossed-nav-li"><a href="{{ url_for('discover_trips') }}" class = "crossed-nav">Discover Trips</a></li>
-							<li class = "crossed-nav-li"><a href="#" class = "crossed-nav">My Profile</a></li>
-							<li class = "crossed-nav-li"><a href="#" class = "crossed-nav">About Us</a></li>
-						</ul>
-					</nav>
-						<h1 style="top:50px;">{% block subtitle %}{% endblock %}</h1>
+                         <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='css/fonts/Travel Geni.png') }}" alt="Travel Bus" style="width:130px;left:-150px;top:0;position:absolute;"></a>
 				<h1 style="top:50px;">{% block subtitle %}{% endblock %}</h1>
                   </div> <!-- #cd-intro-tagline -->
             </section> <!-- #cd-intro -->
