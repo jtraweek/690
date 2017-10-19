@@ -21,6 +21,7 @@
 <body>
       <header>
             <section id="cd-intro">
+                  <div class = "crossed-nav-list">
                   <div id="cd-intro-tagline">
                         <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='css/fonts/Travel Geni.png') }}" alt="Travel Bus" style="width:130px;left:-120px;top:0;position:absolute;"></a>
 					<nav>
@@ -33,6 +34,7 @@
 						</ul>
 					</nav>
 						<h1 style="top:50px;">{% block subtitle %}{% endblock %}</h1>
+				<h1 style="top:50px;">{% block subtitle %}{% endblock %}</h1>
                   </div> <!-- #cd-intro-tagline -->
             </section> <!-- #cd-intro -->
       </header>

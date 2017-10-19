@@ -4,10 +4,12 @@
 
 {% block grid_items %}
       {% for trip in trips %}
-      <a class="grid__item {{ trip.icon }}" href="{{ url_for('add_trip', trip_id=trip.trip_id) }}" style = "margin-left:10px;">
-            <h2 class="title title--preview">{{ trip.title }}</h2>
+      <a class="grid__item {{ trip.icon }}" href="{{ url_for('add_trip', trip_id=trip.trip_id) }}">
+            <nav style="background: rgba(0,0,0,.7);">
+			<h2 class="title title--preview">{{ trip.title }}</h2>
             <div class="loader"></div>
             <span class="category">{{ trip.location }}</span>
+			</nav>
       </a>
       <div style="border:solid 1px #8EA86C; width:35px; height:35px;color:#ffffff;font-size:26px;background-color:#8EA86C; opacity:0.5;text-align:center;"><a href="{{ url_for('delete_trip', trip_id = trip.trip_id) }}"class="fa fa-trash" aria-hidden="true" ></a></div>
       {% endfor %}
