@@ -4,10 +4,12 @@
 
 {% block grid_items %}
       {% for trip in trips %}
-      <a class="grid__item {{ trip.icon }}" href="{{ url_for('view_complete_trip', trip_id=trip.trip_id) }}" style = "margin:10px">
-            <h2 class="title title--preview">{{ trip.title }}</h2>
-            <div class="loader"></div>
-            <span class="category">{{ trip.location }}</span>
+      <a class="grid__item {{ trip.icon }}" href="{{ url_for('view_complete_trip', trip_id=trip.trip_id) }}">
+			<nav style="background: rgba(0,0,0,.7);">
+				<h2 class="title title--preview">{{ trip.title }}</h2>
+				<div class="loader"></div>
+				<span class="category">{{ trip.location }}</span>
+			</nav>
       </a>
       {% endfor %}
 {% endblock %}
