@@ -216,8 +216,19 @@ Intro
   color: white;
   font-weight:bold;
   border:solid white 2px;
+  position:relative;
+  float:right;
+  overflow:hidden;
+  margin:10px;
 }
 
+.check-box{
+	font-family:"Roboto";
+	color:#B1103C;
+	font-size:10px;
+	font-weight:bold; 
+	display:inline-block;
+}
 
 .cc-selector input{
     margin:0;padding:0;

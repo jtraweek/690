@@ -53,33 +53,32 @@
 			</label>
 		</div>
 
-		<button type="submit" value="Submit" class="cd-btn" id="col-submit" style="position:relative;float:right;overflow:hidden;margin:10px;margin-top:30px;">Save</button>
-
 		<br><br><br>
 		<div>
 			<label>
 				Choose your trip picture<br><br>
 				<div class="cc-selector-2">
-                              {% for icon_name in ('safari','city','skiing','mosque','beach') %}
-					<input id="icon_opt_{{ icon_name }}" type="radio" name="icon_choice" value="{{ icon_name }}" {{ 'checked' if (trip.icon==icon_name) else '' }} >
-					<label class="drinkcard-cc {{ icon_name }}" for="icon_opt_{{ icon_name }}"></label>
-                              {% endfor %}
+                    {% for icon_name in ('safari','city','skiing','mosque','beach') %}
+						<input id="icon_opt_{{ icon_name }}" type="radio" name="icon_choice" value="{{ icon_name }}" {{ 'checked' if (trip.icon==icon_name) else '' }} >
+						<label class="drinkcard-cc {{ icon_name }}" for="icon_opt_{{ icon_name }}"></label>
+                    {% endfor %}
 				</div>
-                        <div class="cc-selector-2" style="margin-top:-70px;">
-                              {% for icon_name in ('koo5','italy','original','sea','castle') %}
-                              <input id="icon_opt_{{ icon_name }}" type="radio" name="icon_choice" value="{{ icon_name }}" {{ 'checked' if (trip.icon==icon_name) else '' }} >
-                              <label class="drinkcard-cc {{ icon_name }}" for="icon_opt_{{ icon_name }}"></label>
-                              {% endfor %}
-                        </div>
+					<div class="cc-selector-2" style="margin-top:-70px;">
+						{% for icon_name in ('koo5','italy','original','sea','castle') %}
+							<input id="icon_opt_{{ icon_name }}" type="radio" name="icon_choice" value="{{ icon_name }}" {{ 'checked' if (trip.icon==icon_name) else '' }} >
+                            <label class="drinkcard-cc {{ icon_name }}" for="icon_opt_{{ icon_name }}"></label>
+                        {% endfor %}
+                    </div>
 			</label>
 		</div>
 		<div class="col-1" style="margin-top:-190px;">
 			<label>
-				<p style="color:#B1103C;font-size: 14px;font-weight:bold;">Publish My Trip!</p>
-				<br>
-				{{ form.complete }}<br>
+				<p class="check-box">Publish My Trip!</p>
+				<br>{{ form.complete }}<br>
 			</label>
 		</div>
+		
+		<button type="submit" value="Submit" class="cd-btn" id="col-submit">Save</button>
 
 	</form>
 
