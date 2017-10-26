@@ -200,6 +200,15 @@ button:focus {
 
 .crossed-nav-li{
 	display:inline;
+}
+
+.bus{
+	width:130px;
+	margin:0; 
+	padding:0; 
+	position:fixed;
+	top: 0px;
+	left: 0px;
 }	
 
 /* Filter/dropdown dummy on the right */

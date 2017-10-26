@@ -598,6 +598,15 @@ Secondary Fixed Navigation
 	display:inline;
 }	
 
+.bus{
+	width:130px;
+	margin:0; 
+	padding:0; 
+	position:fixed;
+	top: 0px;
+	left: 0px;
+}
+
 /* -------------------------------- 
 
 Placeholder Sections
@@ -836,6 +845,7 @@ form > div > label > input:focus, form > div > label > select:focus
 .activity-desc {
   display: inline-block;
   padding: 20px;
-  font-size: 11px !important;
+  font-weight: bold;
+  font-size: 13px !important;
 }
   
