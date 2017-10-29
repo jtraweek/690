@@ -848,4 +848,72 @@ form > div > label > input:focus, form > div > label > select:focus
   font-weight: bold;
   font-size: 13px !important;
 }
-  
+
+/* photos */
+#photo-uploading-form #submit {
+  cursor: pointer;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#trip-photos {
+  margin-top: 30px;
+}
+
+#trip-photos img {
+  max-width: 100%;
+  border-radius: 4px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.trip-photo-link {
+  display: block;
+  float: left;
+}
+
+#photo-uploading-form {
+  padding-top: 30px;
+  border: none;
+  width: 100%;
+}
+
+#trip-photos .col-3 {
+  padding: 15px;
+  display: inline-block;
+  width: 100%;
+}
+
+#trip-photos .col-3 .center-img {
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+@media (min-width: 768px) {
+  #trip-photos .col-3 {
+    display: inline-block;
+    width: 33.3333333333%;
+    float: left;
+  }
+
+  #trip-photos img {
+    max-width: none;
+    border-radius: 4px;
+    height: 150px;
+    margin: 0;
+  }
+
+  #photo-uploading-form {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+}
+
+

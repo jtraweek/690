@@ -1,22 +1,41 @@
 {% extends "trip_layout.html" %}
+
 {% block title %}Photos{% endblock %}
 {% block subtitle %}Photos{% endblock %}
+{% block css %}
+<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/lightbox.css') }}">
+{% endblock %}
+{% block js %}
+<script src="{{ url_for('static',filename='js/jquery-2.1.1.js') }}"></script> 
+<script src="{{ url_for('static',filename='js/mainTrip.js') }}"></script>
+<script src="{{ url_for('static',filename='js/lightbox.js') }}"></script>
+{% endblock %}
 
 {% block main_content %}
 
-{# 'enctype="multipart/form-data"' is needed for flask-upload! #}
+<section id="cd-placeholder-1" class="cd-section cd-container">
+  {# 'enctype="multipart/form-data"' is needed for flask-upload! #}
+  <form id="photo-uploading-form" method="POST" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      {{ form.photo(multiple="multiple")}}
+      {% for error in form.photo.errors %}
+          <span style="color: red;">{{ error }}</span>
+      {% endfor %}
+      {{ form.submit }}
+  </form>
+</section> <!-- #cd-placeholder-1 -->
 
-<form method="POST" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
-    {{ form.photo(multiple="multiple")}}
-    {% for error in form.photo.errors %}
-        <span style="color: red;">{{ error }}</span>
+<section id="cd-placeholder-2" class="cd-section cd-container">
+  <hr>
+  <div id="trip-photos" class="image-row">
+    {% for photo_filename in photo_filenames %}
+      <div class="col-3">
+        <center class="center-img">
+          <a class="example-image-link" href="{{ url_for('static', filename='upload/'+photo_filename) }}" data-lightbox="example-1"><img class="example-image" src="{{ url_for('static', filename='upload/'+photo_filename) }}" alt="Girl looking out people on beach"></a>
+        </center>
+      </div>
     {% endfor %}
-    {{ form.submit }}
-</form>
-
-{% for photo_filename in photo_filenames %}
-    <p><img src="{{ url_for('static', filename='upload/'+photo_filename) }}">
-{% endfor %}
+  </div>
+</section> <!-- #cd-placeholder-2 -->
 
 {% endblock main_content %}
