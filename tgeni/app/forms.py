@@ -54,6 +54,10 @@ class UpdateProfileForm(FlaskForm):
     username = StringField('Username')
     email = StringField('Email', validators=[Email()])
     bio = TextAreaField('Bio')
+    avatar = FileField('Avatar',
+        validators=[
+            FileAllowed(uploaded_photos, u'Must be an image file!')
+        ])
 
 
 class ChangePasswordForm(FlaskForm):
