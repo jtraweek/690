@@ -92,6 +92,23 @@ def change_password():
     return render_template('change_password.html', form=form)
 
 
+@tgeni.route('/view_profile/<user_id>')
+@login_required
+def view_profile(user_id):
+
+    user = models.User.get(user_id)
+    if not user:
+        return abort(404)
+
+    avatar_filename = user.avatar_filename or ''
+    trips = user.published_trips
+
+    return render_template('view_profile.html',
+                            user=user,
+                            trips=trips,
+                            avatar_filename=avatar_filename)
+
+
 @tgeni.route('/itineraries', methods = ['GET', 'POST'])
 @login_required
 def itineraries():
@@ -272,7 +289,7 @@ def not_found_404(er):
 
 @login_manager.user_loader
 def load_user(id):
-    return models.User.query.get(int(id))
+    return models.User.get(id)
 
 
 def _render_itineraries(route_name, get_trips):

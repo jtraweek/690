@@ -85,6 +85,15 @@ class User(db.Model, flask_login.UserMixin, CRUDMixin):
     def password_matches(self, plaintext_password):
         return crypt.check_password_hash(self._password, plaintext_password)
 
+    @property
+    def published_trips(self):
+        """
+            Retrieve all published trips that the user was on.
+        """
+        def is_published(trip):
+            return trip.published
+        return filter(is_published, self.trips)
+
     # required methods for flask_login...
     ###
     def is_active(self):
@@ -113,6 +122,13 @@ class Trip(db.Model, CRUDMixin):
 
     def __repr__(self):
         return "Trip %s" % self.title
+
+    @property
+    def published(self):
+        return self.complete
+    @published.setter
+    def published(self, value):
+        self.complete = value
 
     def mark_complete(self):
         self.complete = True

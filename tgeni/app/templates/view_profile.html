@@ -1,0 +1,49 @@
+{% extends 'profile_layout.html' %}
+
+{% block subtitle %}View Profile{% endblock %}
+
+{% block main_content %}
+<section id="cd-placeholder-1" class="cd-section cd-container">
+      <div class="activity">
+            <div class="col-8">
+                  <div class="row">
+                        <div class="col-2">
+                              <label>Username {{ user.username }}</label>
+                        </div>
+                        <div class="col-2">
+                              <label>
+                              </label>
+                        </div>
+                        <div class="activity-desc">
+                              <label>Bio</label>
+                              {{ user.bio }}
+                        </div>
+
+                  </div>
+            </div>
+            <div class="col-4">
+                  <img src="{{ url_for('static', filename='upload/'+avatar_filename) }}"
+                        alt="Avatar Photo"
+                        style="height: 100px; width: 100px;">
+            </div>
+      </div>
+</section> <!-- #cd-placeholder-1 -->
+
+<div class="container">
+      <div id="theGrid" class="main">
+            <section class="grid">
+                  {% for trip in trips %}
+                  <a class="grid__item {{ trip.icon }}" href="{{ url_for('view_complete_trip', trip_id=trip.trip_id) }}">
+                              <nav style="background: rgba(0,0,0,.7);">
+                                    <h2 class="title title--preview">{{ trip.title }}</h2>
+                                    <div class="loader"></div>
+                                    <span class="category">{{ trip.location }}</span>
+                              </nav>
+                  </a>
+                  {% endfor %}
+                  <br><br><br>
+            </section>
+      </div>
+</div>
+
+{% endblock main_content %}
