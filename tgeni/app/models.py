@@ -85,6 +85,10 @@ class User(db.Model, flask_login.UserMixin, CRUDMixin):
     def password_matches(self, plaintext_password):
         return crypt.check_password_hash(self._password, plaintext_password)
 
+    @classmethod
+    def get_by_username(cls, username):
+        return cls.query.filter_by(username=username).first()
+
     @property
     def published_trips(self):
         """

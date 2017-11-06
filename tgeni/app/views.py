@@ -58,7 +58,7 @@ def signout():
 def edit_profile():
     user = current_user
     if not user:
-        return abort(404)
+        return flask.abort(404)
 
     form = forms.UpdateProfileForm(obj=user)
     if form.validate_on_submit():
@@ -82,7 +82,7 @@ def edit_profile():
 def change_password():
     user = current_user
     if not user:
-        return abort(404)
+        return flask.abort(404)
 
     form = forms.ChangePasswordForm()
     if form.validate_on_submit():
@@ -92,20 +92,22 @@ def change_password():
     return render_template('change_password.html', form=form)
 
 
-@tgeni.route('/view_profile/<user_id>')
+@tgeni.route('/view_profile/<username>')
 @login_required
-def view_profile(user_id):
+def view_profile(username):
 
-    user = models.User.get(user_id)
+    user = models.User.get_by_username(username)
     if not user:
-        return abort(404)
+        return flask.abort(404)
 
     avatar_filename = user.avatar_filename or ''
     trips = user.published_trips
+    is_current_user = (current_user.id == user.id)
 
     return render_template('view_profile.html',
                             user=user,
                             trips=trips,
+                            is_current_user=is_current_user,
                             avatar_filename=avatar_filename)
 
 

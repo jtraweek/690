@@ -21,7 +21,7 @@ class SigninForm(FlaskForm):
 
     def validate(self):
         if FlaskForm.validate(self):
-            lookup = models.User.query.filter_by(username=self.username.data).first()
+            lookup = models.User.get_by_username(self.username.data)
             if lookup and lookup.password_matches(self.password.data):
                 self._found_user = lookup
                 return True
@@ -40,7 +40,7 @@ class RegisterForm(FlaskForm):
 
     def validate(self):
         if FlaskForm.validate(self):
-            lookup = models.User.query.filter_by(username=self.username.data).first()
+            lookup = models.User.get_by_username(self.username.data)
             if lookup:
                 self.username.errors.append('Username already taken')
                 return False

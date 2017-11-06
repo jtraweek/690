@@ -13,18 +13,33 @@
 {% endblock %}
 
 {% block secondary_nav_options %}
-<ul>
-     <li>
-           <a href="{{ url_for('edit_profile') }}">
-                 <b>Update Profile</b>
-           </a>
-     </li>
-     <li>
-           <a href="{{ url_for('change_password') }}">
-                 <b>Change Password</b>
-           </a>
-     </li>
-</ul>
+      {% if is_current_user %}
+            <ul>
+                 <li>
+                       <a href="{{ url_for('edit_profile') }}">
+                             <b>Update Profile</b>
+                       </a>
+                 </li>
+                 <li>
+                       <a href="{{ url_for('change_password') }}">
+                             <b>Change Password</b>
+                       </a>
+                 </li>
+                 <li>
+                       <a href="{{ url_for('view_profile', username=user.usename) }}">
+                             <b>View Profile</b>
+                       </a>
+                 </li>
+            </ul>
+      {% else %}
+            <ul>
+                 <li>
+                       <a href="#">
+                             <b>View Profile</b>
+                       </a>
+                 </li>
+            </ul>
+      {% endif %}
 {% endblock %}
 
 {% block main_content %}
