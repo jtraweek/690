@@ -111,6 +111,31 @@ def view_profile(username):
                             avatar_filename=avatar_filename)
 
 
+@tgeni.route('/profiles', methods = ['GET', 'POST'])
+@login_required
+def profiles():
+    """
+        Lists all users. Can be filtered based on partial match
+        of username.
+    """
+
+    form = forms.SearchLocationForm()
+    if form.validate_on_submit():
+        search_filter = form.location_search.data
+        return redirect(url_for('profiles', search=search_filter))
+    else:
+        unfiltered_users = models.User.query.all()
+        # filter
+        search_filter = request.args.get('search', '')
+        if search_filter:
+            filtered_users = \
+                [uu for uu in unfiltered_users
+                     if re.search(search_filter, uu.username, re.IGNORECASE)]
+        else:
+            filtered_users = unfiltered_users
+        return render_template('profiles.html', users=filtered_users, form=form)
+
+
 @tgeni.route('/itineraries', methods = ['GET', 'POST'])
 @login_required
 def itineraries():

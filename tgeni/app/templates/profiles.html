@@ -1,0 +1,21 @@
+{% extends "itineraries_layout.html" %}
+{% block title %}Users{% endblock %}
+{% block topic %}Users{% endblock %}
+
+{% block sort_dropdown %}
+{% endblock sort_dropdown %}
+
+
+{% block grid_items %}
+{% for user in users %}
+<a class="grid__item"
+      style="background-image:url('../upload/{{ user.avatar_filename }}')"
+      href="{{ url_for('view_profile', username=user.username) }}">
+            <nav style="background: rgba(0,0,0,.7);">
+                  <h2 class="title title--preview">{{ user.username }}</h2>
+                  <div class="loader"></div>
+                  <span class="category"> </span>
+            </nav>
+</a>
+{% endfor %}
+{% endblock %}

@@ -17,45 +17,50 @@
 
 <body>
       <header class="top-bar">
-			<div class = "crossed-nav-list" style="	margin-top:-70px;">
-				<a href="{{ url_for('index') }}"><img src="static/css/Travel Geni.png" alt="Mountain View" class="bus"></a><br><br><br>
-				<nav>
-					<ul>
-						<li class = "crossed-nav-li"><a href="{{ url_for('add_trip') }}" class = "crossed-nav">New Trip</a></li>
-						<li class = "crossed-nav-li"><a href="{{ url_for('itineraries') }}" class = "crossed-nav">My Itineraries</a></li>
-						<li class = "crossed-nav-li"><a href="{{ url_for('discover_trips') }}" class = "crossed-nav">Discover Trips</a></li>
-						<li class = "crossed-nav-li"><a href="{{ url_for('edit_profile') }}" class = "crossed-nav">My Profile</a></li>
-						<li class = "crossed-nav-li"><a href="#" class = "crossed-nav">About Us</a></li>
-						</ul>
-				</nav>
-			</div>
+		<div class = "crossed-nav-list" style="	margin-top:-70px;">
+			<a href="{{ url_for('index') }}"><img src="static/css/Travel Geni.png" alt="Mountain View" class="bus"></a><br><br><br>
+			<nav>
+				<ul>
+					<li class = "crossed-nav-li"><a href="{{ url_for('add_trip') }}" class = "crossed-nav">New Trip</a></li>
+					<li class = "crossed-nav-li"><a href="{{ url_for('itineraries') }}" class = "crossed-nav">My Itineraries</a></li>
+					<li class = "crossed-nav-li"><a href="{{ url_for('discover_trips') }}" class = "crossed-nav">Discover Trips</a></li>
+					<li class = "crossed-nav-li"><a href="{{ url_for('edit_profile') }}" class = "crossed-nav">My Profile</a></li>
+					<li class = "crossed-nav-li"><a href="#" class = "crossed-nav">About Us</a></li>
+					</ul>
+			</nav>
+		</div>
+            <!--  -->
             <div class="filter">
 			    <span class="topic">{% block topic %}{% endblock %}</span><br>
             </div>
+            <!--  -->
             <div class="dropdown">
-                <div>
-					<form method="post" name="search_trip">
-						{{ form.hidden_tag() }}
-						<button type="submit">
-							<i class="fa fa-search" id="searchicon" ></i>
-						</button>
-						{{ form.location_search(placeholder = "Search Locations...", class_='search') }}
-						{% for error in form.location_search.errors %}
-						<span style="color: red;">[{{error}}]</span>
-						{% endfor %}<br>
-                    </form>
-				</div><!-- trigger button -->
-				<br>
-                <div class="dropdown2" >
-					<button class="dropbtn">Sort</button>
-                    <div class="dropdown-content">
-						{% block dropdown_content %}
-						<a href="{{ request.path }}?sort=newest">Newest</a>
-                        <a href="{{ request.path }}?sort=location">Location</a>
-                        {% endblock %}
-					</div>
-				</div><!-- dropdown menu -->
+                  <div>
+                        <form method="post" name="search_trip">
+                              {{ form.hidden_tag() }}
+                              <button type="submit">
+                                    <i class="fa fa-search" id="searchicon" ></i>
+                              </button>
+                              {{ form.location_search(placeholder = "Search Locations...", class_='search') }}
+                              {% for error in form.location_search.errors %}
+                                    <span style="color: red;">[{{error}}]</span>
+                              {% endfor %}<br>
+                        </form>
+                  </div><!-- trigger button -->
+                  <br>
+                  {% block sort_dropdown %}
+                  <div class="dropdown2" >
+			       <button class="dropbtn">Sort</button>
+                         <div class="dropdown-content">
+				 {% block dropdown_content %}
+					     <a href="{{ request.path }}?sort=newest">Newest</a>
+                                   <a href="{{ request.path }}?sort=location">Location</a>
+                         {% endblock %}
+			       </div>
+			</div><!-- dropdown menu -->
+                  {% endblock sort_dropdown %}
             </div>
+            <!--  -->
       </header>
       <div class="container">
             <div id="theGrid" class="main">
