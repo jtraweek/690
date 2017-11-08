@@ -74,6 +74,7 @@ def edit_profile():
 
     return render_template('edit_profile.html',
                             form=form,
+                            is_current_user=True,
                             avatar_filename=avatar_filename)
 
 
@@ -89,20 +90,26 @@ def change_password():
         user.update(password=form.password.data)
         return redirect(url_for('change_password'))
 
-    return render_template('change_password.html', form=form)
+    return render_template('change_password.html',
+                            form=form,
+                            is_current_user=True)
 
 
 @tgeni.route('/view_profile/<username>')
+@tgeni.route('/view_profile')
 @login_required
-def view_profile(username):
+def view_profile(username=None):
 
+    username = username or current_user.username
     user = models.User.get_by_username(username)
+
     if not user:
         return flask.abort(404)
 
+    is_current_user = (current_user.id == user.id)
+
     avatar_filename = user.avatar_filename or ''
     trips = user.published_trips
-    is_current_user = (current_user.id == user.id)
 
     return render_template('view_profile.html',
                             user=user,
