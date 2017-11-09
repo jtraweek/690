@@ -15,3 +15,4 @@ db_create    | Creates the db tables based off the models.
 db_drop      | Drops all db tables. Good to use before creating a new database after changing the models.
 demo         | Runs the demo TGeni application (SSW690 final).
 demo2        | Runs the demo TGeni application (SSW695 2017-10-04).
+-------------- Hello--------------
