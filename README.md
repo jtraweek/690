@@ -32,3 +32,4 @@ URL | view
 /index | User main page
 /add_trip | Add Trip page
 /edit_trip/[trip_id] | Update Trip page
+----------
