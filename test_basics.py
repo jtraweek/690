@@ -3,9 +3,9 @@ from flask import current_app
 from app import create_app, db
 
 class BasicsTestCase(unittest.TestCase):
-    ''' The tests are written using the standard unittest package from the python standard library '''
+    ''' ***The tests are written using the standard unittest package from the python standard library '''
     ''' The setup() and teardown() methods run before and after each test  '''
-    ''' any method that have a name starting by test_  are executed as test '''
+    ''' any method that have a name starting by test_  are executed as test ****'''
     
     def setUp(self):
         #The setUp() create an application configured for testing
