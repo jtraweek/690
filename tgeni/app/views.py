@@ -62,12 +62,19 @@ def edit_profile():
 
     form = forms.UpdateProfileForm(obj=user)
     if form.validate_on_submit():
-        uploaded_avatar_filename = ''
-        for photo in request.files.getlist('avatar'):
+        photo = request.files.get('avatar', None)
+        # Need to check that the avatar was changed. Otherwise an exception
+        #  occurs when we try to update it.
+        if photo:
             extension = os.path.splitext(photo.filename)[-1]
             uploaded_avatar_filename = str(uuid.uuid4()) + extension  # generate a filename
             uploaded_photos.save(photo, name=uploaded_avatar_filename)
-        user.update(avatar_filename=uploaded_avatar_filename, **form.data)
+            user.update(avatar_filename=uploaded_avatar_filename,
+                        commit=False)
+        # Update any changed user profile data.
+        user.update(**form.data, commit=False)
+        user.save()
+
         return redirect(url_for('edit_profile'))
 
     avatar_filename = user.avatar_filename
