@@ -1,11 +1,10 @@
 
 import flask
-import os
 import re
-import uuid
 
 import app.forms            as forms
 import app.models           as models
+import app.utils.helpers    as helpers
 import app.utils.queries    as queries
 
 from   app                  import (tgeni, db, login_manager, uploaded_photos)
@@ -66,11 +65,9 @@ def edit_profile():
         # Need to check that the avatar was changed. Otherwise an exception
         #  occurs when we try to update it.
         if photo:
-            extension = os.path.splitext(photo.filename)[-1]
-            uploaded_avatar_filename = str(uuid.uuid4()) + extension  # generate a filename
-            uploaded_photos.save(photo, name=uploaded_avatar_filename)
-            user.update(avatar_filename=uploaded_avatar_filename,
-                        commit=False)
+            filename = helpers.generate_filename(photo.filename)
+            uploaded_photos.save(photo, name=filename)
+            user.update(avatar_filename=filename, commit=False)
         # Update any changed user profile data.
         user.update(**form.data, commit=False)
         user.save()
@@ -259,8 +256,7 @@ def upload_photos(trip_id):
     form = forms.TripPhotoUploadForm()
     if form.validate_on_submit():
         for photo in request.files.getlist('photo'):
-            extension = os.path.splitext(photo.filename)[-1]
-            filename = str(uuid.uuid4()) + extension  # generate a filename
+            filename = helpers.generate_filename(photo.filename)
             uploaded_photos.save(photo, name=filename)
             models.TripPhoto.create(filepath=filename, trip_id=trip.trip_id, trip=trip)
         return redirect(url_for('upload_photos', trip_id=trip_id))

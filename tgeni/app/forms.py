@@ -1,13 +1,15 @@
-import app.models           as models
 
-from flask_wtf              import FlaskForm
-from flask_wtf.file         import (FileField, FileRequired, FileAllowed)
-from wtforms                import (StringField, IntegerField, TextAreaField,
-                                    PasswordField, BooleanField,
-                                    SubmitField)
-from wtforms.validators     import (DataRequired, Email, EqualTo)
+import app.models as models
+
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileRequired, FileAllowed
+
+from wtforms import BooleanField, IntegerField, PasswordField, \
+                        StringField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired, Email, EqualTo, Optional
 
 from app import uploaded_photos
+from app.validators import ExtensionAllowed
 
 
 class SigninForm(FlaskForm):
@@ -56,8 +58,10 @@ class UpdateProfileForm(FlaskForm):
     bio = TextAreaField('Bio')
     avatar = FileField('Avatar',
         validators=[
-            FileAllowed(uploaded_photos, u'Must be an image file!')
-        ])
+            Optional(),
+            ExtensionAllowed(uploaded_photos, u'Must be an image file!')
+            ],
+        )
 
 
 class ChangePasswordForm(FlaskForm):
@@ -90,6 +94,10 @@ class SearchLocationForm(FlaskForm):
 
 
 class TripPhotoUploadForm(FlaskForm):
-    photo = FileField(validators=[FileAllowed(uploaded_photos, u'Must be an image file!'),
-                                    FileRequired(u'File required!')])
+    photo = FileField(
+                validators=[
+                    FileRequired(u'File required!'),
+                    ExtensionAllowed(uploaded_photos, u'Must be an image file!'),
+                    ]
+                )
     submit = SubmitField(u'Upload')

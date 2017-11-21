@@ -1,7 +1,17 @@
 """
     This module provides helper functions for the application code.
 """
+import os
+import uuid
 
+
+def generate_filename(filename):
+    """
+    Generate a random filename.
+    """
+    extension = os.path.splitext(filename)[-1].lower()
+    result = str(uuid.uuid4()) + extension
+    return result
 
 
 def get_sorted_activities(trip):
