@@ -7,15 +7,13 @@
     <title>Travel Geni :: {% block title %}{% endblock %}</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css">
-	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+	  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/reset.css') }}"> <!-- CSS reset -->
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styleTrip.css') }}"> <!-- Resource style -->
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/trip_icons.css') }}">
-    <href= "{{ url_for('static',filename='js/mainTrip.js') }}">
-    <href= "{{ url_for('static',filename='js/jquery-2.1.1.js') }}">
-	
     {% block css %}{% endblock %}
+    <script src="{{ url_for('static',filename='js/jquery-2.1.1.js') }}"></script>
     {% block js %}{% endblock %}
 </head>
 <body>
@@ -65,8 +63,8 @@
 	<main class="cd-main-content">
 		{% block main_content %}{% endblock %}
 	</main> <!-- .cd-main-content -->
-
-	<script src="js/jquery-2.1.1.js"></script>
-	<script src="js/mainTrip.js"></script> <!-- Resource jQuery -->
+  
+  <!--<script src="{{ url_for('static',filename='js/mainTrip.js') }}"></script>-->
+	
 </body>
 </html>

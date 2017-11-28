@@ -1,36 +1,60 @@
 {% extends 'profile_layout.html' %}
 
-{% block subtitle %}View Profile{% endblock %}
+{% block subtitle %}My Profile{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styleTrip.css') }}">
+<link rel="stylesheet" type="text/css" href="static/css/normalizeit.css" />
+<link rel="stylesheet" type="text/css" href="static/css/itineraries.css" />
+<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/trip_icons.css') }}">
+{% endblock %}
 
 {% block main_content %}
 <section id="cd-placeholder-1" class="cd-section cd-container">
-      <div class="activity">
-            <div class="col-8">
-                  <div class="row">
-                        <div class="col-2">
-                              <label>Username {{ user.username }}</label>
+      <div class="profile-data">
+            <div class="row">
+                  <div class="col-8">
+                        <div class="row">
+                              <div class="col-6">
+                                    <label>
+                                          Username
+                                          <br>
+                                          <span class="small-label">{{ user.username }}</span>
+                                    </label>
+                              </div>
+                              <div class="col-6">
+                                    <label>
+                                          Published Trips
+                                          <br>
+                                          <span class="small-label">{{ trips_count }}</span>
+                                    </label>
+                              </div>
                         </div>
-                        <div class="col-2">
+                        <div class="row profile-bio">
                               <label>
-                                    Trips
+                                    Bio
+                                    <br>
+                                    <span class="small-label">{{ user.bio }}</span>
                               </label>
                         </div>
-                        <div class="activity-desc">
-                              <label>Bio</label>
-                              {{ user.bio }}
-                        </div>
-
+                  </div>
+                  <div class="col-4 profile-img-block">
+                        <img class="profile-img" src="{{ avatar_file_url }}"
+                              alt="Avatar Photo"
+                              style="height: 100px; width: 100px;">
                   </div>
             </div>
-            <div class="col-4">
-                  <img src="{{ url_for('static', filename='upload/'+avatar_filename) }}"
-                        alt="Avatar Photo"
-                        style="height: 100px; width: 100px;">
-            </div>
+            
+
       </div>
 </section> <!-- #cd-placeholder-1 -->
+{% if trips_count > 0 %}
+<section id="cd-placeholder-2" class="cd-section cd-container">
+      <div class="profile-trips-title">Published Trips:</div>
+</section> <!-- #cd-placeholder-2 -->
+{% endif %}
 
-<div class="container">
+<div>
       <div id="theGrid" class="main">
             <section class="grid">
                   {% for trip in trips %}
@@ -42,9 +66,9 @@
                               </nav>
                   </a>
                   {% endfor %}
-                  <br><br><br>
             </section>
       </div>
 </div>
+
 
 {% endblock main_content %}

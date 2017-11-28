@@ -112,14 +112,20 @@ def view_profile(username=None):
 
     is_current_user = (current_user.id == user.id)
 
-    avatar_filename = user.avatar_filename or ''
+    if user.avatar_filename:
+        avatar_file_url = url_for('static', filename='upload/' + user.avatar_filename)
+    else:
+        avatar_file_url = url_for('static',filename='img/defaultprofile.jpg')
+
     trips = user.published_trips
+    trips_count = len(list(filter(bool, user.published_trips)))
 
     return render_template('view_profile.html',
                             user=user,
                             trips=trips,
+                            trips_count=trips_count,
                             is_current_user=is_current_user,
-                            avatar_filename=avatar_filename)
+                            avatar_file_url=avatar_file_url)
 
 
 @tgeni.route('/profiles', methods = ['GET', 'POST'])
