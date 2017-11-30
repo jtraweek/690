@@ -8,9 +8,7 @@
 
 {% block grid_items %}
 {% for user in users %}
-<a class="grid__item"
-      style="background-image:url('../upload/{{ user.avatar_filename }}')"
-      href="{{ url_for('view_profile', username=user.username) }}">
+<a class="grid__item__users grid__item" href="{{ url_for('view_profile', username=user.username) }}">
             <nav style="background: rgba(0,0,0,.7);">
                   <h2 class="title title--preview">{{ user.username }}</h2>
                   <span class="category"> </span>

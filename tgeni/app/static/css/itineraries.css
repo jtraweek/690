@@ -365,6 +365,10 @@ button:focus {
   z-index: 10;
 }
 
+.grid__item__users{
+    background: url('../img/user_map.jpeg')
+}
+
 /* grid item element and full content element styles */
 .title {
   margin: 0;
