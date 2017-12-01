@@ -118,7 +118,7 @@ def view_profile(username=None):
         avatar_file_url = url_for('static',filename='img/defaultprofile.jpg')
 
     trips = user.published_trips
-    trips_count = len(list(filter(bool, user.published_trips)))
+    trips_count = len(list(trips))
 
     return render_template('view_profile.html',
                             user=user,
@@ -286,39 +286,42 @@ def view_complete_trip(trip_id):
     return render_template('view_complete_trip.html', trip = trip, form = form, saved_activities = saved_activities)
 
 
+
 @tgeni.route('/delete_trip/<trip_id>', methods=['GET','POST'])
 @login_required
 def delete_trip(trip_id):
     """Deletes trip from database
     """
+    trip = models.Trip.get(trip_id)
     if not trip:
         flask.abort(404)
-    else:
-        win=app.utils.PopUp.Confirm(self.delete_tripid)
-        win.mainloop()
+
+    trip.delete()
+
     return redirect(url_for('itineraries'))
 
-def delete_tripid(trip_id):
-      trip = models.Trip.query.get(trip_id)
-      db.session.delete(trip)
-      db.session.commit()
+
 
 @tgeni.route('/delete_activity/<activity_id>', methods = ['GET', 'POST'])
 @login_required
 def delete_activity(activity_id):
     """Deletes activity from database
     """
+    activity = models.Activity.get(activity_id)
     if not activity:
         flask.abort(404)
-    else:
-         win=app.utils.PopUp.Confirm(self.delete_activityid)
-         win.mainloop()
-    return redirect('/edit_trip/')
 
-def delete_activityid(activity_id):
-    activity = models.Activity.query.get(activity_id)
-    db.session.delete(activity)
-    db.session.commit()
+    user = current_user
+    trip = activity.trip
+
+    if trip not in user.trips:
+        flask.abort(404)
+
+    activity.delete()
+
+    return redirect(url_for('add_activity', trip_id=trip.trip_id))
+
+
 
 @tgeni.errorhandler(401)
 def fail_login(er):
