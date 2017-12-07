@@ -118,7 +118,7 @@ def view_profile(username=None):
         avatar_file_url = url_for('static',filename='img/defaultprofile.jpg')
 
     trips = user.published_trips
-    trips_count = len(list(trips))
+    trips_count = len(list(filter(bool, user.published_trips)))
 
     return render_template('view_profile.html',
                             user=user,
